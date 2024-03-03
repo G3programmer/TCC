@@ -25,7 +25,7 @@ body {
     flex: 1 1 200px;
     align-items: center;
     justify-content: flex-end;
-    gap: 30px;
+    gap: 10px;
 }
 
 
@@ -199,34 +199,102 @@ body {
 
 
 .roda-pe {
-    height: 200px;
+    height: auto;
+    display: grid;
+    margin: auto;
     width: 100%;
+    padding-top: 3%;
     flex: 1 1 100vw;
     background-color: #1a1a1a;
-    margin-top: 11%;
+}
+
+.roda-pe .btn-veja {
+    color:#fff;
+    background-color: transparent;
+    border: 0.5px solid #fff;
+    border-radius: 4px;
+    font-family: '';
+    width: 25%;
+    font-size: 15px;
+    text-align: center;
+    margin: 2%;
+    font-family: 'Codygoon';
+    padding: 10px 40px;
+    text-transform: uppercase;
+    transition: all .2s ease-in;
+}
+
+.roda-pe .btn-veja:hover{
+    background-color: #b1b1b1;
+    color: black;
+    cursor: pointer;
 }
 
 
-.roda-pe .social_media {
+
+.roda-pe .btn-veja .lista {
+    margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-left: 30px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    transition: all .3s ease-in;
+    display: none;
+    opacity: 0;
+}
+
+.roda-pe .btn-veja .lista li {
+    padding: 20px;
+
+}
+
+.roda-pe .btn-veja:hover .lista li:hover {
+    border-bottom: 2px solid black;
+
+}
+
+.roda-pe .btn-veja .lista.ativo {
+    display: flex;
+    opacity: 1;
+}
+
+
+.roda-pe .logo {
+    margin-left: 7%;
+    margin-bottom: 3px;
+}
+
+
+
+.roda-pe .social_media {
+    display:flex;
     position: relative;
     align-items: center;
 }
 
+.roda-pe .subtitulo {
+    display: flex;
+    margin-left: 1pc;
+    font-size: 15px;
+    margin-bottom: 1pc;
+    font-family: 'Codygoon', sans-serif;
 
-
+}
 
 .roda-pe .social_media a {
     position:relative;
     display:flex;
-    margin-left: 63px;
+    margin-left: 13px;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 2px 2px 1px 5px;
     background-color:#ffffff;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     box-shadow: 0 5px 10px rgb(0, 0, 0);
 }
@@ -297,36 +365,7 @@ Cores que variam de acordo com a rede social (cores de fundo)
 
 }
 
-.btn-comprar,
-.btn-plataforma {
-    background-color: rgba(255, 255, 255, .1);
-    border: 0.5px solid #fff;
-    border-radius: 4px;
-    font-family: 'institution';
-    font-size: 28px;
-    text-align: center;
-    padding: 20px 40px;
-    text-transform: uppercase;
-    width: 50%;
-    transition: all .3s ease-in;
-}
 
-.btn-plataforma {
-    color: #fff;
-    width: 100%;
-    cursor: pointer;
-}
-
-
-.btn-comprar:hover {
-    background-color: #fff;
-    color: black;
-}
-
-
-.compre-ja .capa-do-jogo {
-    width: 270px;
-}
 
 .compre-ja {
     display: flex;
@@ -371,29 +410,6 @@ Cores que variam de acordo com a rede social (cores de fundo)
     font-family: 'evogria';
     font-size: 16px;
     line-height: 1.6;
-}
-
-
-.compre-ja .informacoes .plataformas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    justify-content: center;
-}
-
-.compre-ja .btn-plataforma .plataformas {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    transition: all .3s ease-in;
-    display: none;
-    opacity: 0;
-}
-
-.compre-ja .btn-plataforma .plataformas.ativo {
-    display: flex;
-    opacity: 1;
 }
 
 

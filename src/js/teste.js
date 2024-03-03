@@ -1,25 +1,18 @@
-const menu = document.getElementById('menu');
-const OpenMenu = document.getElementById('OpenMenu');
-const CloseMenu = document.getElementById('CloseMenu');
+const botao = document.querySelector(".btn-veja");
+const elementolista = document.querySelector(".btn-veja .lista");
 
-OpenMenu.addEventListener('click', () => {
-    menu.classList.add('active');
+botao.addEventListener("click", () => {
 
-    menu.style.display = 'flex';
-    OpenMenu.style.display = 'none';
+   
+    
+    const botaoEstaAberto = elementolista.classList.contains("ativo");
+  
+    
+    if (botaoEstaAberto) {
+        elementolista.classList.remove("ativo");
+    }
+    else {
+    elementolista.classList.add("ativo")
+    }
 
-    setTimeout(() => {
-        menu.style.opacity = '1';
-    }, 10);
-});
-
-CloseMenu.addEventListener('click', () => {
-    menu.classList.remove('active');
-
-    setTimeout(() => {
-        menu.removeAttribute('style');
-        OpenMenu.removeAttribute('style');
-    }, 200);
-
-    menu.style.opacity = '0';
 });

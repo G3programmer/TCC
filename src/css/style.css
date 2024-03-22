@@ -3,6 +3,10 @@ body {
     color: #fff;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .cabecalho {
     height: 80px;
     background-color: rgb(0, 0, 0);
@@ -357,83 +361,4 @@ body {
     font-family: 'Codygoon';
     color: #fff;
     text-align: center;
-}
-
-
-.compre-ja {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 50px;
-    align-items: center;
-}
-
-.compre-ja .titulo {
-    font-family: 'institution';
-    font-size: 50px;
-    font-weight: 700;
-    margin-bottom: 50px;
-}
-
-.compre-ja .cartao {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: black;
-    width: 50%;
-    border-radius: 10px;
-    padding: 80px;
-    gap: 40px;
-}
-
-.compre-ja .informacoes {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.compre-ja .informacoes h3 {
-    font-family: 'institution';
-    font-size: 52px;
-    font-weight: 700;
-}
-
-.compre-ja .informacoes p {
-    color: #e8e8e8;
-    font-family: 'evogria';
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-
-.compre-ja .btn-plataforma .plataformas li {
-    padding: 20px;
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(1) {
-    border: 3px solid black;
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(1) {
-    border: 3px solid #00339c;
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(2) {
-    border: 3px solid rgb(0, 153, 255);
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(3) {
-    border: 3px solid rgb(0, 153, 255);
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(4) {
-    border: 3px solid rgb(0, 255, 76);
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(5) {
-    border: 3px solid rgb(21, 255, 0);
-}
-
-.compre-ja .btn-plataforma .plataformas li:nth-child(6) {
-    border: 3px solid rgb(17, 102, 0);
 }

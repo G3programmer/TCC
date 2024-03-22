@@ -16,7 +16,7 @@
 
 
 @media only screen and (max-width: 1245) {
-    body {
+    * {
         overflow-x: hidden;
     }
 
@@ -62,7 +62,8 @@
 
 
     #menu .menu {
-        margin: 30px;
+        margin: 26px;
+        margin-bottom: 90px;
         flex-direction: column;
     }
 
@@ -91,33 +92,108 @@
         position: absolute;
         height: 100%;
         width: 100%;
-        background: linear-gradient(90deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 70%, transparent 90%);
- 
+        background: linear-gradient(90deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 80%, transparent 100%);
+
+    }
+
+    .home .imagem-fundo {
+        height: 50pc;
+
     }
 
     .home .informacoes {
-        padding: 1px;
+        padding: 5px;
     }
 
-    .home .informacoes .texto, .home .informacoes .titulo {
+    .home .informacoes .texto,
+    .home .informacoes .titulo {
         padding-right: 10%;
         padding: 3%;
     }
 
-    .sessoes .quem-somos .texto{
-        text-align: end;
-
+    .sessoes .quem-somos {
+        display: grid;
     }
+
 
     .sessoes .quem-somos .equipe-vanguard {
         height: 200px;
-        margin-top:20%;
+        margin-top: 3%;
+        margin-left: 12%;
+    }
+
+    .sessoes .quem-somos .texto,
+    .sessoes .quem-somos .titulo-quem-somos {
+        margin-left: 1pc;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sessoes .quem-somos .titulo-quem-somos {
+        margin-left: 1pc;
+
+    }
+
+    .sessoes .parcerias {
+        display: grid;
+    }
+
+    .sessoes .parcerias .titulo-parcerias,
+    .sessoes .parcerias .texto {
+        margin-right: 1pc;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sessoes .parcerias .titulo-parcerias{
+        margin-left: 1pc;
+
     }
 
     .sessoes .parcerias .parcerias-img {
         height: 250px;
+        margin-left: 3pc;
+    }
+
+    .roda-pe{
+        display: grid;
+        margin: 2px;
+        align-items: center;
+        justify-content: center;
+        padding: 1pc;
+    }
+    
+    .roda-pe .logo {
+        justify-content: center;
+        align-items: center;
+        margin-left: 7pc;
 
     }
+
+    .roda-pe .social_media {
+        width: 50%;
+        margin-left: 7pc;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .roda-pe .subtitulo {
+      margin-left: 4pc;
+    }
+
+    .roda-pe .social_media a{
+        padding: 1px 9px 2px 9px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .roda-pe .social_media img {
+        justify-content: center;
+        align-items: center;
+    }
+
 }
 
 @media only screen and (max-width: 718px) {

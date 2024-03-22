@@ -94,7 +94,7 @@ body {
 }
 
 .home .informacoes img {
-    max-width: 150px;
+    max-width: 250px;
 }
 
 .home .informacoes .titulo {
@@ -112,7 +112,7 @@ body {
 }
 
 .btn-quem-somos {
-    
+
     transition: transform 0.5s ease-in-out;
 
 }
@@ -145,7 +145,7 @@ body {
 }
 
 .sessoes .quem-somos .equipe-vanguard:hover {
-
+    
     transform: translateY(-5px);
     transition: 0.5s ease, transform 0.5s ease;
     box-shadow: 5px 5px 10px rgb(11, 81, 220);
@@ -180,6 +180,7 @@ body {
 .sessoes .parcerias .parcerias-img {
     float: right;
     margin-top: 15%;
+    margin-bottom: 2%;
     margin-right: 5%;
     transition: transform 0.5s ease-out;
     position: relative;
@@ -193,13 +194,11 @@ body {
     transform: scale(1.1);
 }
 
-/* trabalhar em cima dos icones de redes sociais*/
-
 
 
 
 .roda-pe {
-    height: auto;
+    height: 35pc;
     display: grid;
     margin: auto;
     width: 100%;
@@ -208,163 +207,157 @@ body {
     background-color: #1a1a1a;
 }
 
-.roda-pe .btn-veja {
-    color:#fff;
-    background-color: transparent;
-    border: 0.5px solid #fff;
-    border-radius: 4px;
-    font-family: '';
-    width: 25%;
-    font-size: 15px;
-    text-align: center;
-    margin: 2%;
-    font-family: 'Codygoon';
-    padding: 10px 40px;
-    text-transform: uppercase;
-    transition: all .2s ease-in;
-}
-
-.roda-pe .btn-veja:hover{
-    background-color: #b1b1b1;
-    color: black;
-    cursor: pointer;
-}
-
-
-
-.roda-pe .btn-veja .lista {
-    margin-top: 10px;
+.roda-pe .opcoes {
     display: flex;
-    flex-wrap: wrap;
-    text-align: left;
-    margin-left: 30px;
     justify-content: center;
-    flex-direction: column;
-    gap: 20px;
-    transition: all .3s ease-in;
-    display: none;
-    opacity: 0;
 }
 
-.roda-pe .btn-veja .lista li {
-    padding: 20px;
 
-}
 
-.roda-pe .btn-veja:hover .lista li:hover {
-    border-bottom: 2px solid black;
-
-}
-
-.roda-pe .btn-veja .lista.ativo {
+.roda-pe .opcoes .lista {
     display: flex;
-    opacity: 1;
+    font-size: 20px;
+    font-family: 'Codygoon';
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
 }
 
+.roda-pe .opcoes .lista a {
+    margin: 1pc;
+}
+
+.roda-pe .opcoes .lista a:hover {
+    transform: translateY(-5px);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
 
 .roda-pe .logo {
-    margin-left: 7%;
-    margin-bottom: 3px;
+    margin-left: 42%;
+    margin-top: 4pc;
+    width: 250px;
 }
 
 
 
 .roda-pe .social_media {
-    display:flex;
+    display: flex;
     position: relative;
     align-items: center;
+    margin-left: 38%;
 }
 
 .roda-pe .subtitulo {
     display: flex;
-    margin-left: 1pc;
+    margin-left: 39%;
     font-size: 15px;
-    margin-bottom: 1pc;
+    text-align: center;
     font-family: 'Codygoon', sans-serif;
 
 }
 
 .roda-pe .social_media a {
-    position:relative;
-    display:flex;
+    position: relative;
+    display: flex;
     margin-left: 13px;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 2px 2px 1px 5px;
-    background-color:#ffffff;
+    background-color: #ffffff;
     width: 55px;
     height: 55px;
     border-radius: 50%;
     box-shadow: 0 5px 10px rgb(0, 0, 0);
 }
 
-.roda-pe .social_media a:hover .balloon {
-    top: -75px;
-    opacity: 1;
-    justify-content: center;
-    align-items: center;
+.roda-pe .social_media img {
+    height: 2pc;
+
 }
-/*
-Cores que variam de acordo com a rede social (cores de fundo)
-*/
+
+.roda-pe .social_media #telegram img  {
+    margin-right: 5px;
+
+}
 
 .roda-pe .social_media #facebook:hover {
     transform: scale(1.1);
-    background: rgb(255,255,255);
-    background: linear-gradient(31deg, rgba(255,255,255,1) 0%, rgba(98,223,255,1) 23%, rgba(0,172,255,1) 44%, rgba(47,128,255,1) 74%, rgba(81,91,255,1) 100%);
+    /*
+    background: rgb(255, 255, 255);
+    background: linear-gradient(31deg, rgba(255, 255, 255, 1) 0%, rgba(98, 223, 255, 1) 23%, rgba(0, 172, 255, 1) 44%, rgba(47, 128, 255, 1) 74%, rgba(81, 91, 255, 1) 100%);
+    */
+    background: rgb(64, 167, 255);
+    background: linear-gradient(35deg, rgba(64, 167, 255, 1) 0%, rgba(0, 82, 255, 1) 100%);
 }
 
 .roda-pe .social_media #instagram:hover {
     transform: scale(1.1);
-    background: rgb(255,209,0);
-    background: linear-gradient(23deg, rgba(255,209,0,1) 0%, rgba(255,136,0,1) 22%, rgba(227,4,4,1) 53%, rgba(185,6,178,1) 78%);
+    background: rgb(255, 209, 0);
+    background: linear-gradient(23deg, rgba(255, 209, 0, 1) 0%, rgba(255, 136, 0, 1) 22%, rgba(227, 4, 4, 1) 53%, rgba(185, 6, 178, 1) 78%);
 }
 
 .roda-pe .social_media #discord:hover {
     transform: scale(1.1);
-    background: rgb(87,81,255);
-    background: linear-gradient(35deg, rgba(87,81,255,1) 0%, rgba(157,95,255,1) 100%);
+    background: rgb(87, 81, 255);
+    background: linear-gradient(35deg, rgba(87, 81, 255, 1) 0%, rgba(157, 95, 255, 1) 100%);
 }
 
-.roda-pe .social_media #Linkedin:hover {
+.roda-pe .social_media #linkedin:hover {
     transform: scale(1.1);
-    background-color: aqua;
+    background: rgb(32, 104, 255);
+    background: linear-gradient(35deg, rgba(32, 104, 255, 1) 0%, rgba(69, 60, 255, 1) 100%);
 }
 
-.roda-pe .social_media #Telegram:hover {
+.roda-pe .social_media #telegram:hover {
     transform: scale(1.1);
-    background-color: aqua;
+    background: rgb(64, 187, 255);
+    background: linear-gradient(35deg, rgba(64, 187, 255, 1) 0%, rgba(0, 147, 255, 1) 100%);
 }
 
 /*
  Cores que variam de acordo com a rede social (sombra da imagem)
 */
 
-.roda-pe .social_media #facebook:hover img{
+.roda-pe .social_media #facebook:hover img {
     transform: scale(1.1);
     transition: 0.3s ease, transform 0.3s ease;
-    filter: drop-shadow( 3px 3px rgb(5, 98, 144));
+    filter: drop-shadow(3px 3px rgb(5, 98, 144));
 }
 
-.roda-pe .social_media #instagram:hover img{
+.roda-pe .social_media #instagram:hover img {
     transform: scale(1.1);
     transition: 0.3s ease, transform 0.3s ease;
-    filter: drop-shadow( 3px 3px rgb(95, 32, 32));
+    filter: drop-shadow(3px 3px rgb(95, 32, 32));
 }
 
 
-.roda-pe .social_media #discord:hover img{
+.roda-pe .social_media #discord:hover img {
     transform: scale(1.1);
     transition: 0.3s ease, transform 0.3s ease;
-    filter: drop-shadow( 3px 3px rgb(57, 32, 95));
+    filter: drop-shadow(3px 3px rgb(57, 32, 95));
 }
 
-.roda-pe .social_media img {
-    height: 40px;
-
+.roda-pe .social_media #linkedin:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(32, 36, 95));
 }
 
+.roda-pe .social_media #telegram:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(22, 68, 105));
+}
+
+
+
+.roda-pe #copyright {
+    font-family: 'Codygoon';
+    color: #fff;
+    text-align: center;
+}
 
 
 .compre-ja {

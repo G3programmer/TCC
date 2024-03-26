@@ -29,7 +29,6 @@ html {
     flex: 1 1 200px;
     align-items: center;
     justify-content: flex-end;
-    gap: 10px;
 }
 
 
@@ -342,7 +341,7 @@ html {
 /* parte 2*/
 
 .roda-pe {
-    height: 35lpc;
+    height: 40pc;
     display: grid;
     margin: auto;
     width: 100%;
@@ -370,6 +369,8 @@ html {
 
 .roda-pe .opcoes .lista a {
     margin: 1pc;
+    margin-bottom: 2pc;
+    margin-top: 2pc;
 }
 
 .roda-pe .opcoes .lista a:hover {
@@ -395,6 +396,7 @@ html {
 .roda-pe .subtitulo {
     display: flex;
     margin-left: 39%;
+    margin-bottom: 2pc;
     font-size: 15px;
     text-align: center;
     font-family: 'Codygoon', sans-serif;
@@ -405,6 +407,7 @@ html {
     position: relative;
     display: flex;
     margin-left: 13px;
+    margin-bottom: 10px;
     justify-content: center;
     align-items: center;
     text-align: center;

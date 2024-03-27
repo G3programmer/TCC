@@ -1,15 +1,15 @@
 .cabecalho {
     display: flex;
-    height: 8pc;
+    height: 4pc;
     margin: 2px;
     background: #1a1a1a;
+    align-items: center;
 }
 
 .cabecalho .logo {
-    height: 10pc;
+    height: 3pc;
     width: auto;
     margin-top: -1pc;
-    align-items: center;
 }
 
 .home {
@@ -20,20 +20,237 @@
     overflow: hidden;
 }
 
+.home::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(270deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 25%, transparent 70%);
+
+}
+
 .home .imagem-fundo {
     width: 40%;
     filter: blur();
     height: 50%;
 }
 
+/*
+formulário
+*/
+
+.home .box {
+    position: relative;
+    margin-left: 20pc;
+    margin-top: 5pc;
+    width: 380px;
+    height: 420px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.home .box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0, 145, 255) 100%);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+
+}
+
+.home .box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgb(0, 145, 255) 100%);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+
+.home .box .borderLine {
+    position: absolute;
+    top: 0;
+    inset: 0;
+}
+
+.home .box .borderLine::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(8,5,245,1) 100%);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -1.5s;
+
+}
+
+.home .box .borderLine::after {
+
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(8,5,245,1) 100%);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -4.5s;
+
+}
+
+
+
+
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+.home .box .formulario {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    inset: 4px;
+    background: #222;
+    padding: 50px 40px;
+    border-radius: 8px;
+    z-index: 2;
+}
+
+.home .box .titulo {
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+.home .box .formulario .inputBox {
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+
+
+.home .box .formulario .inputBox input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+}
+
+
+.home .box .formulario .inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    pointer-events: none;
+    color: #8f8f8f;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+}
+
+.home .box .formulario .inputBox input:valid~span,
+.home .box .formulario .inputBox input:focus~span {
+    color: #fff;
+    font-size: 0.75em;
+    transform: translateY(-34px);
+
+}
+
+.home .box .formulario .inputBox i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.home .box .formulario .inputBox input:valid~i,
+.home .box .formulario .inputBox input:valid~i {
+    height: 44px;
+}
+
+.home .box .formulario .links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.home .box .formulario .links a:hover,
+.home .box .formulario .links a:nth-child(2) {
+    color: #fff;
+}
+
+.home .formulario .inputBox input[type="submit"] {
+    width: 100px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+    padding: 9px 15px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.home .box .formulario input[type="submit"]:active {
+    opacity: 0.8;
+
+}
+
+
 .roda-pe {
-    height: 40pc;
+    height: 35pc;
+    padding: 3px;
+    padding-bottom: 5pc;
     display: grid;
     color: #fff;
-   
-    margin: auto;
-    margin-top: -pc;
+    margin: 2px;
     width: 100%;
+
     flex: 1 1 100vw;
     background-color: #1a1a1a;
 }

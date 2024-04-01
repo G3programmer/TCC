@@ -253,7 +253,7 @@
 }
 
 @media only screen and (max-width: 717px) {
-    footer {
+    .roda-pe {
         height: 150px;
     }
 
@@ -263,7 +263,7 @@
     body {
         overflow-x: hidden;
     }
-    footer {
+    .roda-pe {
         height: 40pc;
     }
 }

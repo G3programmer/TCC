@@ -1,0 +1,269 @@
+@media only screen and (max-width: 717px) {
+
+    header {
+        order: 0;
+    }
+
+    main {
+        height: auto;
+        order: 1;
+    }
+
+    footer {
+        order: 3;
+    }
+}
+
+
+@media only screen and (max-width: 1245) {
+    * {
+        overflow-x: hidden;
+    }
+
+}
+
+/* maior*/
+@media only screen and (max-width: 1250px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    #OpenMenu,
+    #CloseMenu {
+        display: block;
+    }
+
+    #OpenMenu {
+        margin-left: auto;
+        color: white;
+    }
+
+    #CloseMenu {
+        position: fixed;
+        right: 15px;
+        top: 15px;
+        color: white;
+    }
+
+    #menu {
+        z-index: 2;
+        position: absolute;
+        flex-direction: column;
+        width: 100vw;
+        height: 200%;
+        background: rgb(0, 26, 36);
+        background: linear-gradient(90deg, rgba(0, 26, 36, 1) 0%, rgba(16, 16, 16, 1) 49%, rgba(0, 26, 36, 1) 100%);
+        align-items: center;
+        font-size: medium;
+        display: none;
+        opacity: 1;
+        transition: 0.3s;
+    }
+
+
+    #menu .menu {
+        margin: 26px;
+        margin-bottom: 90px;
+        flex-direction: column;
+    }
+
+    #menu .menu li {
+        display: flex;
+        padding: 5px;
+        justify-content: center;
+    }
+
+    #menu .menu li:hover {
+        font-family: 'Codygoon', sans-serif;
+        border-radius: 20px;
+        background-color: rgba(0, 36, 40, 0.258);
+        transform: translateY(10px);
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+
+    .cabecalho .logo {
+        height: 50px;
+
+    }
+
+    .home::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 80%, transparent 100%);
+
+    }
+
+    .home .imagem-fundo {
+        height: 50pc;
+
+    }
+
+    .home .informacoes {
+        padding: 5px;
+    }
+
+    .home .informacoes .texto,
+    .home .informacoes .titulo {
+        padding-right: 10%;
+        padding: 3%;
+    }
+
+    .sessoes .quem-somos {
+        display: grid;
+    }
+
+
+    .sessoes .quem-somos .equipe-vanguard {
+        height: 200px;
+        margin-top: 3%;
+        margin-left: 12%;
+    }
+
+    .sessoes .quem-somos .texto,
+    .sessoes .quem-somos .titulo-quem-somos {
+        margin-left: 1pc;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sessoes .quem-somos .titulo-quem-somos {
+        margin-left: 1pc;
+
+    }
+
+    .sessoes .parcerias {
+        display: grid;
+    }
+
+    .sessoes .parcerias .titulo-parcerias,
+    .sessoes .parcerias .texto {
+        margin-right: 1pc;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sessoes .parcerias .titulo-parcerias {
+        margin-left: 1pc;
+
+    }
+
+    .sessoes .avaliar .titulo {
+        font-size: 50px;
+
+    }
+
+    .sessoes .parcerias .parcerias-img {
+        height: 250px;
+        margin-left: 3pc;
+    }
+
+    .sessoes .comentarios,
+    .sessoes .comentarios2 {
+        display: grid;
+    }
+
+    .sessoes .comentarios .usuario1 .foto,
+    .sessoes .comentarios2 .usuario1 .foto {
+        justify-content: center;
+        align-items: center;
+        margin-top: 8%;
+        margin-left: 40%;
+    }
+
+    .sessoes .comentarios .usuario1 .efeito::after,
+    .sessoes .comentarios2 .usuario1 .efeito::after {
+        display: flex;
+        margin-left: 50%;
+        margin-top: 3%;
+        padding-right: 4%;
+        height: 8px;
+        border-radius: 40px;
+    }
+
+
+
+    .sessoes .comentarios .usuario1 .efeito2::after,
+    .sessoes .comentarios2 .usuario1 .efeito2::after {
+        display: flex;
+        margin-bottom: 10%;
+        margin-left: 38%;
+        margin-top: -20%;
+        padding-left: 8%;
+        height: 8px;
+        border-radius: 40px;
+    }
+
+
+    .roda-pe {
+        display: grid;
+        margin: 2px;
+        align-items: center;
+        justify-content: center;
+        padding: 1pc;
+    }
+
+    .roda-pe .logo {
+        justify-content: center;
+        align-items: center;
+        margin-left: 7pc;
+
+    }
+
+    .roda-pe .social_media {
+        width: 50%;
+        margin-left: 7pc;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .roda-pe .subtitulo {
+        margin-left: 4pc;
+    }
+
+    .roda-pe .social_media a {
+        padding: 1px 9px 2px 9px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .roda-pe .social_media img {
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
+
+@media only screen and (max-width: 718px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .cabecalho .logo {
+        height: 30px;
+    }
+
+
+}
+
+@media only screen and (max-width: 717px) {
+    .roda-pe {
+        height: 150px;
+    }
+
+}
+
+@media only screen and (max-width:700px) {
+    body {
+        overflow-x: hidden;
+    }
+    .roda-pe {
+        height: 40pc;
+    }
+}

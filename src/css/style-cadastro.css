@@ -14,7 +14,7 @@
 
 .home {
     display: flex;
-    background: #299db6;
+    background: #131c2b;
     height: 100%;
     min-height: calc(100vh - 80px);
     overflow: hidden;
@@ -31,6 +31,7 @@
 
 .home .imagem-fundo {
     display: flex;
+    margin-left: 4px;
     width: 40%;
     height: 50%;
 }
@@ -42,9 +43,9 @@ formulário
 .home .box {
     position: relative;
     display: flex;
-    margin-left: 13pc;
+    margin-left: 20pc;
     margin-top: 5pc;
-    width: 570px;
+    width: 380px;
     height: 480px;
     background: #1a1a1a;
     border-radius: 8px;
@@ -141,6 +142,8 @@ formulário
     flex-direction: column;
     position: absolute;
     inset: 4px;
+    overflow-y: visible;
+    overflow-x: hidden;
     background: #222;
     padding: 50px 40px;
     border-radius: 8px;
@@ -163,6 +166,7 @@ formulário
 
 .home .box .formulario .inputBox input {
     position: relative;
+    justify-content: center;
     width: 100%;
     padding: 20px 10px 10px;
     background: transparent;

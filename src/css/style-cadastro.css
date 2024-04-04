@@ -31,10 +31,23 @@
 
 .home .imagem-fundo {
     display: flex;
-    margin-left: 4px;
     width: 40%;
-    height: 50%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 11%;
+    left: 20.3%;
+    
+    transform: translate(-0%, -50%);
+    z-index: 1;
 }
+
+
+
+.home .imagem-fundo.show {
+    opacity: 1;
+    transform: translateX(0);
+    }
 
 /*
 formulário
@@ -43,7 +56,7 @@ formulário
 .home .box {
     position: relative;
     display: flex;
-    margin-left: 20pc;
+    margin-left: 60pc;
     margin-top: 5pc;
     width: 380px;
     height: 480px;
@@ -52,88 +65,10 @@ formulário
     overflow: hidden;
 }
 
-.home .box::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 145, 255) 100%);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-
-}
-
-.home .box::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgb(0, 145, 255) 100%);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -3s;
-}
-
 .home .box .borderLine {
     position: absolute;
     top: 0;
     inset: 0;
-}
-
-.home .box .borderLine::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(8, 5, 245, 1) 100%);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -1.5s;
-
-}
-
-.home .box .borderLine::after {
-
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(8, 5, 245, 1) 100%);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -4.5s;
-
-}
-
-
-
-
-
-@keyframes animate {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-
 }
 
 
@@ -222,6 +157,7 @@ formulário
     display: flex;
     justify-content: space-between;
 }
+
 .home .box .formulario .links a {
     margin: 10px 0;
     font-size: 0.75em;

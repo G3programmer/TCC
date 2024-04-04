@@ -1,9 +1,6 @@
-
-
-const myObserver = new IntersectionObserver ((entries) => {
-console.log(entries)
-})
-
-const elements = document.querySelector('.hidden')
-
-elements.forEach((element) => myObserver.observe(element))
+document.addEventListener("DOMContentLoaded", function() {
+    var image = document.querySelector('.imagem-fundo');
+    setTimeout(function() {
+        image.classList.add('show');
+    }, 1000); // Ajuste o tempo conforme necessário
+});

@@ -2,7 +2,8 @@
     .home {
         position: relative;
         width: auto;
-        background: #329cb4;
+        background: rgb(15, 19, 31);
+        background: linear-gradient(90deg, rgba(15, 19, 31, 1) 40%, rgba(19, 28, 43, 1) 100%);
         height: 60pc;
     }
 
@@ -19,7 +20,9 @@
         height: 30pc;
         justify-content: center;
         align-items: center;
-        width: auto;
+        margin: 0px;
+        width: 100%;
+        filter: blur(px);
     }
 
     .home .box {
@@ -28,7 +31,7 @@
         height: 380px;
         position: absolute;
         margin-left: 11%;
-        margin-top: 110%;
+        margin-top: 100%;
         align-items: center;
         justify-content: center;
 
@@ -50,30 +53,30 @@
 
     }
 
-    
-.roda-pe .opcoes .lista {
-    display: flex;
-    font-size: 15px;
-    font-family: 'Codygoon';
-    justify-content: center;
-    text-align: center;
-    align-items: center;
 
-}
+    .roda-pe .opcoes .lista {
+        display: flex;
+        font-size: 15px;
+        font-family: 'Codygoon';
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+
+    }
 
 }
 
 
 @media only screen and (min-width: 800px) and (max-width: 1280px) {
 
-    .home .imagem-fundo{
+    .home .imagem-fundo {
         align-items: center;
         height: 10%;
     }
 
-    .home .box{
+    .home .box {
         width: 50%;
-        margin:4pc;
+        margin: 4pc;
         margin-left: 20%;
     }
 

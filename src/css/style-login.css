@@ -41,10 +41,10 @@ formulário
 .home .box {
     position: relative;
     display: flex;
-    margin-left: 13pc;
+    margin-left: 20pc;
     margin-top: 5pc;
-    width: 500px;
-    height: 480px;
+    width: 380px;
+    height: 430px;
     background: #1a1a1a;
     border-radius: 8px;
     overflow: hidden;

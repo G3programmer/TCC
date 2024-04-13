@@ -18,14 +18,14 @@
 .home .slider {
     margin: 0 auto;
     width: 800px;
-    height: 400px;
+    height: 450px;
     /* qualquer coisa, muda */
     overflow: hidden;
 }
 
 .home .slider .slides {
     width: 400%;
-    height: 400px;
+    height: 450px;
     display: flex;
 }
 
@@ -37,10 +37,83 @@
 width: 25%;
 /* qualquer coisa, muda */
 position: relative;
+transition: 2s;
 }
 
 .home .slider .slide img {
     width: 800px;
 }
 
-.manual-navigation {}
+.home .slider .manual-navigation {
+    position: absolute;
+    width: 800px;
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+}
+
+.home .slider .manual-navigation label {
+    border: 2px solid #fff;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.home .slider .manual-navigation label:hover {
+    background-color: #fff;
+}
+
+
+.home .slider .manual-navigation label:not(:last-child) {
+margin-right: 40px;
+
+}
+
+#radio1:checked ~ .first {
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first {
+margin-left: -25%;
+}
+
+#radio3:checked ~ .first {
+    margin-left: -50%;
+    }
+
+
+
+
+.home .slider .navigation-auto {
+    position: absolute;
+    width: 800px;
+    margin-top: 360px;
+    display: flex;
+    justify-content: center;
+}
+
+.home .slider .navigation-auto div:not(:last-child) {
+    margin-right:40px;
+}
+
+#radio1:checked ~ .home .slider .navigation-auto .auto-btn1 {
+    background-color: #fff;
+}
+
+#radio2:checked ~ .home .slider .navigation-auto .auto-btn1 {
+    background-color: #fff;
+}
+
+#radio3:checked ~ .home .slider .navigation-auto .auto-btn1 {
+    background-color: #fff;
+
+}
+
+/* parte da vitrine*/
+
+.compre-ja {
+    margin-top: -165px;
+    background-color: gray;
+
+}

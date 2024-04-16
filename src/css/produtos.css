@@ -15,10 +15,14 @@
     min-height: calc(100vh - 80px);
 }
 
+
 .home .slider {
     margin: 0 auto;
-    width: 800px;
+    width: 100%;
     height: 450px;
+    justify-content: center;
+    padding-left: 15%;
+    margin-left: 10%;
     /* qualquer coisa, muda */
     overflow: hidden;
 }
@@ -34,10 +38,10 @@
 }
 
 .home .slider .slide {
-width: 25%;
-/* qualquer coisa, muda */
-position: relative;
-transition: 2s;
+    width: 25%;
+    /* qualquer coisa, muda */
+    position: relative;
+    transition: 2s;
 }
 
 .home .slider .slide img {
@@ -66,21 +70,21 @@ transition: 2s;
 
 
 .home .slider .manual-navigation label:not(:last-child) {
-margin-right: 40px;
+    margin-right: 40px;
 
 }
 
-#radio1:checked ~ .first {
+#radio1:checked~.first {
     margin-left: 0;
 }
 
-#radio2:checked ~ .first {
-margin-left: -25%;
+#radio2:checked~.first {
+    margin-left: -25%;
 }
 
-#radio3:checked ~ .first {
+#radio3:checked~.first {
     margin-left: -50%;
-    }
+}
 
 
 
@@ -94,18 +98,18 @@ margin-left: -25%;
 }
 
 .home .slider .navigation-auto div:not(:last-child) {
-    margin-right:40px;
+    margin-right: 40px;
 }
 
-#radio1:checked ~ .home .slider .navigation-auto .auto-btn1 {
+#radio1:checked~.home .slider .navigation-auto .auto-btn1 {
     background-color: #fff;
 }
 
-#radio2:checked ~ .home .slider .navigation-auto .auto-btn1 {
+#radio2:checked~.home .slider .navigation-auto .auto-btn1 {
     background-color: #fff;
 }
 
-#radio3:checked ~ .home .slider .navigation-auto .auto-btn1 {
+#radio3:checked~.home .slider .navigation-auto .auto-btn1 {
     background-color: #fff;
 
 }
@@ -113,7 +117,53 @@ margin-left: -25%;
 /* parte da vitrine*/
 
 .compre-ja {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 50px;
+    align-items: center;
     margin-top: -165px;
-    background-color: gray;
+    background-color: rgb(0, 0, 0);
 
 }
+
+
+.compre-ja .titulo {
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    font-family: 'Codygoon';
+    color: #00339c;
+}
+
+.btn-comprar,
+.btn-plataforma {
+    background-color: rgba(255, 255, 255, .1);
+    border: 0.5px solid #fff;
+    border-radius: 4px;
+    font-family: 'milestone-one';
+    font-size: 28px;
+    text-align: center;
+    padding: 20px 40px;
+    text-transform: uppercase;
+    width: 50%;
+    transition: all .3s ease-in;
+}
+
+.compre-ja .so {
+    width: 270px;
+}
+
+
+
+.compre-ja .cartao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: black;
+    width: 50%;
+    border-radius: 10px;
+    padding: 80px;
+    gap: 40px;
+}
+

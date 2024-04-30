@@ -1,17 +1,19 @@
+const botao = document.querySelector(".btn-plataforma");
+const elementoPlataformas = document.querySelector(".btn-plataforma .plataformas");
 
-    function scrollToSection(sectionId) {
-        var section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
+botao.addEventListener("click", () => {
 
+   
     
-    function toggleLista() {
-        var lista = document.getElementById('vejaTambemLista');
-        lista.classList.toggle('ativo');
+    const botaoEstaAberto = elementoPlataformas.classList.contains("ativo");
+  
+    
+    if (botaoEstaAberto) {
+        elementoPlataformas.classList.remove("ativo");
+    }
+    else {
+    elementoPlataformas.classList.add("ativo")
     }
 
-
-
+});
     

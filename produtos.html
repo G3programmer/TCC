@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="src/css/index-produto.css">
     <link rel="stylesheet" href="src/css/produtos.css">
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
     ">
@@ -50,7 +50,7 @@
             </ul>
         </nav>
     </header>
-    
+
     <main class="home">
 
         <div class="slider">
@@ -68,15 +68,16 @@
                 <!-- Slide Imagens-->
 
                 <div class="slide first">
-                    <img src="src/imagem/produtos/slide1.png" alt="slide 1 (propaganda de câmera de segurança)">
+                    <img src="src/imagem/produtos/slide1(editado).png"
+                        alt="slide 1 (propaganda de câmera de segurança)">
                 </div>
 
                 <div class="slide">
-                    <img src="src/imagem/produtos/slide2.png" alt="">
+                    <img src="src/imagem/produtos/slide2(editado).png" alt="">
                 </div>
 
                 <div class="slide">
-                    <img class="terceiro-slide" src="src/imagem/produtos/slide3.png" alt="">
+                    <img class="terceiro-slide" src="src/imagem/produtos/slide3(editado).png" alt="">
                 </div>
 
                 <!--Fim Slide Imagens-->
@@ -89,12 +90,12 @@
 
             </div>
 
-<div class="manual-navigation">
-    <label for="radio1"></label>
-    <label for="radio2"></label>
-    <label for="radio3"></label>
+            <div class="manual-navigation">
+                <label for="radio1"></label>
+                <label for="radio2"></label>
+                <label for="radio3"></label>
 
-</div>
+            </div>
 
         </div>
         <div class="slide-indicators">
@@ -103,23 +104,64 @@
     </main>
 
     <section class="compre-ja" id="comprar">
-        
+
         <h2 class="titulo">Nossos Produtos</h2>
 
-        <div class="cartao">
-  
-            <img class="capa-do-jogo" src="src/imagem/produtos/so.png">
+        <div class="lista">
+            <div class="cartao">
 
+                <img class="imagem" src="src/imagem/produtos/so.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">Parrot</h3>
+                    <p class="texto"> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong> para nossos
+                        clientes gratuitamente através do site <strong><a href="https://parrotsec.org/"
+                                class="parrot">parrotsec.org</a></strong> do desenvolvedor Lorenzo "Palinuro" Faletra.
+                    </p>
+
+                    <button class="btn-plataforma">
+                        Selecione a plataforma
+
+                        <ul class="plataformas">
+                            <li>
+                                <a href="https://deb.parrot.sh/parrot/iso/6.0/Parrot-security-6.0_amd64.iso"
+                                    class="opcao">iso</a>
+                            </li>
+
+                            <li>
+                                virtualbox <img src="src/imagens/ps4-logo.png" alt="logo playstation 4">
+                            </li>
+
+
+                            <li>
+                                utm apple silicon<img src="src/imagens/windows-logo.png" alt="logo windows">
+                            </li>
+                        </ul>
+                </div>
+                </button>
+            </div>
+
+
+        </div>
+
+
+        <div class="cartao">
+            <img src="src/imagem/produtos/ap1350.png" alt="">
             <div class="informacoes">
                 <h3>Parrot</h3>
-                <p> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong> para nosso clientes.</p>
+                <p> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong> para nossos
+                    clientes gratuitamente.</p>
                 <ul class="plataformas">
-             
+                </ul>
+            </div>
+        </div>
     </section>
 
 
     <script src="src/js/index.js"></script>
     <script src="src/js/slide.js"></script>
+    <script src="src/js/botoes.js"></script>
 </body>
 
 </html>

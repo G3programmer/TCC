@@ -19,17 +19,16 @@
 .home .slider {
     margin: 0 auto;
     width: 100%;
-    height: 450px;
+    height: 560px;
     justify-content: center;
-    padding-left: 15%;
-    margin-left: 10%;
+    padding-left: 23.5%;
     /* qualquer coisa, muda */
     overflow: hidden;
 }
 
 .home .slider .slides {
-    width: 400%;
-    height: 450px;
+    width: 1200%;
+    height: 550px;
     display: flex;
 }
 
@@ -41,11 +40,12 @@
     width: 25%;
     /* qualquer coisa, muda */
     position: relative;
-    transition: 2s;
+    transition: 1s;
 }
 
 .home .slider .slide img {
-    width: 800px;
+    width: 1200px;
+    height: 40pc;
 }
 
 .home .slider .manual-navigation {
@@ -75,15 +75,17 @@
 }
 
 #radio1:checked~.first {
-    margin-left: 0;
+    margin-left: -1.5%;
+    margin-right: 5%;
 }
 
 #radio2:checked~.first {
-    margin-left: -25%;
+    margin-left: -26.2%;
+    margin-right: -0.20%;
 }
 
 #radio3:checked~.first {
-    margin-left: -50%;
+    margin-left: -51.3%;
 }
 
 
@@ -123,12 +125,11 @@
     padding: 50px;
     align-items: center;
     margin-top: -165px;
-    background-color: rgb(0, 0, 0);
-
 }
 
 
 .compre-ja .titulo {
+    display: flex;
     font-size: 50px;
     font-weight: 700;
     margin-bottom: 50px;
@@ -136,34 +137,78 @@
     color: #00339c;
 }
 
-.btn-comprar,
-.btn-plataforma {
-    background-color: rgba(255, 255, 255, .1);
-    border: 0.5px solid #fff;
-    border-radius: 4px;
-    font-family: 'milestone-one';
-    font-size: 28px;
-    text-align: center;
-    padding: 20px 40px;
-    text-transform: uppercase;
-    width: 50%;
-    transition: all .3s ease-in;
-}
-
-.compre-ja .so {
-    width: 270px;
-}
-
-
-
-.compre-ja .cartao {
-    display: flex;
-    flex-direction: row;
+.compre-ja .lista {
+    display: grid;
     align-items: center;
-    background-color: black;
-    width: 50%;
+    justify-content: center;
+    width: 100%;
     border-radius: 10px;
     padding: 80px;
     gap: 40px;
 }
 
+
+
+.compre-ja .lista .cartao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+    font-family: 'Codygoon', sans-serif;
+    background-color: #0f131f;
+    width: 90pc;
+    height: auto;
+    border-radius: 10px;
+    padding: 80px;
+    gap: 40px;
+}
+
+
+.compre-ja .lista .cartao .imagem {
+    width: 150px;
+}
+
+.compre-ja .lista .cartao .informacoes .titulo {
+    display: flex;
+    margin-left: 65%;
+    color: #fff;
+}
+
+.btn-comprar,
+.btn-plataforma {
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;
+    font-family: 'milestone-one';
+    font-size: 28px;
+    margin-right: -50%;
+    align-items: right;
+    text-align: center;
+    padding: 10px 40px;
+    text-transform: uppercase;
+    width: 25%;
+    transition: all .3s ease-in;
+}
+
+
+.compre-ja .informacoes .plataformas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+}
+
+
+.compre-ja .btn-plataforma .plataformas {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all .3s ease-in;
+    display: none;
+    opacity: 0;
+}
+
+.compre-ja .btn-plataforma .plataformas.ativo {
+    display: flex;
+    opacity: 1;
+}

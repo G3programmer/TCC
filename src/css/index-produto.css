@@ -6,8 +6,8 @@
 
 body {
     overflow-x: hidden;
-    background: rgb(5, 6, 47);
-    background: linear-gradient(174deg, rgba(5, 6, 47, 1) 0%, rgba(14, 13, 41, 1) 100%);
+    background: rgb(0, 1, 27);
+    background: linear-gradient(0deg, rgba(0, 1, 27, 1) 0%, rgba(10, 9, 29, 1) 100%);
     margin: 3px;
     flex: 1 1 100vw;
     flex-wrap: wrap;

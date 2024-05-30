@@ -68,16 +68,23 @@
                 <!-- Slide Imagens-->
 
                 <div class="slide first">
-                    <img src="src/imagem/produtos/slide1(editado).png"
-                        alt="slide 1 (propaganda de câmera de segurança)">
+                    <a href="#cameras">
+                        <img src="src/imagem/produtos/slide1.png" alt="slide 1 (propaganda de câmera de segurança)">
+                    </a>
                 </div>
 
                 <div class="slide">
-                    <img src="src/imagem/produtos/slide2(editado).png" alt="">
+                    <a href="#fechaduras">
+                        <img src="src/imagem/produtos/slide2.png"
+                            alt="slide slide 2 (propaganda de cadeado eletrônico com leitor de cartão de acesso)">
+                    </a>
                 </div>
 
                 <div class="slide">
-                    <img class="terceiro-slide" src="src/imagem/produtos/slide3(editado).png" alt="">
+                    <a href="#roteadores">
+                        <img class="terceiro-slide" src="src/imagem/produtos/slide3.png"
+                            alt="slide 3 (propaganda de um roteador)">
+                    </a>
                 </div>
 
                 <!--Fim Slide Imagens-->
@@ -107,6 +114,16 @@
 
         <h2 class="titulo">Nossos Produtos</h2>
 
+        <div class="caixa-pesquisa">
+            <input type="text" class="barra" placeholder="Busco por...">
+            <a class="pesquisa-btn">
+                <img src="src/imagem/icones/lupa-azul.png" alt="" class="lupa-azul" width="25px" height="25px">
+                <img src="src/imagem/icones/lupa-Branca.png" alt="" class="lupa-branca"  width="25px" height="25px">
+            </a>
+        </div>
+
+
+
         <div class="lista">
             <div class="cartao">
 
@@ -115,9 +132,11 @@
                 <div class="informacoes">
 
                     <h3 class="titulo">Parrot</h3>
-                    <p class="texto"> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong> para nossos
-                        clientes gratuitamente através do site <strong><a href="https://parrotsec.org/"
-                                class="parrot">parrotsec.org</a></strong> do desenvolvedor Lorenzo "Palinuro" Faletra.
+                    <p class="texto"> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong>
+                        para nossos
+                        clientes gratuitamente através do site <strong><a href="https://parrotsec.org/" class="parrot"
+                                target="_blank">parrotsec.org</a></strong> do desenvolvedor Lorenzo "Palinuro" Faletra e
+                        sua equipe.
                     </p>
 
                     <button class="btn-plataforma">
@@ -126,16 +145,17 @@
                         <ul class="plataformas">
                             <li>
                                 <a href="https://deb.parrot.sh/parrot/iso/6.0/Parrot-security-6.0_amd64.iso"
-                                    class="opcao">iso</a>
+                                    class="opcao">iso(amd64)</a>
                             </li>
 
                             <li>
-                                virtualbox <img src="src/imagens/ps4-logo.png" alt="logo playstation 4">
+                                <a href="https://deb.parrot.sh/parrot/iso/5.3/Parrot-security-5.3_amd64.ova"></a>
+                                virtualbox(amd64)<img src="src/imagens/ps4-logo.png" alt="logo playstation 4">
                             </li>
 
 
                             <li>
-                                utm apple silicon<img src="src/imagens/windows-logo.png" alt="logo windows">
+                                utm (para Apple)<img src="src/imagens/windows-logo.png" alt="logo windows">
                             </li>
                         </ul>
                 </div>
@@ -143,19 +163,154 @@
             </div>
 
 
-        </div>
+            <!--outro produto-->
+            <div class="cartao">
 
+                <img class="imagem" src="src/imagem/produtos/ap360.png">
 
-        <div class="cartao">
-            <img src="src/imagem/produtos/ap1350.png" alt="">
-            <div class="informacoes">
-                <h3>Parrot</h3>
-                <p> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong> para nossos
-                    clientes gratuitamente.</p>
-                <ul class="plataformas">
-                </ul>
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 360</h3>
+                    <p class="texto"> O Ap 360 é um dos produtos da intelbras que tem uma boa eficiencia quanto a
+                        velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
             </div>
-        </div>
+            <!--outro produto-->
+
+            <div class="cartao">
+
+                <img class="imagem" src="src/imagem/produtos/ap1350.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+
+            <!--outro produto-->
+
+            <div class="cartao" id="cameras">
+
+                <img class="imagem" src="src/imagem/produtos/camera1-Photoroom.png-Photoroom.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+            <!--outro produto-->
+            <div class="cartao">
+
+                <img class="imagem" src="src/imagem/produtos/camera360g-Photoroom.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+            <!--outro produto-->
+            <div class="cartao" id="fechaduras">
+
+                <img class="imagem" src="src/imagem/produtos/fechaduraFR101-Photoroom.png-Photoroom.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+            <!--outro produto-->
+            <div class="cartao">
+
+                <img class="imagem" src="src/imagem/produtos/fechaduraFR330-Photoroom.png-Photoroom.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+
+            <!--outro produto-->
+            <div class="cartao" id="roteadores">
+
+                <img class="imagem" src="src/imagem/produtos/roteadorActionRF1200png-Photoroom.png-Photoroom.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+            <!--outro produto-->
+            <div class="cartao">
+
+                <img class="imagem" src="src/imagem/produtos/roteadorRF301k-Photoroom.png-Photoroom.png">
+
+                <div class="informacoes">
+
+                    <h3 class="titulo">AP 1350 ac</h3>
+                    <p class="texto"> O Ap 1350 ac é um dos produtos da intelbras que tem um dos melhores resultados
+                        quanto a velocidade da internet e com um novo sistema de segurança que a Vanguard proporciona.
+                    </p>
+
+
+                    <button class="btn-plataforma">
+                        <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                </div>
+            </div>
+
     </section>
 
 

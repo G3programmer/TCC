@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="src/css/responsivo-login.css">
     <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
-    <title>Login | Vanguard</title>
+    <title>Vanguard | Login</title>
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
 </head>
 
@@ -26,18 +26,17 @@
 
         <div class="box">
             <span class="borderLine"></span>
-            <form class="formulario">
+            <form action="src/php/login.php" class="formulario" method="post">
 
                 <h1 class=" titulo">Login</h1>
                 <div class="inputBox">
-                    <input type="text" required="required">
-
-                    <span>Nome de Usuário</span>
+                    <input type="text" id="email" name="email" required="required">
+                    <span>email</span>
                     <i></i>
                 </div>
 
                 <div class="inputBox">
-                    <input type="password" required="required">
+                    <input type="password" id="senha" name="senha" required="required">
                     <span>Senha</span>
                     <i></i>
                 </div>

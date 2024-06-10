@@ -1,7 +1,6 @@
 .cabecalho {
     display: flex;
     height: 4pc;
-    margin: 2px;
     background: #1a1a1a;
     align-items: center;
 }

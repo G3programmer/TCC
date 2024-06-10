@@ -213,12 +213,12 @@ html {
     display: none;
 }
 
-.compre-ja .caixa-pesquisa:hover > .pesquisa-btn .
 
 /*Final da parte da barra de pesquisa*/
 
 .compre-ja .lista .cartao {
     display: flex;
+    position: relative;
     flex-direction: row;
     align-items: center;
     color: #fff;
@@ -231,9 +231,44 @@ html {
     gap: 40px;
 }
 
+.cartao .prev,
+.cartao .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    margin-left: 10.5pc;
+    width: auto;
+    background: none;
+    border: none;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.cartao .prev {
+    right: 93.7%;
+    border-radius: 3px 0 0 3px;
+}
+
+.cartao .next {
+    border-radius: 0 3px 3px 0;
+}
+
+.cartao .prev:hover,
+.cartao .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
 
 .compre-ja .lista .cartao .imagem {
     width: 180px;
+    justify-content: center;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
 }
 
 .compre-ja .lista .cartao .informacoes .titulo {
@@ -251,10 +286,10 @@ html {
     margin-bottom: 5%;
 }
 
-.compre-ja .lista .cartao:hover {
-    
-
+.compre-ja .lista .cartao .imagem:hover {
+    transform: scale(1.1);
 }
+
 
 .btn-comprar,
 .btn-plataforma {
@@ -293,4 +328,19 @@ html {
 .compre-ja .btn-plataforma .plataformas.ativo {
     display: flex;
     opacity: 1;
+}
+
+.compre-ja .lista .cartao .informacoes .btn-carrinho {
+    background:none;
+    display: flex;
+    flex-direction: row;
+    margin-left: 60pc;
+    margin-top: -2.5pc;
+    height: 30px;
+    width: 30px;
+    border: none;
+}
+.compre-ja .lista .cartao .informacoes .carrinho {
+width: 30px;
+
 }

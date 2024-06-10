@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard | Painel do funcionário</title>
+    <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
+    <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="logo">
+            <a href="funcionario.html">
+                <img src="src/imagem/logos/VanguardLogo - titulo.png" alt="Logo da Vanguard" />
+            </a>
+        </div>
+    </header>
+    <main class="home">
+        <img class="fundo" src="src/imagem/fundo-dashboard.gif" alt="Imagem da gravação de uma câmera pública">
+
+        <div class="relatorio">
+            <h1 class="titulo">
+                Relatórios Mensais
+            </h1>
+           
+            <form action="src/php/dashboard.php" method="POST">
+                <input type="text" name="comentario" class="caixa-texto">
+                <button type="submit">Enviar relatório</button>
+            </form>
+            
+            <!-- Tabela para mostrar comentários -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Comentário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $conn = new mysqli("localhost", "root", "", "vanguard");
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+                    $sql = "SELECT id, comentario FROM relatorios";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr><td>" . $row["id"]. "</td><td>" . $row["comentario"]. "</td></tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='2'>No comments found</td></tr>";
+                    }
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+            <!--Relatórios recentes (concluir)-->
+        </div>
+      
+            <!--Gráfico pizza referente aos problemas-->
+        </div>
+
+        <div>
+            <!--Gráfico linha / coluna referente a semana-->
+        </div>
+
+        <div>
+            <!--Check list-->
+        </div>
+    </main>
+
+    <section>
+        <div>
+            <!--ranking funcionários-->
+        </div>
+
+        <div>
+            <!--bate papo para problemas-->
+        </div>
+    </section>
+
+
+</body>
+
+</html>

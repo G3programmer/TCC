@@ -11,7 +11,7 @@
     <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
 
-    <title>cadastro | Vanguard</title>
+    <title>Vanguard | Cadastro</title>
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
 </head>
 
@@ -28,24 +28,24 @@
 
         <div class="box">
             <span class="borderLine"></span>
-            <form class="formulario">
+            <form class="formulario" action="src/php/cadastro.php">
                 <h1 class=" titulo">Cadastre-se</h1>
 
                 <div class="inputBox">
-                    <input type="text" required="required">
-                    <span>Username</span>
+                    <input type="text" name="nome" required="required">
+                    <span>Nome</span>
                     <i></i>
                 </div>
 
                 <div class="inputBox">
-                    <input type="date" required="required">
+                    <input type="date" name="dt_nasc" required="required">
                     <span>data de nascimento</span>
                     <i></i>
                 </div>
 
 
                 <div class="inputBox">
-                    <input type="text" required="required">
+                    <input type="text" name="estado" required="required">
                     <span> estado </span>
                     <i></i>
                 </div>
@@ -53,45 +53,62 @@
                 <br>
 
                 <div class="inputBox">
-                    <input type="text" required="required">
+                    <input type="text" name="cidade" required="required">
                     <span> cidade </span>
                     <i></i>
                 </div>
 
                 <br>
+                
                 <div class="inputBox">
-                    <input type="text" required="required">
-                    <span> endereco </span>
+                    <input type="text" name="cep" required="required">
+                    <span> cep </span>
                     <i></i>
                 </div>
 
-
                 <div class="inputBox">
-                    <input type="number" required="required">
-                    <span> telefone </span>
+                    <input type="text" name="bairro" required="required">
+                    <span> bairro </span>
                     <i></i>
                 </div>
 
+                <br>
 
                 <div class="inputBox">
-                    <input type="text" required="required">
+                    <input type="text" name="rua" required="required">
+                    <span> rua </span>
+                    <i></i>
+                </div>
+
+                <br>
+                
+                <div class="inputBox">
+                    <input type="text" name="num_predial" required="required">
+                    <span> número predial </span>
+                    <i></i>
+                </div>
+
+                <br>
+
+                <div class="inputBox">
+                    <input type="text" name="email" required="required">
                     <span> email </span>
                     <i></i>
                 </div>
 
 
                 <div class="inputBox">
-                    <input type="password" required="required">
-                    <span>Password</span>
+                    <input type="password" name="senha" required="required">
+                    <span>Senha</span>
                     <i></i>
                 </div>
 
 
                 <div class="links">
-                    <a href="#">Forgot Password</a>
+                    <a href="#">esqueci a senha</a>
                     <a href="login.html">Log in</a>
                 </div>
-                <input type="submit" value="Login">
+                <input type="submit" value="Cadastrar">
             </form>
         </div>
     </main>

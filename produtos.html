@@ -114,24 +114,29 @@
 
         <h2 class="titulo">Nossos Produtos</h2>
 
-        <div class="caixa-pesquisa">
-            <input type="text" class="barra" placeholder="Busco por...">
-            <a class="pesquisa-btn">
-                <img src="src/imagem/icones/lupa-azul.png" alt="" class="lupa-azul" width="25px" height="25px">
-                <img src="src/imagem/icones/lupa-Branca.png" alt="" class="lupa-branca" width="25px" height="25px">
-            </a>
-        </div>
+        <form id="formBusca" action="src/php/pesquisaProdutos.php" method="GET">
+            <div class="caixa-pesquisa">
 
+                <input type="text" name="busca" class="barra" placeholder="Busco por...">
+                <button type="submit" class="pesquisa-btn">
+                    <img src="src/imagem/icones/lupa-azul.png" alt="" class="lupa-azul" width="25px" height="25px">
+                    <img src="src/imagem/icones/lupa-Branca.png" alt="" class="lupa-branca" width="25px" height="25px">
+                    </a>
+            </div>
+        </form>
 
 
         <div class="lista">
+
+            
             <div class="cartao">
 
-                <img class="imagem" src="src/imagem/produtos/so.png">
+                <img id="so" class="imagem"  src="src/imagem/produtos/so.png">
 
                 <div class="informacoes">
 
                     <h3 class="titulo">Parrot</h3>
+
                     <p class="texto"> Parrot é o sistema do qual também utilizamos e <strong>disponibilizamos</strong>
                         para nossos
                         clientes gratuitamente através do site <strong><a href="https://parrotsec.org/" class="parrot"
@@ -158,8 +163,8 @@
                                 utm (para Apple)<img src="src/imagens/windows-logo.png" alt="logo windows">
                             </li>
                         </ul>
+                    </button>
                 </div>
-                </button>
             </div>
 
 
@@ -168,6 +173,7 @@
                 <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/ap360.png">
                 <button class="next">&#10095;</button>
+
                 <div class="informacoes">
 
                     <h3 class="titulo">AP 360</h3>
@@ -254,7 +260,8 @@
 
             <div class="cartao">
                 <button class="prev">&#10094;</button>
-                <img class="imagem" src="src/imagem/produtos/camera360im7.png"><button class="next">&#10095;</button>
+                <img class="imagem" src="src/imagem/produtos/camera360im7.png">
+                <button class="next">&#10095;</button>
 
                 <div class="informacoes">
 
@@ -373,6 +380,7 @@
     <script src="src/js/slide.js"></script>
     <script src="src/js/botoes.js"></script>
     <script src="src/js/troca_produto_imagem.js"></script>
+    <script src="src/js/buscaProduto.js"></script>
 </body>
 
 

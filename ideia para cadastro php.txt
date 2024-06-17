@@ -1,0 +1,54 @@
+<?php
+session_start(); // Iniciar sessão para armazenar dados do usuário
+
+$conn = new mysqli('localhost', 'root', '', 'vanguard');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST['nome'];
+    $dt_nasc = $_POST['dt_nasc'];
+    $estado = $_POST['estado'];
+    $cidade = $_POST['cidade'];
+    $cep = $_POST['cep'];
+    $bairro = $_POST['bairro'];
+    $rua = $_POST['rua'];
+    $num_predial = $_POST['num_predial'];
+    $cpf = $_POST['cpf'];
+    $email = $_POST['email'];
+    $senha = password_hash($_POST['senha'], PASSWORD_BCRYPT);
+
+    // Verificar se o CPF já está registrado
+    $sql = "SELECT id FROM Usuario WHERE cpf = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $cpf);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        echo "CPF já registrado.";
+    } else {
+        // Inserir usuário
+        $sql = "INSERT INTO Usuario (nome, dt_nasc, estado, cidade, cep, bairro, rua, numero_predial, cpf, email, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssssssssss", $nome, $dt_nasc, $estado, $cidade, $cep, $bairro, $rua, $num_predial, $cpf, $email, $senha);
+
+        if ($stmt->execute()) {
+            // Autenticação bem-sucedida
+            $user_id = $stmt->insert_id;
+            $_SESSION['id'] = $user_id;
+            
+            // Redireciona o usuário para a página 'indexLogado.html'
+            header("Location: ../../indexLogado.html");
+            exit(); // Encerra a execução do script
+        } else {
+            echo "Erro: " . $sql . "<br>" . $conn->error;
+        }
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    $response['status'] = 'error';
+    $response['message'] = 'Método de requisição inválido.';
+    echo json_encode($response);
+}
+?>

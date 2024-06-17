@@ -16,18 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Associa a variável $nome ao parâmetro na declaração preparada
 
-    $stmt->bind_param("s", $email); 
+    $stmt->bind_param("s", $email);
     // "s" indica que o parâmetro é uma string
-   
+
     // Executa a declaração preparada
     $stmt->execute();
 
     // Obtém o resultado da execução da declaração
     $result = $stmt->get_result();
 
-      // Verifica se foi encontrado algum um usuário com o nome de usuário dado
+    // Verifica se foi encontrado algum um usuário com o nome de usuário dado
 
-      if ($result->num_rows == 1) {
+    if ($result->num_rows == 1) {
 
         // Obtém os dados do usuário encontrado
         $row = $result->fetch_assoc();
@@ -43,12 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ../../index.html");
             exit(); // Encerra a execução do script
         } else {
-            // Senha incorreta
-            echo "Senha incorreta.";
-        } 
+            $response['status'] = 'error';
+            $response['message'] = 'Senha incorreta.';
+        }
     } else {
         // Nome de usuário não encontrado
-        echo "email de usuário não encontrado.";
+        $response['status'] = 'error';
+        $response['message'] = 'Email de usuário não encontrado.';
     }
+
+    echo json_encode($response);
 }
 ?>

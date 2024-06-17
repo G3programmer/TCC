@@ -6,8 +6,11 @@ $dbname = "vanguard";
 
 $conn = new mysqli($servername,$username,$passworld,$dbname);
 
-if ($conn -> connect_error) {
-    die("Connection failed: " .$conn->connect_error);
+if ($conn -> connect_errno) {
+    echo "ERRO";
 }
+else{
 
+    echo"Conexão efetuada com sucesso"; 
+}
 ?>

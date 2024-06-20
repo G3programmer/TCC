@@ -1,0 +1,80 @@
+@media only screen and (max-width: 717px) {
+    .home {
+        position: relative;
+        width: auto;
+        background: #329cb4;
+        height: 60pc;
+    }
+
+    .home::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: none;
+        background: linear-gradient(360deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 20%, transparent 70%);
+    }
+
+    .home .imagem-fundo {
+        height: 30pc;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+    }
+
+    .home .box {
+        display: flex;
+        width: 380px;
+        height: 380px;
+        position: absolute;
+        margin-left: 11%;
+        margin-top: 110%;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .roda-pe {
+        display: grid;
+        height: 40pc;
+        width: auto;
+        margin: auto;
+        padding: 6pc;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .roda-pe .logo {
+        margin-right: 80pc;
+
+    }
+
+    
+.roda-pe .opcoes .lista {
+    display: flex;
+    font-size: 15px;
+    font-family: 'Codygoon';
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+}
+
+}
+
+
+@media only screen and (min-width: 800px) and (max-width: 1280px) {
+
+    .home .imagem-fundo{
+        align-items: center;
+        height: 10%;
+    }
+
+    .home .box{
+        width: 50%;
+        margin:4pc;
+        margin-left: 20%;
+    }
+
+}

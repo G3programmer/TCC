@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/index-produto.css">
-    <link rel="stylesheet" href="src/css/produtos.css">
+    <link rel="stylesheet" href="src/css/style-produtos.css">
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
     ">
     <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
@@ -14,28 +14,22 @@
 </head>
 
 <body>
-    <header class="cabecalho">
-        <img src="src/imagem/logos/VanguardLogo - titulo.png" alt="logo da Vanguard">
+   <header class="cabecalho">
+        <div class="logo">
+            <img src="src/imagem/logos/VanguardLogo - titulo.png" alt="Logo da Vanguard" />
+        </div>
+
         <button id="OpenMenu">&#9776;</button>
 
         <nav id="menu">
             <button id="CloseMenu">X</button>
             <ul class="menu">
                 <li>
-                    <a class="btn-quem-somos" href="#quem-somos" onclick="scrollToSection('quem-somos')">Quem somos</a>
+                    <a href="indexLogado.html">Home</a>
 
                 </li>
                 <li>
-                    <a class="btn-parcerias" href="#parcerias">Parcerias</a>
-                </li>
-                <li>
-                    <a class="btn-avaliar" href="#avaliar">Avaliar</a>
-                </li>
-                <li>
-                    <a class="btn-servicos" href="servicos.html">Serviços</a>
-                </li>
-                <li>
-                    <a href="produtos.html" target="_blank">Produtos</a>
+                    <a href="servicos.html" target="_blank">Serviços</a>
                 </li>
                 <li>
                     <a href="cadastro.html"> Cadastrar</a>
@@ -50,7 +44,6 @@
             </ul>
         </nav>
     </header>
-
     <main class="home">
 
         <div class="slider">
@@ -127,8 +120,6 @@
 
 
         <div class="lista">
-
-            
             <div class="cartao">
 
                 <img id="so" class="imagem"  src="src/imagem/produtos/so.png">
@@ -170,9 +161,8 @@
 
             <!--outro produto-->
             <div class="cartao">
-                <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/ap360.png">
-                <button class="next">&#10095;</button>
+
 
                 <div class="informacoes">
 
@@ -194,13 +184,7 @@
             <!--outro produto-->
 
             <div class="cartao">
-
-                <button class="prev">&#10094;</button>
-
                 <img class="imagem" src="src/imagem/produtos/ap1350.png">
-
-                <button class="next">&#10095;</button>
-
                 <div class="informacoes">
 
                     <h3 class="titulo">AP 1350 ac</h3>
@@ -211,6 +195,11 @@
 
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
                     </button>
                 </div>
             </div>
@@ -233,6 +222,11 @@
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
                     </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
+                    </button>
                 </div>
             </div>
 
@@ -254,14 +248,17 @@
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
                     </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
+                    </button>
                 </div>
             </div>
             <!--outro produto-->
 
             <div class="cartao">
-                <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/camera360im7.png">
-                <button class="next">&#10095;</button>
 
                 <div class="informacoes">
 
@@ -273,6 +270,11 @@
 
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
                     </button>
                 </div>
             </div>
@@ -295,15 +297,18 @@
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
                     </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
+                    </button>
                 </div>
             </div>
 
             <!--outro produto-->
 
             <div class="cartao" id="fechaduras">
-                <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/fechaduraFR101.png">
-                <button class="next">&#10095;</button>
                 <div class="informacoes">
 
                     <h3 class="titulo">AP 1350 ac</h3>
@@ -315,13 +320,16 @@
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
                     </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
+                    </button>
                 </div>
             </div>
             <!--outro produto-->
             <div class="cartao">
-                <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/fechaduraFR330.png">
-                <button class="next">&#10095;</button>
                 <div class="informacoes">
 
                     <h3 class="titulo">AP 1350 ac</h3>
@@ -332,15 +340,18 @@
 
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
                     </button>
                 </div>
             </div>
 
             <!--outro produto-->
             <div class="cartao" id="roteadores">
-                <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/roteadorActionRF1200.png">
-                <button class="next">&#10095;</button>
                 <div class="informacoes">
 
                     <h3 class="titulo">AP 1350 ac</h3>
@@ -352,13 +363,16 @@
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
                     </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
+                    </button>
                 </div>
             </div>
             <!--outro produto-->
             <div class="cartao">
-                <button class="prev">&#10094;</button>
                 <img class="imagem" src="src/imagem/produtos/roteadorRF301k.png">
-                <button class="next">&#10095;</button>
                 <div class="informacoes">
 
                     <h3 class="titulo">AP 1350 ac</h3>
@@ -369,6 +383,11 @@
 
                     <button class="btn-plataforma">
                         <a href="pagamento.html" target="_blank">Compre já</a>
+                    </button>
+                    <button class="btn-carrinho">
+                        <a href="carrinho.html">
+                            <img src="src/imagem/icones/carrinho-de-compras.png" class="carrinho">
+                        </a>
                     </button>
                 </div>
             </div>

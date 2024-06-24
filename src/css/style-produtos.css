@@ -231,8 +231,13 @@ html {
 }
 
 .compre-ja .caixa-pesquisa:hover > .pesquisa-btn .lupa-blue {
-    display: none;
+    display:none;
 }
+
+.compre-ja .caixa-pesquisa:hover > .pesquisa-btn .lupa-branca {
+    display: flex;
+    position: relative;
+} 
 
 
 /*Final da parte da barra de pesquisa*/

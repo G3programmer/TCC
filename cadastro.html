@@ -22,13 +22,13 @@
     <main class="home">
 
 
-        <img class="imagem-fundo" src="src/imagem/teste/OIG1 (5).png" alt="">
+        <img class="imagem-fundo" src="src/imagem/logos/soldado-cadastro.png" alt="">
 
         <!--formulário-->
 
         <div class="box">
             <span class="borderLine"></span>
-            <form class="formulario" action="src/php/processo.php" method="post">
+            <form class="formulario" action="src/php/processa_cadastro.php" method="post">
                 <h1 class=" titulo">Cadastre-se</h1>
 
                 <div class="inputBox">
@@ -65,12 +65,17 @@
         -->
                 <br>
 
-                <div class="inputBox">
-                    <input type="text" name="cidade" id="cidade" required="required">
-                    <span> cidade </span>
-                    <i></i>
-                </div>
 
+             <!--   <option value="">Selecione uma cidade</option>
+                <?php
+                include_once('index.php');
+                $result = $conn->query("SELECT nome_estado FROM Estado");
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='{$row['nome_estado']}'>{$row['nome_estado']}</option>";
+                }
+                ?>
+            </select><br>
+        -->
                 <br>
 
                 <div class="inputBox">

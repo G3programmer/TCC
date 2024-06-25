@@ -27,38 +27,9 @@
                 Relatórios Mensais
             </h1>
            
-            <form action="src/php/dashboard.php" method="POST">
-                <input type="text" name="comentario" class="caixa-texto">
-                <button type="submit">Enviar relatório</button>
-            </form>
             
-            <!-- Tabela para mostrar comentários -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Comentário</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $conn = new mysqli("localhost", "root", "", "vanguard");
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    $sql = "SELECT id, comentario FROM relatorios";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr><td>" . $row["id"]. "</td><td>" . $row["comentario"]. "</td></tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='2'>No comments found</td></tr>";
-                    }
-                    $conn->close();
-                    ?>
-                </tbody>
-            </table>
+                <button type="submit"><a href="relatar.html">Enviar relatório</a></button>
+            
             <!--Relatórios recentes (concluir)-->
         </div>
       

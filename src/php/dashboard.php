@@ -1,28 +1,31 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "vanguard";
+require "index.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$titulo = filter_input(INPUT_POST, 'titulo');
+$descricao = filter_input(INPUT_POST, 'descricao');
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if(isset($title_relatorio) && !empty($titulo) && isset($descricao) && !empty($descricao)) {
+       
+    $sql = $pdo->prepare("INSERT INTO relatorio (titulo, descricao) VALUES (:titulo, :descricao)");
+    $sql->bindValue(':titulo', $titulo);
+    $sql->bindValue(':descricao', $descricao);
+    $sql->execute();
+
+    echo "
+    <script>
+        alert('Enviado com sucesso!');
+        window.location.href = '../../dashboard.html';
+    </script>
+    ";
+    exit;
+} else {
+    echo "
+    <script>
+        alert('Por favor, preencha todos os campos!');
+        window.location.href = '../../relatar.html';
+    </script>
+    ";
+    exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comentario = $_POST['comentario'];
-
-    $sql = "INSERT INTO relatorios (comentario) VALUES ('$comentario')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-$conn->close();
 ?>

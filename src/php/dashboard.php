@@ -9,17 +9,16 @@ if(isset($titulo_relatorio) && !empty($titulo_relatorio) && isset($descricao_rel
        
     $sql = $pdo->prepare("INSERT INTO relatorio (titulo_relatorio, descricao_relatorio) VALUES (:relatorio, :description)");
     $sql->bindValue(':relatorio', $titulo_relatorio);
-    $sql->bindValue(':descricao', $descricao_relatorio);
+    $sql->bindValue(':description', $descricao_relatorio);
     $sql->execute();
 
-    echo "
+   echo "
     <script>
         alert('Enviado com sucesso!');
-        window.location.href = '/dashboard.html';
+        window.location.href ='../../dashboard.html';   
     </script>
-    ";
-    exit;
-} else {
+";
+    } else {
     echo "
     <script>
         alert('Por favor, preencha todos os campos!');

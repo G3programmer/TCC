@@ -13,4 +13,13 @@ else{
 
     echo"Conexão efetuada com sucesso"; 
 }
+
+try {
+    $pdo = new PDO('mysql:host=' . $servername . ';dbname=' . $dbname, $username, $passworld);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}   catch (PDOException $err) {
+    echo "Houve um erro no banco de dados" . $err->getMessage();
+    exit;
+}
+
 ?>

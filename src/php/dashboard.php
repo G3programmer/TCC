@@ -1,20 +1,21 @@
 <?php
+
 require "index.php";
 
-$titulo = filter_input(INPUT_POST, 'titulo');
-$descricao = filter_input(INPUT_POST, 'descricao');
+$titulo_relatorio = filter_input(INPUT_POST, 'relatorio');
+$descricao_relatorio = filter_input(INPUT_POST, 'description');
 
-if(isset($title_relatorio) && !empty($titulo) && isset($descricao) && !empty($descricao)) {
+if(isset($titulo_relatorio) && !empty($titulo_relatorio) && isset($descricao_relatorio) && !empty($descricao_relatorio)) {
        
-    $sql = $pdo->prepare("INSERT INTO relatorio (titulo, descricao) VALUES (:titulo, :descricao)");
-    $sql->bindValue(':titulo', $titulo);
-    $sql->bindValue(':descricao', $descricao);
+    $sql = $pdo->prepare("INSERT INTO relatorio (titulo_relatorio, descricao_relatorio) VALUES (:relatorio, :description)");
+    $sql->bindValue(':relatorio', $titulo_relatorio);
+    $sql->bindValue(':descricao', $descricao_relatorio);
     $sql->execute();
 
     echo "
     <script>
         alert('Enviado com sucesso!');
-        window.location.href = '../../dashboard.html';
+        window.location.href = '/dashboard.html';
     </script>
     ";
     exit;

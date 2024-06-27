@@ -1,5 +1,5 @@
 <p align="center">
- ![Logo](src="src/imagem/logos/VanguardLogo.png")
+ <img src="src/imagem/logos/VanguardLogo.png">
 </p>
 # Projeto TCC
 Esse projeto tem como objetivo apresentar o último trabalho do curso técnico em informatica para internet.

@@ -1,6 +1,7 @@
 <p align="center">
  <img src="src/imagem/logos/VanguardLogo-Escuro.png">
 </p>
+
 # Projeto TCC
 Esse projeto tem como objetivo apresentar o último trabalho do curso técnico em informatica para internet.
 ## Autores
@@ -31,7 +32,7 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 
 ## Demonstração da página inicial
-
+<p align="center">
 <img src="ExemplartccFeitocomoClipchamp1-ezgif.com-video-to-gif-converter.gif">
-
+</p>
 

@@ -1,0 +1,23 @@
+
+
+CREATE TABLE regiao (
+estado varchar (100) not null PRIMARY KEY,
+    FOREIGN KEY (cidade) REFERENCES localidade(cidade)
+);
+
+CREATE TABLE usuario (
+id int PRIMARY KEY not null AUTO_INCREMENT,
+username varchar(50) not null,
+dt_nasc date not null,
+telefone int(11),
+    email varchar(100) not null UNIQUE,
+    senha varchar(100) not null,
+   
+    FOREIGN KEY (estado) REFERENCES regiao (estado),
+    FOREIGN key (cidade) REFERENCES localidade (cidade),
+    FOREIGN key (bairro) REFERENCES localidade (bairro),
+        FOREIGN key (rua) REFERENCES localidade (rua),
+        FOREIGN key (CEP) REFERENCES localidade (CEP),
+    FOREIGN KEY (id) REFERENCES usuario(id)
+ ON DELETE CASCADE
+);

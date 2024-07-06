@@ -1,0 +1,206 @@
+-------------------------essa parte ta no index.html-------------------------
+
+
+        <div id="avaliar" class="avaliar">
+            <h2 class="titulo">Avalie-nos!</h2>
+            <ul class="avaliacao">
+
+                <li class="star-icon ativo" data-avaliacao="1"></li>
+                <li class="star-icon" data-avaliacao="2"></li>
+                <li class="star-icon" data-avaliacao="3"></li>
+                <li class="star-icon" data-avaliacao="4"></li>
+                <li class="star-icon" data-avaliacao="5"></li>
+            </ul>
+
+        </div>
+
+        <div class="comentarios">
+
+            <div class="usuario1">
+
+                <span class="efeito"></span>
+
+                <img src="src/imagem/pessoas/Igor Silva Pereira.jpeg" alt="foto de um usuário" class="foto">
+                <span class="efeito2"></span>
+
+
+                <h4 class="nome">Igor Silva Pereira</h4>
+                <h1 class="estrela">&#9733;&#9733;&#9733;&#9733;&#9733;</h1>
+
+                <p class="comentario">Atendimento excepcionalmente incrível, funcionários super focados e responsáveis,
+                    recomendo para quem busca segurança garantida. Parabéns! </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="comentarios">
+
+            <div class="usuario1">
+
+                <span class="efeito"></span>
+
+                <img src="src/imagem/pessoas/Yasmin Safiyyah.jpeg" alt="foto de um usuário" class="foto">
+                <span class="efeito2"></span>
+
+
+                <h4 class="nome">Yasmin Safiyyah</h4>
+                <h1 class="estrela">&#9733;&#9733;&#9733;&#9734;&#9734;</h1>
+
+                <p class="comentario">Gostei dos produtos, definitivamente contém a segurança prometida, mas sinto que
+                    poderia haver mais produtos, continuem com o bom trabalho e ampliem o estoque por favor!</p>
+
+            </div>
+
+        </div>
+
+
+
+------------------------------------essa ta no style-index.css-------------------------
+
+
+
+
+/*avaliação início*/
+
+.sessoes .avaliar .titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Codygoon';
+    margin-top: 20%;
+    font-size: 4pc;
+}
+
+.sessoes .avaliar .avaliacao {
+    display: flex;
+    justify-content: center;
+}
+
+.sessoes .avaliar .avaliacao .star-icon {
+    list-style-type: none;
+    font-size: 3pc;
+    cursor: pointer;
+    color: #FFE500;
+}
+
+.sessoes .avaliar .avaliacao .star-icon::before {
+    content: "\2606";
+    /*cheio*/
+}
+
+.sessoes .avaliar .avaliacao:hover .star-icon::before {
+    content: "\2605";
+}
+
+.sessoes .avaliar .avaliacao .star-icon:hover~.star-icon::before {
+    content: "\2606";
+}
+
+
+
+/*avaliação fim*/
+
+/*parte 1*/
+
+.sessoes .comentarios,
+.sessoes .comentarios2 {
+    display: grid;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 6, 15, 1) 53%, rgba(0, 8, 25, 1) 100%);
+    margin: 5px;
+    margin-top: 50px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+
+.sessoes .comentarios .usuario1 .foto,
+.sessoes .comentarios2 .usuario1 .foto {
+    position: relative;
+    display: flex;
+    z-index: 1000;
+    top: -60px;
+    margin-left: 13px;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.sessoes.comentarios .usuario1 .efeito,
+.sessoes .comentarios2 .usuario1 .efeito {
+    border-radius: 30px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -2;
+
+}
+
+
+
+.sessoes .comentarios .usuario1 .efeito::after,
+.sessoes .comentarios2 .usuario1 .efeito::after {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    padding-top: 3%;
+    padding-left: 3%;
+    background-color: rgb(59, 137, 254);
+    border-radius: 4px;
+}
+
+.sessoes .comentarios .usuario1 .efeito2::after,
+.sessoes .comentarios2 .usuario1 .efeito2::after {
+    content: '';
+    position: relative;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    margin-top: -7%;
+    margin-left: 5%;
+    padding-right: 1%;
+    padding-bottom: 1pc;
+    background-color: #0010bc;
+    border-radius: 4px;
+}
+
+
+
+
+.sessoes .comentarios .usuario1 .nome,
+.sessoes .comentarios2 .usuario1 .nome {
+    display: flex;
+    justify-content: center;
+    margin-top: -2%;
+    margin-bottom: 5%;
+    font-size: 25px;
+    font-family: 'codygoon';
+
+}
+
+.sessoes .comentarios .usuario1 .estrela,
+.sessoes .comentarios2 .usuario1 .estrela {
+    display: flex;
+    color: #FFE500;
+    justify-content: center;
+    align-items: center;
+}
+
+.sessoes .comentarios .usuario1 .comentario,
+.sessoes .comentarios2 .usuario1 .comentario {
+    margin: 2px 1px 2px 1px;
+    margin-top: 3%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 2%;
+    font-family: 'Milestone One';
+    font-size: 20px;
+}
+

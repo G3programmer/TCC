@@ -10,203 +10,133 @@
     <link rel="stylesheet" href="src/css/responsivo-cadastro.css">
     <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
-
     <title>Vanguard | Cadastro</title>
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
 </head>
 
 <body>
     <header class="cabecalho">
-       <a href="index.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png" alt="titulo da Vanguard"> </a>
+       <a href="index.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png" alt="titulo da Vanguard"></a>
     </header>
     <main class="home">
-
-
         <img class="imagem-fundo" src="src/imagem/logos/soldado-cadastro.png" alt="">
-
-        <!--formulário-->
 
         <div class="box">
             <span class="borderLine"></span>
             <form class="formulario" action="src/php/processa_cadastro.php" method="post">
-                <h1 class=" titulo">Cadastre-se</h1>
-
+                <h1 class="titulo">Cadastre-se</h1>
+        
                 <div class="inputBox">
-
                     <input type="text" name="nome" id="nome" required="required">
                     <span>Nome</span>
                     <i></i>
                 </div>
-
+        
                 <div class="inputBox">
                     <input type="date" name="dt_nasc" id="dt_nasc" required="required">
-                    <span>data de nascimento</span>
+                    <span>Data de Nascimento</span>
                     <i></i>
                 </div>
-
-
+        
                 <div class="inputBox">
-                    <input type="text" name="estado" id="estado" required="required">
-                    <option value="">
-                    <span> estado </span>
-                    </option>
-                    <i></i>
+                    <select name="estado" id="estado">
+                        <option value="">Selecione o estado</option>
+                    </select>
+                    <br>
+                    <select name="cidade" id="cidade" disabled="disabled">
+                        <option value="">Selecione a Cidade</option>
+                    </select>
                 </div>
-
-             <!--   <option value="">Selecione um estado</option>
-                <?php
-                include_once('index.php');
-                $result = $conn->query("SELECT nome_estado FROM Estado");
-                while ($row = $result->fetch_assoc()) {
-                    echo "<option value='{$row['nome_estado']}'>{$row['nome_estado']}</option>";
-                }
-                ?>
-            </select><br>
-        -->
                 <br>
-
-
-             <!--   <option value="">Selecione uma cidade</option>
-                <?php
-                include_once('index.php');
-                $result = $conn->query("SELECT nome_estado FROM Estado");
-                while ($row = $result->fetch_assoc()) {
-                    echo "<option value='{$row['nome_estado']}'>{$row['nome_estado']}</option>";
-                }
-                ?>
-            </select><br>
-        -->
-                <br>
-
+        
                 <div class="inputBox">
                     <input type="text" name="cep" id="cep" required="required">
-                    <span> cep </span>
+                    <span>CEP</span>
                     <i></i>
                 </div>
 
                 <div class="inputBox">
                     <input type="text" name="bairro" id="bairro" required="required">
-                    <span> bairro </span>
+                    <span>Bairro</span>
                     <i></i>
                 </div>
-
+                
                 <br>
-
+                
                 <div class="inputBox">
                     <input type="text" name="rua" id="rua" required="required">
-                    <span> rua </span>
+                    <span>Rua</span>
                     <i></i>
                 </div>
-
+                
                 <br>
-
+                
                 <div class="inputBox">
                     <input type="text" name="num_predial" id="num_predial" required="required">
-                    <span> número predial </span>
+                    <span>Número Predial</span>
                     <i></i>
                 </div>
-
+                
                 <br>
-
+                
                 <div class="inputBox">
                     <input type="text" name="cpf" id="cpf" required="required">
-                    <span> cpf </span>
+                    <span>CPF</span>
                     <i></i>
                 </div>
-
+                
                 <br>
-
+                
                 <div class="inputBox">
                     <input type="text" name="email" id="email" required="required">
-                    <span> email </span>
+                    <span>Email</span>
                     <i></i>
                 </div>
-
+                
                 <br>
-
+                
                 <div class="inputBox">
                     <input type="password" name="senha" id="senha" required="required">
                     <span>Senha</span>
                     <i></i>
                 </div>
-
-
+                
                 <div class="links">
                     <a href="login.html">Log in</a>
                 </div>
-
+                
                 <input type="submit" name="submit" id="submit" value="Cadastrar">
-            
             </form>
         </div>
     </main>
-
-
-
-
     <footer class="roda-pe">
         <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
-
-
-
-        <h5 class="subtitulo">
-            Nos acompanhe pelas redes sociais
-        </h5>
-
-
+        <h5 class="subtitulo">Nos acompanhe pelas redes sociais</h5>
         <div class="social_media">
-
-            <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
-                    src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
-
-            <a href="" id="instagram" title="Instagram" target="_blank"><img src="src/imagem/icones/instagram.png"
-                    alt="botão do perfil do instagram da Vanguard"></a>
-
-            <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
-                    alt="botão do chat do discord da Vanguard "></a>
-
-            <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
-                    alt="botão do perfil do linkedin da Vanguard"></a>
-
-            <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
-                    alt="botão do chat do telegram da Vanguard"></a>
-
+            <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+            <a href="" id="instagram" title="Instagram" target="_blank"><img src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
+            <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png" alt="botão do chat do discord da Vanguard "></a>
+            <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png" alt="botão do perfil do linkedin da Vanguard"></a>
+            <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png" alt="botão do chat do telegram da Vanguard"></a>
         </div>
+
         <div class="opcoes">
             <div class="lista">
-                <a href="equipe.html">
-                    <h6>
-                        A equipe
-                    </h6>
-                </a>
+                <a href="equipe.html"><h6>A equipe</h6></a>
                 <hr />
-                <a href="produtos.html">
-                    <h6>
-                        Nossos produtos
-                    </h6>
-                </a>
+                <a href="produtos.html"><h6>Nossos produtos</h6></a>
                 <hr />
-                <a href="serviços.html">
-                    <h6>Nossos serviços</h6>
-                </a>
+                <a href="serviços.html"><h6>Nossos serviços</h6></a>
                 <hr />
-                <a href="cronograma.html">
-                    <h6>
-                        Nosso cronograma
-                    </h6>
-                </a>
+                <a href="cronograma.html"><h6>Nosso cronograma</h6></a>
             </div>
         </div>
-        </div>
-        <p id="copyright">
-            Direitos Autorais Reservados à Vanguard&#8482;
-        </p>
+        
+        <p id="copyright">Direitos Autorais Reservados à Vanguard&#8482;</p>
     </footer>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="src/js/cadastroEstado.js"></script>
     <script src="src/js/cadastro-imagem.js"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=KEY_ID"></script>
-    <script src="src/js/listagem.js"></script>
-
 </body>
 
 </html>

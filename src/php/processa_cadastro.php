@@ -1,6 +1,7 @@
 <?php
 if (isset($_POST['submit'])) {
     include_once('index.php');
+    
 
     $nome = $_POST['nome'];
     $dt_nasc = $_POST['dt_nasc'];
@@ -14,29 +15,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $senha = password_hash($_POST['senha'], PASSWORD_BCRYPT);
 
-    // Buscar o ID do estado a partir do nome do estado
-    $stmt = $conn->prepare("SELECT id FROM Estado WHERE nome_estado = ? LIMIT 1");
-    $stmt->bind_param("s", $nome_estado);
-    $stmt->execute();
-    $stmt->bind_result($estado_id);
-    $stmt->fetch();
-    $stmt->close();
-
-    if (empty($estado_id)) {
-        die("Estado não encontrado");
-    }
-
-    // Buscar o ID da cidade a partir do nome da cidade e do ID do estado
-    $stmt = $conn->prepare("SELECT id FROM Cidades WHERE nome_cidade = ? AND Estado_id = ? LIMIT 1");
-    $stmt->bind_param("si", $nome_cidade, $estado_id);
-    $stmt->execute();
-    $stmt->bind_result($cidade_id);
-    $stmt->fetch();
-    $stmt->close();
-
-    if (empty($cidade_id)) {
-        die("Cidade não encontrada");
-    }
+    
 
     // Verificar se o CPF já está registrado
     $stmt = $conn->prepare("SELECT id FROM Usuario WHERE cpf = ?");
@@ -50,6 +29,22 @@ if (isset($_POST['submit'])) {
         // Inserir usuário
         $stmt = $conn->prepare("INSERT INTO Usuario (Nome, dt_nasc, cep, bairro, rua, num_predial, Cidades_id, Cidades_Estado_id, cpf, email, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssisisss", $nome, $dt_nasc, $cep, $bairro, $rua, $num_predial, $cidade_id, $estado_id, $cpf, $email, $senha);
+
+
+        include ('../index.php');
+        
+        class ClassEstados extends ClassConect
+        {
+        
+            public function getEstados()
+            {
+                $estado = $this->conectaDB()->prepare('select * from estados');
+                $estado->execute();
+                return $fEstados = $estado->fetchAll(\PDO::FETCH_OBJ);
+            }
+        }
+        
+
 
         if ($stmt->execute()) {
             // Autenticação bem-sucedida

@@ -2,70 +2,48 @@
 include ('index.php');
 
 if (!isset($_GET['busca'])) {
-    echo "<p>Nenhum termo de busca foi fornecido.</p>";
+    echo "Nenhum termo de busca foi fornecido.";
 } else {
     $pesquisa = $conn->real_escape_string($_GET['busca']);
-    $sql_code = "SELECT * 
-                 FROM produto 
-                 WHERE nome LIKE '%$pesquisa%' 
-                    OR cor LIKE '%$pesquisa%'
-                    OR preco LIKE '%$pesquisa%'";
-
-    $sql_query = $conn->query($sql_code) or die("Erro na consulta: " . $conn->error);
+    $sql_code = "SELECT * FROM produto WHERE nome LIKE '%$pesquisa%' OR classe LIKE '%$pesquisa%'";
+    $sql_query = $conn->query($sql_code) or die("ERRO ao consultar! " . $conn->error); 
+    
 
     if ($sql_query->num_rows == 0) {
         echo "<p>Nenhum resultado encontrado...</p>";
     } else {
         while ($dados = $sql_query->fetch_assoc()) {
+            $binary = $dados['imagem']; // Supondo que a coluna com o BLOB da imagem seja 'imagem_blob'
             ?>
 
 
-<!--analisar ainda se vale a pena-->
-            <?php
-            // Caminho base para as imagens
-            $caminho_imagens = '../imagens/produtos/';
+        <input name="busca" value="<?php if(isset($_GET['busca'])) echo $_GET['busca']; ?>" type="text">
 
-            $produtos = [
-                [
-                    'nome' => 'AP360',
-                    'descricao' => 'Descrição do Produto 1',
-                    'imagem' => [
-                        $imagem . '../imagem/produtos/ap360.png'
-                    ]
-                ],
-                [
-                    'nome' => 'AP 1350',
-                    'descricao' => 'Descrição do Produto 2',
-                    'imagem' => [
-                        $imagem . ''
-                    ]
-                ],
-                // Adicione mais produtos conforme necessário
-            ];
-            ?>
+        <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/index-produto.css">
+    <link rel="stylesheet" href="src/css/style-produtos.css">
+    <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
+    ">
+    <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
+    <title>Vanguard | Produtos</title>
+</head>
+            <div class="cartao">
+                <div class="informacoes"> 
+                <img src="data:image/jpeg;base64,<?= base64_encode($binary) ?>" alt="Imagem do produto" class="imagem" />
 
+                <h3 class="titulo"><?php echo $dados['nome']; ?></h3>
 
-
-
-
-            <?php foreach ($produtos as $produto): ?>
-                <div class="cartao">
-                    <div class="informacoes">
-                        <h3 class="titulo"><?php echo $produto['nome']; ?></h3>
-                        <p class="texto"><?php echo $produto['descricao']; ?></p>
-                        <div class="imagens-produto">
-                            <?php foreach ($produto['imagens'] as $imagem): ?>
-                                <img src="<?php echo $imagem; ?>" alt="<?php echo $produto['nome']; ?>">
-                            <?php endforeach; ?>
-                        </div>
-                        <a href="#" class="btn-comprar">Comprar</a>
+                    <p class="texto"><?php echo $dados['descricao']; ?></p>
+                     
                     </div>
+                    <a href="#" class="btn-comprar">Comprar</a>
                 </div>
-            <?php endforeach; ?>
-        <?php
+            </div>
+            <?php
         }
     }
 }
-
-
 ?>

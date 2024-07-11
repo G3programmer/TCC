@@ -2,7 +2,7 @@
     'use strict';
 
     doc.querySelector('#estado').addEventListener('change',async(e)=>{
-       let reqs = await fetch('../php/controleCidade.php',{
+       let reqs = await fetch('../php/controllers/CidadeController.php',{
            method:'post',
            headers:{
                'Content-Type':'application/x-www-form-urlencoded'

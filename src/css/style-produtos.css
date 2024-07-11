@@ -155,7 +155,7 @@ html {
     text-align: center;
     padding: 50px;
     align-items: center;
-    margin-top: -165px;
+    margin-top: -15px;
 }
 
 
@@ -244,21 +244,23 @@ html {
 
 .compre-ja .lista {
     display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 
 
 .compre-ja .lista .cartao {
     display: grid;
     position: relative;
-    grid-template-columns:1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 10px;
     justify-content: center;
+    align-items: center;
     color: #fff;
+    cursor: pointer;
     font-family: 'Codygoon', sans-serif;
     background-color: #0f131f;
     width: 300px;
-    height: 400px;
+    height: 300px;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -309,30 +311,30 @@ html {
     width: 150px;
     border-radius: 50%;
     object-fit: cover;
-    margin-top: 4pc;
+    transition: all 0.3s ease-in;
 }
 
+
 .compre-ja .lista .cartao .informacoes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: none;
 }
 
 
 .compre-ja .lista .cartao .informacoes .titulo {
+    display: grid;
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .compre-ja .lista .cartao .informacoes .texto {
+    display: none;
     font-size: 16px;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
 .compre-ja .lista .cartao .imagem:hover {
-    transform: scale(1.1);
+    transform: translateY(-5px);
 }
 
 

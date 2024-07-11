@@ -23,7 +23,8 @@
 
         <div class="box">
             <span class="borderLine"></span>
-            <form class="formulario" action="src/php/processa_cadastro.php" method="post">
+            <form class="formulario" action="src/php/class/ClassEstados.php" method="post">
+                ll
                 <h1 class="titulo">Cadastre-se</h1>
         
                 <div class="inputBox">
@@ -39,11 +40,12 @@
                 </div>
         
                 <div class="inputBox">
-                    <select name="estado" id="estado">
+                    <select name="estado" id="estado" required="required">
                         <option value="">Selecione o estado</option>
                     </select>
-                    <br>
-                    <select name="cidade" id="cidade" disabled="disabled">
+                    <br><br>
+
+                    <select name="cidades" id="cidades" disabled="disabled" required="required">
                         <option value="">Selecione a Cidade</option>
                     </select>
                 </div>

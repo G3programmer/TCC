@@ -1,6 +1,6 @@
 <?php
 
-require "index.php";
+require "conexao.php";
 
 $titulo_relatorio = filter_input(INPUT_POST, 'relatorio');
 $descricao_relatorio = filter_input(INPUT_POST, 'description');

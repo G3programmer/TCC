@@ -247,12 +247,31 @@ html {
 .compre-ja .lista {
     display: flex;
     flex-direction: row;
-    min-width: calc(100% / 4);
+    min-width: calc(100%/2);
 }
 
+
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+
+.carrossel-track {
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
 .compre-ja .cartao {
     display: flex;
-    margin: 20px;
+    margin: 10px;
+    margin-left: 9pc;
     padding: 9px 2px 9px 30px;
     justify-content: center;
     align-items: center;
@@ -263,84 +282,41 @@ html {
     cursor: pointer;
     font-family: 'Codygoon', sans-serif;
     background-color: #0f131f;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in;
 }
 
-.carousel-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 80%;
-    max-width: 1000px;
-    overflow: hidden;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-}
-
-.carousel {
-    overflow: hidden;
-    width: 100%;
-}
-
-.carousel-track {
-    display: flex;
-    transition: transform 0.3s ease-in-out;
-}
-
-.compre-ja .lista .cartao:hover {
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
-}
-
-
-.compre-ja .lista .prev,
-.compre-ja .lista .next {
-    cursor: pointer;
-    position: relative;
-    width: auto;
-    background: none;
-    border: none;
-    padding: 6px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-.compre-ja .lista .prev:focus,
-.compre-ja .lista .next:focus {
-    outline: none;
-}
-
-.compre-ja .cartao .prev {
-    right: 93.7%;
-    border-radius: 3px 0 0 3px;
-}
-
-.compre-ja .cartao .next {
-    border-radius: 0 3px 3px 0;
-}
-
-.compre-ja .prev:hover,
-.compre .next:hover {
-    background-color: rgba(32, 29, 29, 0.8);
-}
-
 
 .compre-ja .lista .cartao .imagem {
-    width: 150px;
+    width: 100px;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    object-fit: cover;
     transition: all 0.3s ease-in;
 }
+
+.prev, .next {
+    position: absolute;
+    top:195%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev {
+    left: 5pc;
+}
+
+.next {
+    right: 5pc;
+}
+
 
 
 .compre-ja .lista .cartao .informacoes {

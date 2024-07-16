@@ -1,31 +1,34 @@
+const track = document.querySelector('.carrossel-track');
+const slides = Array.from(track.children);
+const nextButton = document.querySelector('.next');
+const prevButton = document.querySelector('.prev');
 let currentIndex = 0;
-const itemsToShow = 3; // Altere o número de itens que deseja mostrar
-const track = document.querySelector('.carousel-track');
-const items = document.querySelectorAll('.carousel-item');
-const totalItems = items.length;
 
-function updateCarousel() {
-    const itemWidth = items[0].clientWidth;
-    track.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+function updateSlide() {
+    const slideWidth = track.getBoundingClientRect().width / 2;
+    track.style.transform = 'translateX(-' + currentIndex * slideWidth + 'px)';
 }
 
 function nextSlide() {
-    if (currentIndex < totalItems - itemsToShow) {
+    if (currentIndex < Math.ceil(slides.length / 3) - 1) {
         currentIndex++;
     } else {
         currentIndex = 0;
     }
-    updateCarousel();
+    updateSlide();
 }
 
 function prevSlide() {
     if (currentIndex > 0) {
         currentIndex--;
     } else {
-        currentIndex = totalItems - itemsToShow;
+        currentIndex = Math.ceil(slides.length / 3) - 1;
     }
-    updateCarousel();
+    updateSlide();
 }
 
-// Inicialize o carrossel na posição inicial
-updateCarousel();
+window.addEventListener('resize', () => {
+    updateSlide();
+});
+
+updateSlide();

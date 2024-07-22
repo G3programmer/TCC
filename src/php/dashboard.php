@@ -2,23 +2,19 @@
 
 require "conexao.php";
 
-$titulo_relatorio = filter_input(INPUT_POST, 'relatorio');
-$descricao_relatorio = filter_input(INPUT_POST, 'description');
+$titulo = $_POST ['titulo'];
+$comentario = $_POST ['comentario'];
 
-if(isset($titulo_relatorio) && !empty($titulo_relatorio) && isset($descricao_relatorio) && !empty($descricao_relatorio)) {
-       
-    $sql = $pdo->prepare("INSERT INTO relatorio (titulo_relatorio, descricao_relatorio) VALUES (:relatorio, :description)");
-    $sql->bindValue(':relatorio', $titulo_relatorio);
-    $sql->bindValue(':description', $descricao_relatorio);
-    $sql->execute();
+        $sql = "INSERT INTO relatorio (titulo, comentario) VALUES ('titulo', 'comentario')"; 
 
-   echo "
-    <script>
-        alert('Enviado com sucesso!');
-        window.location.href ='../../dashboard.html';   
-    </script>
-";
-    } else {
+        if (mysqli_query($conn, $sql)) {
+            echo "
+            <script>
+                alert('Enviado com sucesso!');
+                window.location.href ='../../dashboard.html';
+            </script>
+            ";
+        } else {
     echo "
     <script>
         alert('Por favor, preencha todos os campos!');
@@ -27,5 +23,5 @@ if(isset($titulo_relatorio) && !empty($titulo_relatorio) && isset($descricao_rel
     ";
     exit;
 }
-
+mysqli_close($conn);
 ?>

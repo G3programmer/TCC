@@ -1,13 +1,32 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('get_estados.php')
-        .then(response => response.json())
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('../php/cadastro.php')
+        .then(response => response.text())
         .then(data => {
-            const estadoSelect = document.getElementById('estado');
-            data.forEach(estado => {
-                const option = document.createElement('option');
-                option.value = estado.estado_id;
-                option.textContent = estado.nome;
-                estadoSelect.appendChild(option);
-            });
-        });
+            document.getElementById('estado').innerHTML += data;
+        })
+        .catch(error => console.error('Error fetching estados:', error));
 });
+
+(function(win,doc){
+    'use strict';
+
+    doc.querySelector('#estado').addEventListener('change',async(e)=>{
+       let reqs = await fetch('../php/controllers/CidadeController.php',{
+           method:'post',
+           headers:{
+               'Content-Type':'application/x-www-form-urlencoded'
+           },
+           body:`estado=${e.target.value}`
+       });
+       let ress = await reqs.json();
+       let selCidade = doc.querySelector('#cidade');
+       selCidade.options.length = 1;
+       ress.map((elem,ind,obj)=>{
+           let opt = doc.createElement('option');
+           opt.value = elem.id;
+           opt.innerHTML = elem.nome;
+           selCidade.appendChild(opt);
+       });
+       selCidade.removeAttribute('disabled');
+    });
+})(window,document);

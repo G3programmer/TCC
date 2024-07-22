@@ -52,11 +52,12 @@
 }
 
 
-.home .relatorio {
+.home .painel {
     display: flex;
     margin: 1pc;
     margin-left: 1pc;
     width: 40pc;
+    height: 30px;
     font-family: 'Codygoon';
     border: solid 2px #fff;
     border-radius: 5px;
@@ -70,15 +71,31 @@
     max-width: 750px;
 }
 
-.home .relatorio .titulo{
+.home .painel .titulo{
     align-self: center;
     text-align: center;
     
 }
 
-.home .relatorio .li {
-
-
+.home .painel .li {
+ display: flex;
 }
 
-/* Grafico pizza*/
+/*solicitação*/
+.home .perfil {
+    display: flex;
+    margin: 1pc;
+    margin-left: 60%;
+    width: 40pc;
+    height: 30px;
+    font-family: 'Codygoon';
+    border: solid 2px #fff;
+    border-radius: 5px;
+    background:rgba(108, 116, 255, 0.604);
+    position: relative;
+    z-index: 1;
+    min-height: calc(80vh - 45px);
+    gap: 10pc;
+    padding: 30px;
+    max-width: 750px;
+}

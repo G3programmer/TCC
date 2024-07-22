@@ -5,9 +5,19 @@ $db = "vanguard";
 $user = "root";
 $pass = "";
 
-$conn = new mysqli('localhost', 'root', '', 'vanguard');
+$conn =  mysqli_connect('localhost', 'root', '', 'vanguard');
 
 $mysqli = new mysqli($hostname, $user, $pass, $db);
 if($mysqli->connect_errno) {
     die("Falha na conexão com o banco de dados");
 }
+
+//para o dashboard.php
+try {
+    $pdo = new PDO("mysql:hostname=localhost;db=vanguard", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Erro de conexão: " . $e->getMessage();
+    exit;
+}
+?>

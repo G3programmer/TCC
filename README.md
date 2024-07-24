@@ -33,6 +33,6 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 ## Demonstração da página inicial
 <p align="center">
-<img href="https://www.loom.com/share/d59cd90101724b2dbe8c6bc13bc64ef2?sid=c2cc6a27-dd3f-464f-91ce-262b7bfeeec7">
+<video href="https://www.loom.com/share/d59cd90101724b2dbe8c6bc13bc64ef2?sid=c2cc6a27-dd3f-464f-91ce-262b7bfeeec7">
 </p>
 

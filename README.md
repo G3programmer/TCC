@@ -1,6 +1,6 @@
 # Projeto TCC
-<p align="center" width="300px" height="300px">
- <img src="src/imagem/logos/VanguardLogo-Escuro.png">
+<p align="center">
+ <img src="src/imagem/logos/VanguardLogo-Escuro.png" width="300px" height="300px">
 </p>
 
 Esse projeto tem como objetivo apresentar o último trabalho do curso técnico em informatica para internet.
@@ -32,7 +32,7 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 
 ## Demonstração da página inicial
-<p align="center" width="400px" height="auto">
-<img src="Demo.gif">
+<p align="center">
+<img src="Demo.gif" width="400px" height="auto">
 </p>
 

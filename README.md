@@ -1,5 +1,5 @@
 # Projeto TCC
-<p align="center", width=" 300px", height="300px">
+<p align="center";width=" 300px"; height="300px">
  <img src="src/imagem/logos/VanguardLogo-Escuro.png">
 </p>
 
@@ -33,6 +33,6 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 ## Demonstração da página inicial
 <p align="center">
-<video src="Demo.gif">
+<img src="Demo.gif">
 </p>
 

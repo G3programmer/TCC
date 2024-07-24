@@ -33,6 +33,6 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 ## Demonstração da página inicial
 <p align="center">
-<video src="Demo.mp4">
+<video src="Demo.mp4"></video>
 </p>
 

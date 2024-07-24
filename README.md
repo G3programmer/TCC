@@ -33,6 +33,6 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 ## Demonstração da página inicial
 <p align="center">
-<img src="Demo.gif" width="400px" height="auto">
+<img src="Demo.gif" width="700px" height="auto">
 </p>
 

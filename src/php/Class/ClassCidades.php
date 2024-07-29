@@ -1,15 +1,16 @@
 <?php
-include('ClassConect.php');
+class ClassCidade {
+    public function getCidades($estadoId) {
+        include('ClassConect.php');
+        $db = new ClassConect();
+        $conn = $db->conectaDB();
 
-class ClassCidades extends ClassConect
-{
-
-    public function getCidades($estado_id)
-    {
-        $cidade = $this->conectaDB()->prepare('select * from cidades where estado_id = ?');
-        $cidade->bindValue(1,$estado_id);
-        $cidade->execute();
-        return $fCidades = $cidade->fetchAll(\PDO::FETCH_OBJ);
+        $query = "SELECT cidade_id, nome_cidade FROM cidades WHERE estado_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$estadoId]);
+        
+        $cidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $cidades;
     }
-
 }
+?>

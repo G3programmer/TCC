@@ -7,6 +7,7 @@ $conn = new mysqli('localhost', 'root', '', 'vanguard');
 
 // Verifica se o método de requisição é POST (indicando que o formulário de login foi enviado)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   
     // Obtém os dados enviados pelo formulário e armazena em variáveis
     $email = $_POST['email'];
     $senha = $_POST['senha'];
@@ -17,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica se houve algum erro na preparação da consulta
     if ($stmt === false) {
         // Erro na consulta preparada
-        $_SESSION['login_error'] = 'Erro ao preparar a consulta: ' . $conn->error;
-        echo '<script>alert("Erro ao preparar a consulta."); window.location.href = "../../login.php";</script>';
+        $_SESSION['login_error'] = 'Erro ao consultar: ' . $conn->error;
+        echo '<script>alert("Erro ao consultar."); window.location.href = "../../login.php";</script>';
         exit(); // Encerra a execução do script
     }
 
@@ -40,14 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica se a senha fornecida corresponde à senha armazenada
         if ($senha === $row['senha']) {
             // Autenticação bem-sucedida
+           
             // Armazena o ID do usuário na sessão
             $_SESSION['id'] = $row['id'];
+
             // Redireciona o usuário para a página 'indexLogado.html'
             header("Location: ../../indexLogado.html");
             exit(); // Encerra a execução do script
         } else {
             // Senha incorreta
-            echo '<script>alert("Email ou senha de usuário não encontrado."); window.location.href = "../../login.php";</script>';
+            echo '<script>alert("Email ou senha de usuário não encontrado."); window.location.href = "../../login.html";</script>';
             exit(); // Encerra a execução do script
         }
     } else {
@@ -58,8 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Fecha a consulta preparada
     $stmt->close();
+    $conn->close();
 }
-
 // Fecha a conexão com o banco de dados
-$conn->close();
 ?>

@@ -1,8 +1,8 @@
 <?php
 include('Class/ClassEstado.php');
-$objEstados = new ClassEstados();
+$objEstados = new ClassEstado();
 ?>
-        <option value="">Selecione o Estado</option>
+      
       <?php foreach ($objEstados->getEstados() as $estado) { ?>
             <option value="<?php echo $estado->estado_id;  ?>"><?php echo $estado->nome_estado; ?></option>
       <?php } 

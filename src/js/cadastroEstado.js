@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     'use strict';
 
     doc.querySelector('#estado').addEventListener('change',async(e)=>{
-       let reqs = await fetch('../php/controllers/CidadeController.php',{
+       let reqs = await fetch('../php/controllers/cidadeController.php',{
            method:'post',
            headers:{
                'Content-Type':'application/x-www-form-urlencoded'

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="src/css/style-cronograma.css">
+    <link rel="stylesheet" href="src/css/responsivo-cronograma.css">
+    <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
+    <title>Vanguard | Cronograma de atendimentos</title>
+    <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="logo">
+            <img src="src/imagem/logos/VanguardLogo - titulo.png" alt="Logo da Vanguard" />
+        </div>
+
+        <button id="OpenMenu">&#9776;</button>
+
+        <nav id="menu">
+            <button id="CloseMenu">X</button>
+            <ul class="menu">
+                <li>
+                    <a href="dashboard.html">Dashboard</a>
+
+                </li>
+                <li>
+                    <a href="avaliar.html">Avaliações</a>
+                </li>
+                <li>
+                    <a class="btn-servicos" href="servicos.html" target="_blank">Serviços</a>
+                </li>
+                <li>
+                    <a href="produtos.html" target="_blank">Produtos</a>
+                </li>
+                <li>
+                    <a href="perfil.html">perfil</a>
+                </li>
+                <li>
+                    <a class="btn-login" href="login.html">logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="home">
+
+        <!--Começa aqui para ver o outro arquivo-->
+        <div id="container">
+            <div id="mes">
+                <div id="mesEAnoDisplay"></div>
+
+                <div class="btns">
+                    <button id="btn-prev">Voltar</button>
+                    <button id="btn-next">Próximo</button>
+                </div>
+
+            </div>
+
+            <div id="dias">
+                <div>Domingo</div>
+                <div>Segunda-feira</div>
+                <div>Terça-feira</div>
+                <div>Quarta-feira</div>
+                <div>Quinta-feira</div>
+                <div>Sexta-feira</div>
+                <div>Sábado</div>
+            </div>
+
+
+            <!--Div dinâmico-->
+            <div id="calendario"></div>
+
+        </div>
+
+        <div id="novoPedido">
+
+            <h2 class="titulo"> Solicitação </h2>
+            <input id="pedidoTitulo" placeholder="preencha o atendimento" />
+
+            <button id="salvar">Salvar</button>
+            <button id="cancelar">Cancelar</button>
+        </div>
+
+        <div id="deletePedido">
+            <h2 class="titulo">solicitação</h2>
+            <div id="pedidoTexto"></div><br>
+
+
+            <button id="deletar">Deletar</button>
+            <button id="close">Fechar</button>
+        </div>
+
+        <div id="modalBackDrop"></div>
+
+    </main>
+
+    <footer class="rodape">
+
+    </footer>
+    <script src="src/js/agenda.js"></script>
+</body>
+
+</html>

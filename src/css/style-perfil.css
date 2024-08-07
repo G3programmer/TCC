@@ -1,0 +1,144 @@
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.cabecalho .menu li a {
+    padding: 30px;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: 1;
+}
+
+
+
+.home::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.600), rgba(0, 0, 0, 0.600) 100%, transparent 100%);
+}
+
+.home .imagem-fundo {
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.home:hover::before {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.home .painel {
+    position: absolute;
+    justify-content: center;
+    margin: 20px 30pc 20px 0px;
+    z-index: 1;
+    width: 300px;
+    min-height: calc(100vh - 80px);
+    flex-direction: column;
+}
+
+.home .painel .perfil {
+    position: absolute;
+    border: solid black 4px;
+    z-index: 1;
+    width: 50pc;
+    background-color: rgba(1, 68, 161, 0.659);
+    min-height: calc(95vh - 80px);
+    padding-bottom: 10px;
+    display: grid;
+    color:#fff;
+    font-family: 'Codygoon';
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home .painel .perfil .area-foto {
+    display: flex;
+    position: relative;
+    margin-top: 10px;
+    width: 13pc;
+    height: 13pc;
+    overflow: hidden;
+    border-radius: 100%;
+    border: solid black 1pc;
+    justify-self: center;
+
+}
+
+.home .painel .perfil .area-foto .foto {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.home .painel .perfil .info {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.home .painel .perfil .info .bem-vindo {
+    margin-top: -6pc;
+    font-size: 3pc;
+}
+
+.home .painel .perfil .info .nome {
+    margin-top: -6pc;
+    font-size: 2pc;
+}
+
+.home .painel .perfil .info .descricao {
+    margin-top: -5pc;
+    background-color: rgba(5, 195, 195, 0.371);
+    border-radius: 5px;
+    padding: 5px;
+    border: solid black 3px;
+}

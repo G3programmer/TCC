@@ -1,10 +1,10 @@
 <?php
+include('logout.php');
 // Inicia uma sessão
 session_start();
 
 // Conecta o banco de dados no localhost como root
-$conn = new mysqli('localhost', 'root', '', 'vanguard');
-
+include('conexao.php');
 // Verifica se o método de requisição é POST (indicando que o formulário de login foi enviado)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['id'] = $row['id'];
 
             // Redireciona o usuário para a página 'indexLogado.html'
-            header("Location: ../../indexLogado.html");
+            header("Location: ../../indexLogadoCliente.html");
             exit(); // Encerra a execução do script
         } else {
             // Senha incorreta
@@ -60,8 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Fecha a consulta preparada
-    $stmt->close();
-    $conn->close();
+ 
 }
 // Fecha a conexão com o banco de dados
 ?>

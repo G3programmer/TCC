@@ -27,13 +27,7 @@ SET time_zone = "+00:00";
 -- Estrutura para tabela `estado`
 --
 
-CREATE TABLE `estado` (
-  `estado_id` int(11) NOT NULL,
-  `nome_estado` varchar(100) NOT NULL,
-  `uf` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
 -- Despejando dados para a tabela `estado`
 --
 

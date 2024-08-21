@@ -21,22 +21,7 @@ SET time_zone = "+00:00";
 -- Banco de dados: `vanguard`
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `produto`
---
-
-CREATE TABLE `produto` (
-  `produto_id` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `preco` decimal(6,2) NOT NULL,
-  `classe` varchar(20) NOT NULL,
-  `descricao` text NOT NULL,
-  `imagem` longblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
+-- ----------------------------------------------------------
 -- Despejando dados para a tabela `produto`
 --
 

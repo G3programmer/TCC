@@ -27,13 +27,6 @@ SET time_zone = "+00:00";
 -- Estrutura para tabela `cidades`
 --
 
-CREATE TABLE `cidades` (
-  `cidade_id` int(11) NOT NULL,
-  `nome_cidade` varchar(100) NOT NULL,
-  `estado_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
 -- Despejando dados para a tabela `cidades`
 --
 

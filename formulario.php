@@ -1,24 +1,41 @@
 <?php
 // Inclua a conexão com o banco de dados
-include('src/php/conexao.php');
+include_once('src/php/conexao.php');
+
+
 
 // Verifique se o formulário foi enviado
 if (isset($_POST['submit'])) {
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-    $telefone = $_POST['telefone'];
-    $sexo = $_POST['genero'];
-    $data_nasc = $_POST['data_nascimento'];
-    $cidade = $_POST['cidade'];
-    $estado = $_POST['estado'];
-    $endereco = $_POST['endereco'];
+/*
+    print_r('Nome: ' . $_POST['nome']);
+    print_r('<br>');
+    print_r('Email: ' . $_POST['email']);
+    print_r('<br>');
+    print_r('Data de nascimento: ' . $_POST['dt_nasc']);
+    print_r('<br>');
+    print_r('Data de nascimento: ' . $_POST['senha']);
+    print_r('<br>');
+    print_r('Data de nascimento: ' . $_POST['cpf']);
+    print_r('<br>');
+    print_r('Cidade: ' . $_POST['cidade']);
+    print_r('<br>');
+    print_r('Estado: ' . $_POST['estado']);
+    print_r('<br>');
+*/
 
-    // Insira os dados no banco de dados
-    $result = mysqli_query($conn, "INSERT INTO usuario(nome, senha, email, telefone, sexo, data_nasc, cidade, estado, endereco) 
-    VALUES ('$nome','$senha','$email','$telefone','$sexo','$data_nasc','$cidade','$estado','$endereco')");
+        $nome = $_POST['nome'];
+        $dt_nasc = $_POST['dt_nasc'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        $cpf = $_POST['cpf'];
+        $estado = $_POST['estado'];
+        $cidade = $_POST['cidade'];
 
-    header('Location: indexLogadoCliente.html');
+        // Insira os dados no banco de dados
+        $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidade_id) 
+        VALUES ('$nome','$dt_nasc','$email','$senha','$cpf','$estado','$cidade')");
+
+        header('Location: indexLogadoCliente.html');
 }
 
 // Carrega a lista de estados
@@ -56,7 +73,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
         <div class="box">
             <span class="borderLine"></span>
 
-            <form class="formulario" action="src/php/cadastro.php" method="post">
+            <form class="formulario" method="post">
                 <h1 class="titulo">Cadastre-se</h1>
 
                 <div class="form-step form-step-active">
@@ -120,7 +137,6 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                 </option>
                             <?php } ?>
                         </select>
-                        <label for="estado" class="labelInput">Estado</label>
                     </div>
 
                     <br>
@@ -134,15 +150,14 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                 </option>
                             <?php } ?>
                         </select>
-                        <label for="cidade" class="labelInput">Cidade</label>
                     </div>
                     </select>
 
-                
-                <br>
+
+                    <br>
 
 
-                <input class="cadastrar" type="submit" name="submit" id="submit" value="Cadastrar">
+                    <input class="cadastrar" type="submit" name="submit" id="submit" value="Cadastrar">
 
                 </div>
                 <div class="btns">

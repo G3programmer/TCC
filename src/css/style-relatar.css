@@ -1,0 +1,115 @@
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.cabecalho .menu li a {
+    padding: 30px;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+.home {
+    display: flex;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+
+
+.home .container .formulario {
+    display: grid;
+    margin: 10% 550px 520px 30%;
+    position: absolute;
+    height: 25pc;
+    background-color: rgba(80, 80, 80, 0.214);
+    font-family: 'Eingrantch Mono';
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 20px;
+}
+
+.home .container .formulario .input-search .titulo {
+    font-size: 20px;
+}
+
+.home .container .formulario :where(.input-search) {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    gap: 7px;
+    margin: 0 150px;
+    color: #fff;
+    font-family: 'Eingrantch Mono';
+}
+
+.home .container .formulario :where(.caixa-de-texto) {
+    padding: 1pc;
+    background-color: rgba(102, 102, 102, 0.248);
+    border: none;
+    border-radius: 5px;
+    height: 3pc;
+}
+
+.home .container .formulario #inputTitle {
+    color: #fff;
+    font-family: 'Codygoon';
+}
+
+.home .container .formulario #inputDescription {
+    height: 7pc;
+    color: #fff;
+    font-family: 'Codygoon';
+}
+
+.home .container .formulario .btn-enviar {
+    background: none;
+    position:relative;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    height: 2pc;
+    width: 6pc;
+    font-family: 'Eingrantch Mono';
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.home .container .formulario .btn-enviar:hover {
+    color: black;
+    font-weight: bold;
+    background: #fff;
+    transition:  0.5s;   
+}
+

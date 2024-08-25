@@ -1,0 +1,225 @@
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.cabecalho .menu li a {
+    padding: 30px;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+.home {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+    width: 75px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px gray;
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+  }
+
+  #mes{
+    padding: 10px;
+    color: #d36c6c;
+    font-size: 26px;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  #mes button {
+    background-color:#92a1d1;
+  }
+
+  #container {
+    width: 770px;
+    justify-content: center;
+  }
+
+  #dias {
+    width: 100%;
+    display: flex;
+    color: #247BA0;
+    font-family: 'Codygoon';
+  
+  }
+
+  #dias div {
+    width: 100%;
+    padding: 10px;
+  }
+
+  #calendario {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .dia {
+    width: 100px;
+    padding: 10px;
+    height: 100px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: rgba(128, 128, 128, 0.501);
+    margin: 5px;
+    box-shadow: 0px 0px 3px var(#CBD4C2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15%;
+  }
+
+  .dia:hover {
+    background-color: #f6a4a4;
+  }
+
+  .dia + #currentDay {
+    background-color:#40bbf8;
+  }
+  
+  .event {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #e8f4fa;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+  
+  .padding {
+    cursor: default !important;
+    background-color: #FFFCFF !important;
+    box-shadow: none !important;
+  }
+  
+  #novoPedido, #deletePedido {
+    display: none;
+    z-index: 20;
+    padding: 25px;
+    background-color: #68a5c3;
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 350px;
+    top: 100px;
+    left: calc(50% - 175px);
+    position: absolute;
+    font-family: sans-serif;
+  }
+  
+  #pedidoTitulo {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+  
+  #pedidoTitulo.error {
+    border: 2px solid red;
+  }
+  
+  #cancelar, #deletar {
+    background-color: #d36c6c;
+  }
+  
+  #saveButton, #closeButton {
+    background-color: #d36c6c;
+  }
+  
+  #pedidoTexto {
+    font-size: 14px;
+  }
+  
+  #modalBackDrop {
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 52px;
+    height: 27px;
+    background: grey;
+    float: right;
+    border-radius: 100px;
+    position: relative;
+    left: -50px;
+  }
+  
+  label::after{
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+  
+  input:checked + label {
+    background-color: rgb(142, 142, 240);
+  }
+  
+  input:checked + label::after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+  
+  label:active:after {
+    width: 45px;
+  }

@@ -6,36 +6,37 @@ include_once('src/php/conexao.php');
 
 // Verifique se o formulário foi enviado
 if (isset($_POST['submit'])) {
-/*
-    print_r('Nome: ' . $_POST['nome']);
-    print_r('<br>');
-    print_r('Email: ' . $_POST['email']);
-    print_r('<br>');
-    print_r('Data de nascimento: ' . $_POST['dt_nasc']);
-    print_r('<br>');
-    print_r('Data de nascimento: ' . $_POST['senha']);
-    print_r('<br>');
-    print_r('Data de nascimento: ' . $_POST['cpf']);
-    print_r('<br>');
-    print_r('Cidade: ' . $_POST['cidade']);
-    print_r('<br>');
-    print_r('Estado: ' . $_POST['estado']);
-    print_r('<br>');
-*/
+    /*
+        print_r('Nome: ' . $_POST['nome']);
+        print_r('<br>');
+        print_r('Email: ' . $_POST['email']);
+        print_r('<br>');
+        print_r('Data de nascimento: ' . $_POST['dt_nasc']);
+        print_r('<br>');
+        print_r('Data de nascimento: ' . $_POST['senha']);
+        print_r('<br>');
+        print_r('Data de nascimento: ' . $_POST['cpf']);
+        print_r('<br>');
+        print_r('Cidade: ' . $_POST['cidade']);
+        print_r('<br>');
+        print_r('Estado: ' . $_POST['estado']);
+        print_r('<br>');
+    */
 
-        $nome = $_POST['nome'];
-        $dt_nasc = $_POST['dt_nasc'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-        $cpf = $_POST['cpf'];
-        $estado = $_POST['estado'];
-        $cidade = $_POST['cidade'];
+    $nome = $_POST['nome'];
+    $dt_nasc = $_POST['dt_nasc'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    $cpf = $_POST['cpf'];
+    $estado = $_POST['estado'];
+    $cidade = $_POST['cidade'];
 
-        // Insira os dados no banco de dados
-        $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidade_id) 
+    // Insira os dados no banco de dados
+    $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidade_id) 
         VALUES ('$nome','$dt_nasc','$email','$senha','$cpf','$estado','$cidade')");
 
-        header('Location: indexLogadoCliente.html');
+    header('Location: perfil.php');
+    exit;
 }
 
 // Carrega a lista de estados
@@ -45,7 +46,10 @@ $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
 // Carrega a lista de cidades
 $sql_code_cities = "SELECT * FROM cidades ORDER BY nome_cidade ASC";
 $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -130,7 +134,9 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
                     <div class="inputBox">
                         <select name="estado" id="estado" required>
+
                             <option value="">Selecione um estado</option>
+
                             <?php while ($estado = $sql_query_states->fetch_assoc()) { ?>
                                 <option value="<?php echo $estado['estado_id']; ?>">
                                     <?php echo $estado['nome_estado']; ?>
@@ -143,6 +149,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
                     <div class="inputBox">
                         <select name="cidade" id="cidade" required>
+
                             <option value="">Selecione uma cidade</option>
                             <?php while ($cidade = $sql_query_cities->fetch_assoc()) { ?>
                                 <option value="<?php echo $cidade['cidade_id']; ?>">
@@ -156,6 +163,11 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
                     <br>
 
+                    <div class="inputBox">
+                        <input type="file" name="foto">
+                        <span>Foto de perfil</span>
+                        <i></i>
+                    </div>
 
                     <input class="cadastrar" type="submit" name="submit" id="submit" value="Cadastrar">
 
@@ -163,7 +175,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                 <div class="btns">
                     <button type="button" class="prev-btn">Anterior</button>
 
-                    <button class="login-btn2">
+                    <button class="login-btn">
                         <a href="login.html">Login</a>
                     </button>
                 </div>
@@ -217,7 +229,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
         <p id="copyright">Direitos Autorais Reservados à Vanguard&#8482;</p>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="src/js/selectFormulario.js"></script>
     <script src="src/js/formulario.js"></script>
     <script src="src/js/cadastro-imagem.js"></script>
 </body>

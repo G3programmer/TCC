@@ -1,24 +1,13 @@
 <?php
-include('conexao.php'); // Inclua a conexão com o banco de dados
+include_once('conexao.php');
 
-// Obtenha o ID do estado do parâmetro POST
-$estado_id = $_POST['estado'];
+if (isset($_POST['estado_id'])) {
+    $estado_id = mysqli_real_escape_string($conn, $_POST['estado_id']);
+    $sql_code_cities = "SELECT * FROM cidades WHERE estado_id = $estado_id ORDER BY nome_cidade ASC";
+    $sql_query_cities = $conn->query($sql_code_cities);
 
-// Consulte as cidades com base no ID do estado
-$sql = "SELECT * FROM cidades WHERE estado_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $estado_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Gere as opções para o dropdown de cidades
-$options = '<option value="">Selecione uma cidade</option>';
-while ($row = $result->fetch_assoc()) {
-    $options .= '<option value="' . $row['cidades_id'] . '">' . $row['nome_cidade'] . '</option>';
+    while ($cidade = $sql_query_cities->fetch_assoc()) {
+        echo '<option value="'.$cidade['cidade_id'].'">'.$cidade['nome_cidade'].'</option>';
+    }
 }
-
-$stmt->close();
-$conn->close();
-
-echo $options;
 ?>

@@ -1,18 +1,20 @@
-function fetchCities(estadoId) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../php/fetch_cities.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            document.getElementById('cidade').innerHTML = xhr.responseText;
-        }
-    };
-    xhr.send("estado_id=" + estadoId);
-}
+document.getElementById('estado').addEventListener('change', function() {
+    const estadoId = this.value;
+    const cidadeSelect = document.getElementById('cidade');
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('estado').addEventListener('change', function() {
-        var estadoId = this.value;
-        fetchCities(estadoId);
-    });
+    if (estadoId) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'src/php/fetch_cities.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+            if (this.status === 200) {
+                cidadeSelect.innerHTML = this.responseText;
+            }
+        };
+
+        xhr.send('estado_id=' + estadoId);
+    } else {
+        cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+    }
 });

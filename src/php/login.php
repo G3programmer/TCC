@@ -29,7 +29,7 @@
         {
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
-            header('Location: ../../contas.php');
+            header('Location: ../../perfil.php');
         }
     }
     else

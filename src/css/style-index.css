@@ -1,0 +1,507 @@
+body {
+    background-color: rgb(12, 12, 12);
+    color: #fff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.cabecalho .menu li a {
+    padding: 30px;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+.home {
+    display: flex;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: 1;
+}
+
+
+
+.home::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 45%, transparent 70%);
+}
+
+.home .imagem-fundo {
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.home:hover::before {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+.home .informacoes {
+    position: absolute;
+    z-index: 1;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 80px 80px 80px 100px;
+    max-width: 780px;
+}
+
+.home .informacoes img {
+    max-width: 250px;
+}
+
+.home .informacoes .titulo {
+    font-family: 'Codygoon';
+
+}
+
+.home .informacoes .texto {
+    font-family: 'Milestone One';
+    font-size: xx-large;
+}
+
+.sessoes {
+    margin: 2%;
+}
+
+.btn-quem-somos {
+
+    transition: transform 0.5s ease-in-out;
+
+}
+
+.sessoes .quem-somos .titulo-quem-somos {
+    text-align: center;
+    margin-left: 60%;
+    border-radius: 6px;
+    font-family: 'Codygoon', sans-serif;
+    margin-top: 5%;
+}
+
+.sessoes .quem-somos .texto {
+    border-radius: 6px;
+    text-align: right;
+    font-size: larger;
+    margin-top: 2%;
+    margin-left: 60%;
+    padding: 10px 10px 10px 10px;
+    font-family: 'Milestone One';
+}
+
+.sessoes .quem-somos .equipe-vanguard {
+    float: left;
+    transition: transform 0.5s ease-out;
+    margin-bottom: 9%;
+    margin-left: 4%;
+    position: relative;
+
+}
+
+.sessoes .quem-somos .equipe-vanguard:hover {
+
+    transform: translateY(-5px);
+    transition: 0.5s ease, transform 0.5s ease;
+    box-shadow: 5px 5px 10px rgb(11, 81, 220);
+    transform: scale(1.1);
+}
+
+.sessoes .group .texto {
+    display: flex;
+    margin-right: 5%;
+    font-size: 25px;
+    gap: 32px;
+}
+
+.sessoes .parcerias .titulo-parcerias {
+    text-align: center;
+    padding-top: 15%;
+    margin-right: 60%;
+    border-radius: 6px;
+    font-family: 'Codygoon', sans-serif;
+}
+
+
+.sessoes .parcerias .texto {
+    text-align: left;
+    font-size: 25px;
+    margin-top: 2%;
+    margin-right: 50%;
+    margin-left: 5%;
+    font-family: 'Milestone One';
+}
+
+.sessoes .parcerias .parcerias-img {
+    float: right;
+    margin-top: 15%;
+    margin-bottom: 2%;
+    margin-right: 5%;
+    transition: transform 0.5s ease-out;
+    position: relative;
+}
+
+
+.sessoes .parcerias .parcerias-img:hover {
+    transform: translateY(-5px);
+    transition: 0.5s ease, transform 0.5s ease;
+    box-shadow: 5px 5px 10px rgb(0, 167, 42);
+    transform: scale(1.1);
+}
+
+/*avaliação início*/
+
+.sessoes .avaliar .titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Codygoon';
+    margin-top: 20%;
+    font-size: 4pc;
+}
+
+.sessoes .avaliar .avaliacao {
+    display: flex;
+    justify-content: center;
+}
+
+.sessoes .avaliar .avaliacao .star-icon {
+    list-style-type: none;
+    font-size: 3pc;
+    cursor: pointer;
+    color: #FFE500;
+}
+
+.sessoes .avaliar .avaliacao .star-icon::before {
+    content: "\2606";
+    /*cheio*/
+}
+
+.sessoes .avaliar .avaliacao:hover .star-icon::before {
+    content: "\2605";
+}
+
+.sessoes .avaliar .avaliacao .star-icon:hover~.star-icon::before {
+    content: "\2606";
+}
+
+
+
+/*avaliação fim*/
+
+/*parte 1*/
+
+.sessoes .comentarios,
+.sessoes .comentarios2 {
+    display: grid;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 6, 15, 1) 53%, rgba(0, 8, 25, 1) 100%);
+    margin: 5px;
+    margin-top: 50px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+
+.sessoes .comentarios .usuario1 .foto,
+.sessoes .comentarios2 .usuario1 .foto {
+    position: relative;
+    display: flex;
+    z-index: 1000;
+    top: -60px;
+    margin-left: 13px;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.sessoes.comentarios .usuario1 .efeito,
+.sessoes .comentarios2 .usuario1 .efeito {
+    border-radius: 30px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -2;
+
+}
+
+
+
+.sessoes .comentarios .usuario1 .efeito::after,
+.sessoes .comentarios2 .usuario1 .efeito::after {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    padding-top: 3%;
+    padding-left: 3%;
+    background-color: rgb(59, 137, 254);
+    border-radius: 4px;
+}
+
+.sessoes .comentarios .usuario1 .efeito2::after,
+.sessoes .comentarios2 .usuario1 .efeito2::after {
+    content: '';
+    position: relative;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    margin-top: -7%;
+    margin-left: 5%;
+    padding-right: 1%;
+    padding-bottom: 1pc;
+    background-color: #0010bc;
+    border-radius: 4px;
+}
+
+
+
+
+.sessoes .comentarios .usuario1 .nome,
+.sessoes .comentarios2 .usuario1 .nome {
+    display: flex;
+    justify-content: center;
+    margin-top: -2%;
+    margin-bottom: 5%;
+    font-size: 25px;
+    font-family: 'codygoon';
+
+}
+
+.sessoes .comentarios .usuario1 .estrela,
+.sessoes .comentarios2 .usuario1 .estrela {
+    display: flex;
+    color: #FFE500;
+    justify-content: center;
+    align-items: center;
+}
+
+.sessoes .comentarios .usuario1 .comentario,
+.sessoes .comentarios2 .usuario1 .comentario {
+    margin: 2px 1px 2px 1px;
+    margin-top: 3%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 2%;
+    font-family: 'Milestone One';
+    font-size: 20px;
+}
+
+/* parte 2*/
+
+.roda-pe {
+    height: 40pc;
+    display: grid;
+    margin: auto;
+    width: 100%;
+    padding-top: 3%;
+    flex: 1 1 100vw;
+    background-color: #1a1a1a;
+}
+
+.roda-pe .opcoes {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.roda-pe .opcoes .lista {
+    display: flex;
+    font-size: 20px;
+    font-family: 'Codygoon';
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+}
+
+.roda-pe .opcoes .lista a {
+    margin: 1pc;
+    margin-bottom: 2pc;
+    margin-top: 2pc;
+}
+
+.roda-pe .opcoes .lista a:hover {
+    transform: translateY(-5px);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.roda-pe .logo {
+    margin-left: 42%;
+    margin-top: 4pc;
+    width: 250px;
+}
+
+
+
+.roda-pe .social_media {
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-left: 38%;
+}
+
+.roda-pe .subtitulo {
+    display: flex;
+    margin-left: 39%;
+    margin-bottom: 2pc;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'Codygoon', sans-serif;
+
+}
+
+.roda-pe .social_media a {
+    position: relative;
+    display: flex;
+    margin-left: 13px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2px 2px 1px 5px;
+    background-color: #ffffff;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgb(0, 0, 0);
+}
+
+.roda-pe .social_media img {
+    height: 2pc;
+
+}
+
+.roda-pe .social_media #telegram img {
+    margin-right: 5px;
+
+}
+
+.roda-pe .social_media #facebook:hover {
+    transform: scale(1.1);
+    /*
+    background: rgb(255, 255, 255);
+    background: linear-gradient(31deg, rgba(255, 255, 255, 1) 0%, rgba(98, 223, 255, 1) 23%, rgba(0, 172, 255, 1) 44%, rgba(47, 128, 255, 1) 74%, rgba(81, 91, 255, 1) 100%);
+    */
+    background: rgb(64, 167, 255);
+    background: linear-gradient(35deg, rgba(64, 167, 255, 1) 0%, rgba(0, 82, 255, 1) 100%);
+}
+
+.roda-pe .social_media #instagram:hover {
+    transform: scale(1.1);
+    background: rgb(255, 209, 0);
+    background: linear-gradient(23deg, rgba(255, 209, 0, 1) 0%, rgba(255, 136, 0, 1) 22%, rgba(227, 4, 4, 1) 53%, rgba(185, 6, 178, 1) 78%);
+}
+
+.roda-pe .social_media #discord:hover {
+    transform: scale(1.1);
+    background: rgb(87, 81, 255);
+    background: linear-gradient(35deg, rgba(87, 81, 255, 1) 0%, rgba(157, 95, 255, 1) 100%);
+}
+
+.roda-pe .social_media #linkedin:hover {
+    transform: scale(1.1);
+    background: rgb(32, 104, 255);
+    background: linear-gradient(35deg, rgba(32, 104, 255, 1) 0%, rgba(69, 60, 255, 1) 100%);
+}
+
+.roda-pe .social_media #telegram:hover {
+    transform: scale(1.1);
+    background: rgb(64, 187, 255);
+    background: linear-gradient(35deg, rgba(64, 187, 255, 1) 0%, rgba(0, 147, 255, 1) 100%);
+}
+
+/*
+ Cores que variam de acordo com a rede social (sombra da imagem)
+*/
+
+.roda-pe .social_media #facebook:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(5, 98, 144));
+}
+
+.roda-pe .social_media #instagram:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(95, 32, 32));
+}
+
+
+.roda-pe .social_media #discord:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(57, 32, 95));
+}
+
+.roda-pe .social_media #linkedin:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(32, 36, 95));
+}
+
+.roda-pe .social_media #telegram:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(22, 68, 105));
+}
+
+
+
+.roda-pe #copyright {
+    font-family: 'Codygoon';
+    color: #fff;
+    text-align: center;
+}

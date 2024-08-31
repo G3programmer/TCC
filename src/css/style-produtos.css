@@ -1,0 +1,256 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-top: -1.3pc;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.cabecalho .menu li a {
+    padding: 30px;
+    text-decoration: none;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+.home {
+    display: flex;
+    background-image: url(../imagem/Fundo/teste-de-fundo.png);
+    position: relative;
+    background-size: cover;
+    width: 110%;
+    min-height: calc(100vh - 80px);
+}
+
+.home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor preta com 50% de opacidade */
+    z-index: 1;
+  }
+
+.home .content {
+    z-index: 2;
+    padding: 20px;
+}
+
+.home .content .slider {
+    margin: 0% -6.5%;
+    width: 100%;
+    height: 560px;
+    justify-content: center;
+    padding-left: 25%;
+    /* qualquer coisa, muda */
+}
+
+.home .slider .slides {
+    width: 1200%;
+    height: 550px;
+    display: flex;
+}
+
+.home .slider .slides input {
+    display: none;
+}
+
+.home .slider .slide {
+    width: 25%;
+    /* qualquer coisa, muda */
+    position: relative;
+    transition: 1s;
+}
+
+.home .slider .slide img {
+    width: 1200px;
+    height: 35pc;
+}
+
+.carousel-inner {
+    width:70pc;
+
+    justify-content: center;
+}
+
+.home .slider .manual-navigation {
+    position: absolute;
+    width: 800px;
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+}
+
+.home .slider .manual-navigation label {
+    border: 2px solid #fff;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.home .slider .manual-navigation label:hover {
+    background-color: #fff;
+}
+
+
+.home .slider .manual-navigation label:not(:last-child) {
+    margin-right: 40px;
+
+}
+
+#radio1:checked~.first {
+    margin-left: -1.5%;
+    margin-right: 5%;
+}
+
+#radio2:checked~.first {
+    margin-left: -26.2%;
+    margin-right: -0.20%;
+}
+
+#radio3:checked~.first {
+    margin-left: -51.3%;
+}
+
+
+
+
+.home .slider .navigation-auto {
+    position: absolute;
+    width: 800px;
+    margin-top: 360px;
+    display: flex;
+    justify-content: center;
+}
+
+.home .slider .navigation-auto div:not(:last-child) {
+    margin-right: 40px;
+}
+
+#radio1:checked~.home .slider .navigation-auto .auto-btn1 {
+    background-color: #fff;
+}
+
+#radio2:checked~.home .slider .navigation-auto .auto-btn1 {
+    background-color: #fff;
+}
+
+#radio3:checked~.home .slider .navigation-auto .auto-btn1 {
+    background-color: #fff;
+
+}
+
+/* parte da vitrine*/
+
+.compre-ja {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 14pc;
+}
+
+
+.compre-ja .titulo {
+    justify-content: center;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 90px;
+    font-family: 'Codygoon';
+    color: #fff;
+}
+
+
+
+
+/*Parte da barra de pesquisa*/
+
+.compre-ja .caixa-pesquisa {
+    position: absolute;
+    bottom: -20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    height: 50px;
+    padding: 2px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.compre-ja .caixa-pesquisa .barra {
+    background: none;
+    border: 0;
+    outline: 0;
+    width: 320px;
+    padding-left: 20px;
+}
+
+.compre-ja .caixa-pesquisa .pesquisa-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.compre-ja .caixa-pesquisa .lupa-branca {
+    display: none;
+
+}
+
+
+.compre-ja .caixa-pesquisa:hover>.barra {
+    width: 320px;
+    padding-left: 20px;
+}
+
+
+.aviso {
+    display: flex;
+    margin-top: 5pc;
+    margin-left: 40%;
+    border: 2px solid #fff;
+    background-color: #1a1a1acf;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Codygoon', sans-serif;
+}
+
+/*Final da parte da barra de pesquisa*/

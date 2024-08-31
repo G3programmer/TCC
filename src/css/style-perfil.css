@@ -1,0 +1,312 @@
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.cabecalho .menu li a {
+    padding: 30px;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: 1;
+}
+
+
+
+.home::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.600), rgba(0, 0, 0, 0.600) 100%, transparent 100%);
+}
+
+.home .imagem-fundo {
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.home:hover::before {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.home .painel {
+    position: absolute;
+    justify-content: center;
+    margin: 20px 30pc 20px 0px;
+    z-index: 1;
+    width: 300px;
+    min-height: calc(100vh - 80px);
+    flex-direction: column;
+}
+
+.home .painel .perfil {
+    position: absolute;
+    border: solid black 4px;
+    z-index: 1;
+    width: 50pc;
+    background-color: rgba(1, 68, 161, 0.659);
+    min-height: calc(95vh - 80px);
+    padding-bottom: 10px;
+    display: grid;
+    color:#fff;
+    font-family: 'Codygoon';
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home .painel .perfil .area-foto {
+    display: flex;
+    position: relative;
+    background-color: black;
+    margin-top: 10px;
+    width: 13pc;
+    height: 13pc;
+    overflow: hidden;
+    border-radius: 100%;
+    border: solid black 1pc;
+    justify-self: center;
+
+}
+
+.home .painel .perfil .area-foto .foto {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.home .painel .perfil .info {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.home .painel .perfil .info .bem-vindo {
+    margin-top: -6pc;
+    font-size: 3pc;
+}
+
+.home .painel .perfil .info .nome {
+    margin-top: -6pc;
+    font-size: 2pc;
+}
+
+.home .painel .perfil .info .descricao {
+    margin-top: -5pc;
+    background-color: rgba(5, 195, 195, 0.371);
+    border-radius: 5px;
+    padding: 5px;
+    border: solid black 3px;
+}
+
+.roda-pe {
+    height: 40pc;
+    color: #fff;
+    display: grid;
+    margin: auto;
+    width: 100%;
+    padding-top: 3%;
+    flex: 1 1 100vw;
+    background-color: #1a1a1a;
+}
+
+.roda-pe .opcoes {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.roda-pe .opcoes .lista {
+    display: flex;
+    font-size: 20px;
+    font-family: 'Codygoon';
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+}
+
+.roda-pe .opcoes .lista a {
+    margin: 1pc;
+    margin-bottom: 2pc;
+    margin-top: 2pc;
+}
+
+.roda-pe .opcoes .lista a:hover {
+    transform: translateY(-5px);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.roda-pe .logo {
+    margin-left: 42%;
+    margin-top: 4pc;
+    width: 250px;
+}
+
+
+
+.roda-pe .social_media {
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-left: 38%;
+}
+
+.roda-pe .subtitulo {
+    display: flex;
+    margin-left: 39%;
+    margin-bottom: 2pc;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'Codygoon', sans-serif;
+
+}
+
+.roda-pe .social_media a {
+    position: relative;
+    display: flex;
+    margin-left: 13px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2px 2px 1px 5px;
+    background-color: #ffffff;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgb(0, 0, 0);
+}
+
+.roda-pe .social_media img {
+    height: 2pc;
+
+}
+
+.roda-pe .social_media #telegram img {
+    margin-right: 5px;
+
+}
+
+.roda-pe .social_media #facebook:hover {
+    transform: scale(1.1);
+    /*
+    background: rgb(255, 255, 255);
+    background: linear-gradient(31deg, rgba(255, 255, 255, 1) 0%, rgba(98, 223, 255, 1) 23%, rgba(0, 172, 255, 1) 44%, rgba(47, 128, 255, 1) 74%, rgba(81, 91, 255, 1) 100%);
+    */
+    background: rgb(64, 167, 255);
+    background: linear-gradient(35deg, rgba(64, 167, 255, 1) 0%, rgba(0, 82, 255, 1) 100%);
+}
+
+.roda-pe .social_media #instagram:hover {
+    transform: scale(1.1);
+    background: rgb(255, 209, 0);
+    background: linear-gradient(23deg, rgba(255, 209, 0, 1) 0%, rgba(255, 136, 0, 1) 22%, rgba(227, 4, 4, 1) 53%, rgba(185, 6, 178, 1) 78%);
+}
+
+.roda-pe .social_media #discord:hover {
+    transform: scale(1.1);
+    background: rgb(87, 81, 255);
+    background: linear-gradient(35deg, rgba(87, 81, 255, 1) 0%, rgba(157, 95, 255, 1) 100%);
+}
+
+.roda-pe .social_media #linkedin:hover {
+    transform: scale(1.1);
+    background: rgb(32, 104, 255);
+    background: linear-gradient(35deg, rgba(32, 104, 255, 1) 0%, rgba(69, 60, 255, 1) 100%);
+}
+
+.roda-pe .social_media #telegram:hover {
+    transform: scale(1.1);
+    background: rgb(64, 187, 255);
+    background: linear-gradient(35deg, rgba(64, 187, 255, 1) 0%, rgba(0, 147, 255, 1) 100%);
+}
+
+/*
+ Cores que variam de acordo com a rede social (sombra da imagem)
+*/
+
+.roda-pe .social_media #facebook:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(5, 98, 144));
+}
+
+.roda-pe .social_media #instagram:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(95, 32, 32));
+}
+
+
+.roda-pe .social_media #discord:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(57, 32, 95));
+}
+
+.roda-pe .social_media #linkedin:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(32, 36, 95));
+}
+
+.roda-pe .social_media #telegram:hover img {
+    transform: scale(1.1);
+    transition: 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(3px 3px rgb(22, 68, 105));
+}
+
+
+
+.roda-pe #copyright {
+    font-family: 'Codygoon';
+    color: #fff;
+    text-align: center;
+}

@@ -1,0 +1,101 @@
+
+.cabecalho {
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid rgb(26, 25, 25);
+}
+
+.cabecalho .logo {
+    display: flex;
+    gap: 30px;
+    height: 55px;
+}
+
+.home {
+    display: flex;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: 1;
+}
+
+
+
+.home::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .7) 80%, transparent 100%);
+}
+
+.home .fundo {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+}
+
+
+.home .painel {
+    display: flex;
+    margin: 1pc;
+    margin-left: 1pc;
+    width: 40pc;
+    height: 30px;
+    font-family: 'Codygoon';
+    border: solid 2px #fff;
+    border-radius: 5px;
+    background:rgba(108, 116, 255, 0.604);
+    position: absolute;
+    z-index: 1;
+    min-height: calc(80vh - 45px);
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    max-width: 750px;
+}
+
+.home .painel .titulo{
+    align-self: center;
+    text-align: center;
+    
+}
+
+.home .painel .li {
+ display: flex;
+}
+
+/*solicitação*/
+.home .perfil {
+    display: flex;
+    margin: 1pc;
+    margin-left: 60%;
+    width: 40pc;
+    height: 30px;
+    font-family: 'Codygoon';
+    border: solid 2px #fff;
+    border-radius: 5px;
+    background:rgba(108, 116, 255, 0.604);
+    position: relative;
+    z-index: 1;
+    min-height: calc(80vh - 45px);
+    gap: 10pc;
+    padding: 30px;
+    max-width: 750px;
+}

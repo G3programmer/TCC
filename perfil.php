@@ -5,7 +5,6 @@ include_once('src/php/conexao.php');
 if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
-    header('Location: login.html');
 }
 
 $logado = $_SESSION['email'];
@@ -30,7 +29,7 @@ if ($result->num_rows > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vanguard | Segurança eletrônica e testes de segurança</title>
+    <title>Vanguard | Perfil</title>
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
     <link rel="stylesheet" href="src/css/index.css">
     <link rel="stylesheet" href="src/css/style-perfil.css">
@@ -52,19 +51,14 @@ if ($result->num_rows > 0) {
             <button id="CloseMenu">X</button>
             <ul class="menu">
                 <li>
-                    <a class="btn-quem-somos" href="#quem-somos">Quem somos</a>
+                    <a class="btn-quem-somos" href="indexLogadoCliente.html">Home</a>
+                </li>
                 </li>
                 <li>
-                    <a class="btn-parcerias" href="#parcerias">Parcerias</a>
+                    <a class="btn-servicos" href="cronograma.html">Agenda</a>
                 </li>
                 <li>
-                    <a class="btn-avaliar" href="avaliar.html">Avaliar</a>
-                </li>
-                <li>
-                    <a class="btn-servicos" href="servicos.html">Serviços</a>
-                </li>
-                <li>
-                    <a href="produtos.html" target="_blank">Produtos</a>
+                    <a href="estoque.html" target="_blank">estoque</a>
                 </li>
                 <li>
                     <a href="src/php/logout.php">Logout</a>
@@ -82,8 +76,8 @@ if ($result->num_rows > 0) {
         <div class="painel">
             <form class="perfil" action="perfil.php">
                 <div class="area-foto">
-                <img id="foto" src="src/php/exibir_imagem.php?email=<?php echo $logado; ?>" alt="Foto do usuário">
-            </div>
+                    <img id="foto" src="src/php/exibir_imagem.php?email=<?php echo $logado; ?>" alt="Foto do usuário">
+                </div>
 
                 <div class="info">
                     <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
@@ -97,6 +91,65 @@ if ($result->num_rows > 0) {
             </form>
         </div>
     </main>
+    <footer class="roda-pe">
+
+        <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
+
+
+
+        <h5 class="subtitulo">
+            Nos acompanhe pelas redes sociais
+        </h5>
+
+
+        <div class="social_media">
+
+            <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
+                    src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+
+            <a href="https://www.instagram.com/vanguard_security.oficial/" id="instagram" title="Instagram"
+                target="_blank"><img src="src/imagem/icones/instagram.png"
+                    alt="botão do perfil do instagram da Vanguard"></a>
+
+            <a href="https://discord.gg/BpMEzwTf" title="discord" id="discord" target="_blank"><img
+                    src="src/imagem/icones/discord.png" alt="botão do chat do discord da Vanguard "></a>
+
+            <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
+                    alt="botão do perfil do linkedin da Vanguard"></a>
+
+            <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
+                    alt="botão do chat do telegram da Vanguard"></a>
+
+        </div>
+        <div class="opcoes">
+            <div class="lista">
+                <a href="equipe.html">
+                    <h6>
+                        A equipe
+                    </h6>
+                </a>
+                <hr />
+                <a href="produtos.html">
+                    <h6>
+                        Nossos produtos
+                    </h6>
+                </a>
+                <hr />
+                <a href="serviços.html">
+                    <h6>Nossos serviços</h6>
+                </a>
+
+                <hr />
+                <a href="mailto:vanguard.seguranca.oficial@gmail.com">
+                    <h6>Suporte</h6>
+                </a>
+            </div>
+        </div>
+        </div>
+        <p id="copyright">
+            Direitos Autorais Reservados à Vanguard&#8482;
+        </p>
+    </footer>
 </body>
 
 </html>

@@ -10,24 +10,7 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     exit;
 }
 
-// IDs permitidos para acessar a página
-$allowed_ids = [1, 2, 3]; 
 
-// Verifica se o ID do usuário está armazenado na sessão
-if (!isset($_SESSION['id'])) {
-    echo "ID do usuário não encontrado na sessão.";
-    exit;
-}
-
-$user_id = $_SESSION['id']; 
-
-// Verifica se o usuário tem permissão para acessar a página
-if (!in_array($user_id, $allowed_ids)) {
-    echo "Você não tem permissão para acessar esta página.";
-    exit;
-}
-
-// Executa a consulta SQL para obter os dados dos usuários
 $sql = "SELECT * FROM usuario ORDER BY id DESC";
 $result = $conn->query($sql);
 
@@ -36,8 +19,6 @@ if ($result === false) {
     exit;
 }
 
-// Recupera a imagem do usuário específico (substitua $id por um valor adequado)
-$id = $user_id; // ID do usuário para recuperar a imagem
 $sql = "SELECT foto FROM usuario WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
@@ -98,7 +79,7 @@ $conn->close();
                 <h2 class="titulo">Lista de usuários</h2>
                 <form class="formulario" id="crud-form">
                     <input type="hidden" id="user-id"> <!-- Campo oculto para o ID do usuário -->
-                    <input type="text" id="nome" placeholder="Nome">
+                    <input type="text" id="Nome" placeholder="Nome">
                     <input type="text" id="email" placeholder="Email">
                     <input type="text" id="senha" placeholder="Senha">
                     <input type="number" id="cpf" placeholder="CPF">
@@ -124,7 +105,7 @@ $conn->close();
                     while ($user_data = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td>" . $user_data['id'] . "</td>";
-                        echo "<td>" . $user_data['nome'] . "</td>";
+                        echo "<td>" . $user_data['Nome'] . "</td>";
                         echo "<td>" . $user_data['email'] . "</td>";
                         echo "<td>" . $user_data['senha'] . "</td>";
                         echo "<td>" . $user_data['cpf'] . "</td>";

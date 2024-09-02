@@ -1,0 +1,146 @@
+/*@media only screen and (min-width: 514px) {
+    .home {
+        position: relative;
+        width: auto;
+        height: 29.99pc;
+    }
+
+    .home::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        z-index: 1;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.656);
+    }
+
+    .home .imagem-fundo {
+        height: 30pc;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        width: 100%;
+    }
+
+    .home .box {
+        display: flex;
+        width: 380px;
+        z-index: 4;
+        height: 380px;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .roda-pe {
+        display: grid;
+        height: 36pc;
+        padding: 0px 8pc 0px 8pc ;
+        width: auto;
+        margin: auto;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .roda-pe .logo {
+        margin-right: 80pc;
+
+    }
+
+
+    .roda-pe .opcoes .lista {
+        display: flex;
+        font-size: 15px;
+        font-family: 'Codygoon';
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+
+    }
+
+}
+*/
+
+
+@media only screen and (max-width: 900px) {
+
+    .home {
+        display: flex;
+        position: relative;
+        width: auto;
+        height: 29.99pc;
+    }
+
+    .home::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        z-index: 5;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.634);
+    }
+
+    .home .imagem-fundo {
+        height: 30pc;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        width: 100%;
+    }
+
+    .home .box {
+        display: flex;
+        width: 380px;
+        margin-left: -30pc;
+        z-index: 6;
+        height: 380px;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .roda-pe {
+        display: grid;
+        height: 36pc;
+        padding: 0px 8pc 0px 8pc ;
+        width: auto;
+        margin: auto;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .roda-pe .logo {
+        margin-right: 80pc;
+
+    }
+
+
+    .roda-pe .opcoes .lista {
+        display: flex;
+        font-size: 15px;
+        font-family: 'Codygoon';
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+
+    }
+
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1280px) {
+
+    .home .imagem-fundo {
+        align-items: center;
+        height: 10%;
+    }
+
+    .home .box {
+        width: 50%;
+        margin: 4pc;
+        margin-left: 20%;
+    }
+
+}

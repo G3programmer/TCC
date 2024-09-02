@@ -47,7 +47,7 @@
     }
 
     #menu {
-        z-index: 2;
+        z-index: 3;
         position: absolute;
         flex-direction: column;
         width: 100vw;

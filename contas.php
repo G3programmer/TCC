@@ -66,7 +66,7 @@ $conn->close();
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="avaliar.html">Avaliações</a></li>
                 <li><a class="btn-servicos" href="servicos.html" target="_blank">Serviços</a></li>
-                <li><a href="produtos.html" target="_blank">Produtos</a></li>
+                <li><a href="produtos.php" target="_blank">Produtos</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a class="btn-login" href="login.html">Logout</a></li>
             </ul>

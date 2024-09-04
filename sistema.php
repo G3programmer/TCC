@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once('config.php');
+    include_once('src/php/conexao.php');
     if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true))
     {
         unset($_SESSION['email']);
@@ -17,7 +17,7 @@
     {
         $sql = "SELECT * FROM usuario ORDER BY id DESC";
     }
-    $result = $conexao->query($sql);
+    $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">

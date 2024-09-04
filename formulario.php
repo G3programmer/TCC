@@ -50,6 +50,7 @@ $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
 $sql_code_cities = "SELECT * FROM cidades ORDER BY nome_cidade ASC";
 $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 

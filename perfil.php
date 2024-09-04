@@ -53,9 +53,14 @@ if ($result->num_rows > 0) {
                 <li>
                     <a class="btn-quem-somos" href="indexLogadoCliente.html">Home</a>
                 </li>
+                <li>
+                    <a href="contas.php">Sistema</a>
+                </li>
                 </li>
                 <li>
                     <a class="btn-servicos" href="cronograma.html">Agenda</a>
+                </li>                <li>
+                    <a class="btn-servicos" href="dashboard.html">Dashboard</a>
                 </li>
                 <li>
                     <a href="estoque.html" target="_blank">estoque</a>

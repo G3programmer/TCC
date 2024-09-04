@@ -1,165 +1,173 @@
+<!--Fazer outro layou nesse -->
+
 <?php
-    include_once('src/php/conexao.php');
+// Inclua a conexão com o banco de dados
+include_once('src/php/conexao.php');
 
-    if(!empty($_POST['id']))
-    {
-        $id = $_POST['id'];
-        $sqlSelect = "SELECT * FROM usuario WHERE id=$id";
+
+if (!empty($_GET['id'])) {
+
+        $id = $_GET['id'];
+        $sqlSelect = "SELECT * FROM usuario WHERE id = $id";
         $result = $conn->query($sqlSelect);
-        if($result->num_rows > 0)
-        {
-            while($user_data = mysqli_fetch_assoc($result))
-            {
-                $nome = $user_data['nome'];
-                $dt_nasc = $user_data['dt_nasc'];
-                $email = $user_data['email'];
-                $senha = $user_data['senha'];
-                $cpf = $user_data['cpf'];
-                $estado = $user_data['estado'];
-                $cidade = $user_data['cidade'];
-                $foto = $foto = addslashes(file_get_contents($fileTmpPath));
+        if ($result->num_rows > 0) {
+                while ($user_data = mysqli_fetch_assoc($result)) {
+                        $nome = $user_data['nome'];
+                        $dt_nasc = $user_data['dt_nasc'];
+                        $email = $user_data['email'];
+                        $senha = $user_data['senha'];
+                        $cpf = $user_data['cpf'];
+                        $estado = $user_data['estado'];
+                        $cidade = $user_data['cidade'];
+                        $foto = $user_data['foto'];
 
-                
-            }
+                        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+                                // Obtenha os detalhes do arquivo
+                                $fileTmpPath = $_FILES['foto']['tmp_name'];
+                                $fileNome = $_FILES['foto']['name'];
+                                $fileSize = $_FILES['foto']['size'];
+                                $fileType = $_FILES['foto']['type'];
+                                $foto = addslashes(file_get_contents($fileTmpPath));
+                        }
+                }
+        } else {
+                header('Location: contas.php');
         }
-        else
-        {
-            header('Location: contas.php');
-        }
-    }
-    else
-    {
+} else {
         header('Location: contas.php');
-    }
+}
+
+// Carrega a lista de estados
+$sql_code_states = "SELECT * FROM estado ORDER BY nome_estado ASC";
+$sql_query_states = $conn->query($sql_code_states) or die($conn->error);
+
+// Carrega a lista de cidades
+$sql_code_cities = "SELECT * FROM cidades ORDER BY nome_cidade ASC";
+$sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário | GN</title>
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));
-        }
-        .box{
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            border-radius: 15px;
-            width: 20%;
-        }
-        fieldset{
-            border: 3px solid dodgerblue;
-        }
-        legend{
-            border: 1px solid dodgerblue;
-            padding: 10px;
-            text-align: center;
-            background-color: dodgerblue;
-            border-radius: 8px;
-        }
-        .inputBox{
-            position: relative;
-        }
-        .inputUser{
-            background: none;
-            border: none;
-            border-bottom: 1px solid white;
-            outline: none;
-            color: white;
-            font-size: 15px;
-            width: 100%;
-            letter-spacing: 2px;
-        }
-        .labelInput{
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            pointer-events: none;
-            transition: .5s;
-        }
-        .inputUser:focus ~ .labelInput,
-        .inputUser:valid ~ .labelInput{
-            top: -20px;
-            font-size: 12px;
-            color: dodgerblue;
-        }
-        #data_nascimento{
-            border: none;
-            padding: 8px;
-            border-radius: 10px;
-            outline: none;
-            font-size: 15px;
-        }
-        #submit{
-            background-image: linear-gradient(to right,rgb(0, 92, 197), rgb(90, 20, 220));
-            width: 100%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-        #submit:hover{
-            background-image: linear-gradient(to right,rgb(0, 80, 172), rgb(80, 19, 195));
-        }
-    </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="src/css/index.css">
+        <link rel="stylesheet" href="src/css/style-editPerfil.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+                integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                crossorigin="anonymous">
+
+        <link rel="stylesheet" href="src/css/responsivo-cadastro.css">
+        <link href="https://fonts.cdnfonts.com/css/eingrantch-mono" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
+        <title>Vanguard | Editar perfil</title>
+        <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
 </head>
 
 <body>
-    <a href="sistema.php">Voltar</a>
-    <div class="box">
-        <form action="saveEdit.php" method="POST">
-            <fieldset>
-                <legend><b>Editar Cliente</b></legend>
-                <br>
-                <div class="inputBox">
-                    <input type="text" name="nome" id="nome" class="inputUser" value=<?php echo $nome;?> required>
-                    <label for="nome" class="labelInput">Nome completo</label>
+        <header class="cabecalho">
+                <a href="index.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
+                                alt="titulo da Vanguard"></a>
+        </header>
+
+        <main class="home">
+                <div class="area">
+                        <form class="row g-3">
+                                <div class="col-md-6">
+                                        <label for="inputEmail4" class="form-label">Nome</label>
+                                        <input type="email" class="form-control" id="inputEmail4" value=<?php echo $nome;?>>
+                                </div>
+                                <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="inputPassword4"  value=<?php echo $email;?>>
+                                </div>
+                                <div class="col-3">
+                                        <label for="inputAddress" class="form-label">Senha</label>
+                                        <input type="text" class="form-control" id="inputAddress"
+                                        value=<?php echo $senha;?>>
+                                </div>
+                                <div class="col-3">
+                                        <label for="inputAddress2" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" id="inputAddress2"  value=<?php echo $cpf;?>>
+                                </div>
+                                <div class="col-md-6">
+                                        <label for="inputCity" class="form-label">Cidade</label>
+                                        <input type="text" class="form-control" id="inputCity">
+                                </div>
+                                <div class="col-md-4">
+                                        <label for="inputState" class="form-label">State</label>
+                                        <select id="inputState" class="form-select">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-3">
+                                        <label for="inputZip" class="form-label">Data de Nascimento</label>
+                                        <input type="date" class="form-control" id="inputZip">
+                                </div>
+                                <div class="col-12">
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                                <label class="form-check-label" for="gridCheck">
+                                                        Check me out
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Sign in</button>
+                                </div>
+                        </form>
                 </div>
-                <br><br>
-                <div class="inputBox">
-                    <input type="text" name="senha" id="senha" class="inputUser" value=<?php echo $senha;?> required>
-                    <label for="senha" class="labelInput">Senha</label>
+        </main>
+
+        <footer class="roda-pe">
+                <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
+                <h5 class="subtitulo">Nos acompanhe pelas redes sociais</h5>
+                <div class="social_media">
+                        <a href="facebook link" id="facebook" title="Facebook" target="_blank">
+                                <img src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard">
+                        </a>
+                        <a href="" id="instagram" title="Instagram" target="_blank">
+                                <img src="src/imagem/icones/instagram.png"
+                                        alt="botão do perfil do instagram da Vanguard">
+                        </a>
+                        <a href="discord" title="discord" id="discord" target="_blank">
+                                <img src="src/imagem/icones/discord.png" alt="botão do chat do discord da Vanguard">
+                        </a>
+                        <a href="linkedin" title="linkedin" id="linkedin" target="_blank">
+                                <img src="src/imagem/icones/linkedin.png" alt="botão do perfil do linkedin da Vanguard">
+                        </a>
+                        <a href="telegram" title="telegram" id="telegram" target="_blank">
+                                <img src="src/imagem/icones/telegram.png" alt="botão do chat do telegram da Vanguard">
+                        </a>
                 </div>
-                <br><br>
-                <div class="inputBox">
-                    <input type="text" name="email" id="email" class="inputUser" value=<?php echo $email;?> required>
-                    <label for="email" class="labelInput">Email</label>
+                <div class="opcoes">
+                        <div class="lista">
+                                <a href="equipe.html">
+                                        <h6>A equipe</h6>
+                                </a>
+                                <hr />
+                                <a href="produtos.html">
+                                        <h6>Nossos produtos</h6>
+                                </a>
+                                <hr />
+                                <a href="serviços.html">
+                                        <h6>Nossos serviços</h6>
+                                </a>
+                                <hr />
+                                <a href="cronograma.html">
+                                        <h6>Nosso cronograma</h6>
+                                </a>
+                        </div>
                 </div>
-                <br><br>
-                <div class="inputBox">
-                <br>
-                <label for="dt_nasc"><b>Data de Nascimento:</b></label>
-                <input type="date" name="dt_nasc" id="dt_nasc" value=<?php echo $data_nasc;?> required>
-                <br><br><br>
-                <div class="inputBox">
-                    <input type="text" name="cidade" id="cidade" class="inputUser" value=<?php echo $cidade;?> required>
-                    <label for="cidade" class="labelInput">Cidade</label>
-                </div>
-                <br><br>
-                <div class="inputBox">
-                    <input type="text" name="estado" id="estado" class="inputUser" value=<?php echo $estado;?> required>
-                    <label for="estado" class="labelInput">Estado</label>
-                </div>
-                <br><br>
-                <div class="inputBox">
-                    <input type="text" name="endereco" id="endereco" class="inputUser" value=<?php echo $endereco;?> required>
-                    <label for="endereco" class="labelInput">Endereço</label>
-                </div>
-                <br><br>
-				<input type="hidden" name="id" value=<?php echo $id;?>>
-                <input type="submit" name="update" id="submit">
-            </fieldset>
-        </form>
-    </div>
+                <p id="copyright">Direitos Autorais Reservados à Vanguard&#8482;</p>
+        </footer>
+
+        <script src="src/js/selectFormulario.js"></script>
+        <script src="src/js/formulario.js"></script>
+        <script src="src/js/cadastro-imagem.js"></script>
 </body>
+
 </html>

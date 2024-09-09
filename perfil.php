@@ -63,7 +63,7 @@ if ($result->num_rows > 0) {
                     <a class="btn-servicos" href="dashboard.html">Dashboard</a>
                 </li>
                 <li>
-                    <a href="estoque.html" target="_blank">estoque</a>
+                    <a href="estoque.php" target="_blank">estoque</a>
                 </li>
                 <li>
                     <a href="src/php/logout.php">Logout</a>

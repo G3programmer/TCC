@@ -2,41 +2,48 @@
 
 <?php
 // Inclua a conexão com o banco de dados
-include_once('src/php/conexao.php');
+include('src/php/conexao.php');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-if (!empty($_GET['id'])) {
-
-        $id = $_GET['id'];
-        $sqlSelect = "SELECT * FROM usuario WHERE id = $id";
-        $result = $conn->query($sqlSelect);
-        if ($result->num_rows > 0) {
-                while ($user_data = mysqli_fetch_assoc($result)) {
-                        $nome = $user_data['nome'];
-                        $dt_nasc = $user_data['dt_nasc'];
-                        $email = $user_data['email'];
-                        $senha = $user_data['senha'];
-                        $cpf = $user_data['cpf'];
-                        $estado = $user_data['estado'];
-                        $cidade = $user_data['cidade'];
-                        $foto = $user_data['foto'];
-
-                        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-                                // Obtenha os detalhes do arquivo
-                                $fileTmpPath = $_FILES['foto']['tmp_name'];
-                                $fileNome = $_FILES['foto']['name'];
-                                $fileSize = $_FILES['foto']['size'];
-                                $fileType = $_FILES['foto']['type'];
-                                $foto = addslashes(file_get_contents($fileTmpPath));
-                        }
-                }
-        } else {
-                header('Location: contas.php');
+if(!empty($_GET['usuario_id']))
+{
+    $id = $_GET['usuario_id'];
+    $sqlSelect = "SELECT * FROM usuario WHERE usuario_id = $id";
+    $result = $conn->query($sqlSelect);
+    if($result->num_rows > 0)
+    {
+        while($user_data = mysqli_fetch_assoc($result))
+        {
+            $nome = $user_data['nome'];
+            $senha = $user_data['senha'];
+            $email = $user_data['email'];
+            $dt_nasc = $user_data['dt_nasc'];
+            $cpf = $user_data['cpf'];
+            // Verificação para evitar erro de array indefinido
+            $cidade = isset($user_data['cidade_id']) ? $user_data['cidade_id'] : ''; 
+            $estado = isset($user_data['estado_id']) ? $user_data['estado_id'] : '';
         }
-} else {
-        header('Location: contas.php');
-}
 
+
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            // Obtenha os detalhes do arquivo
+            $fileTmpPath = $_FILES['foto']['tmp_name'];
+            $fileNome = $_FILES['foto']['name'];
+            $fileSize = $_FILES['foto']['size'];
+            $fileType = $_FILES['foto']['type'];
+            $foto = addslashes(file_get_contents($fileTmpPath));
+        }
+ }
+
+}
+else {
+        header('Location: contas.php');
+        exit;
+    
+    }
 // Carrega a lista de estados
 $sql_code_states = "SELECT * FROM estado ORDER BY nome_estado ASC";
 $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
@@ -44,6 +51,7 @@ $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
 // Carrega a lista de cidades
 $sql_code_cities = "SELECT * FROM cidades ORDER BY nome_cidade ASC";
 $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
+;
 ?>
 
 <!DOCTYPE html>
@@ -74,49 +82,71 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
         <main class="home">
                 <div class="area">
-                        <form class="row g-3">
+                <form class="row g-3" action="src/php/saveEdit.php" method="POST" enctype="multipart/form-data">
+
                                 <div class="col-md-6">
                                         <label for="inputEmail4" class="form-label">Nome</label>
-                                        <input type="email" class="form-control" id="inputEmail4" value=<?php echo $nome;?>>
+                                        <input type="text" class="form-control" id="inputEmail4" name="nome" value=<?php echo $nome;?>>
                                 </div>
                                 <div class="col-md-6">
                                         <label for="inputPassword4" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="inputPassword4"  value=<?php echo $email;?>>
+                                        <input type="email" class="form-control" id="inputPassword4"
+                                        name="email"  value=<?php echo $email;?>>
                                 </div>
                                 <div class="col-3">
                                         <label for="inputAddress" class="form-label">Senha</label>
                                         <input type="text" class="form-control" id="inputAddress"
+                                        name="senha"
                                         value=<?php echo $senha;?>>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-5">
                                         <label for="inputAddress2" class="form-label">CPF</label>
-                                        <input type="text" class="form-control" id="inputAddress2"  value=<?php echo $cpf;?>>
+                                        <input type="number" class="form-control" id="inputAddress2" 
+                                        name="cpf" value=<?php echo $cpf;?>>
                                 </div>
-                                <div class="col-md-6">
-                                        <label for="inputCity" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="inputCity">
-                                </div>
-                                <div class="col-md-4">
-                                        <label for="inputState" class="form-label">State</label>
-                                        <select id="inputState" class="form-select">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
-                                        </select>
-                                </div>
-                                <div class="col-md-3">
+
+                                <div class="col-6">
+                                <select name="estado" id="estado" class="form-select" required>
+                                <label for="inputState" class="form-label">State</label>
+                                   
+                                <option value="">Selecione um estado</option>
+                            <?php while ($estado = $sql_query_states->fetch_assoc()) { ?>
+                                <option value="<?php echo $estado['estado_id']; ?>">
+                                    <?php echo $estado['nome_estado']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                                <select name="cidade" id="cidade" class="form-select"   required>
+                                <label for="inputState" class="form-label">State</label>
+                                <?php while ($cidade = $sql_query_cities->fetch_assoc()) { ?>
+                                <option value="<?php echo $cidade['cidade_id']; ?>">
+                                    <?php echo $cidade['nome_cidade']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                                        
+                          
+                                <div class="col-md-5">
                                         <label for="inputZip" class="form-label">Data de Nascimento</label>
-                                        <input type="date" class="form-control" id="inputZip">
+                                        <input type="date" class="form-control" id="inputZip" 
+                                        name="dt_nasc" value=<?php echo $dt_nasc;?>>
                                 </div>
-                                <div class="col-12">
-                                        <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                <label class="form-check-label" for="gridCheck">
-                                                        Check me out
-                                                </label>
-                                        </div>
-                                </div>
-                                <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Sign in</button>
+
+                              <!--  <div class="col-md-5">
+                                        <label for="inputZip" class="form-label">foto</label>
+                                <input type="file" class="form-control" name="foto" id="foto" required>
+                        <span>Foto de perfil</span>
+</div> -->
+
+<input type="number" name="usuario_id" value=<?php echo $id;?>>
+              
+                          <div class="col-12">
+                                        <button type="submit" class="btn btn-primary" name="update">Sign in</button>
                                 </div>
                         </form>
                 </div>

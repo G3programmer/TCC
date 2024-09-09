@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
         $foto = addslashes(file_get_contents($fileTmpPath));
 
         // Insira os dados no banco de dados, incluindo a imagem
-        $result = mysqli_query($conn, "INSERT INTO usuario(Nome, dt_nasc, email, senha, cpf, estado_id, cidade_id, foto) 
+        $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidade_id, foto) 
             VALUES ('$nome','$dt_nasc','$email','$senha','$cpf','$estado','$cidade','$foto')");
 
         if ($result) {

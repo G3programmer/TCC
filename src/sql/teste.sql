@@ -18,11 +18,11 @@ USE `Vanguard` ;
 -- -----------------------------------------------------
 -- Table `Vanguard`.`Estado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Vanguard`.`Estado` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `Vanguard`.`estado` (
+  `estado_id` INT NOT NULL AUTO_INCREMENT,
   `nome_estado` VARCHAR(100) NOT NULL,
   `uf` VARCHAR(2) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`estado_id`),
   UNIQUE INDEX `nome_estado_UNIQUE` (`nome_estado` ASC))
 ENGINE = InnoDB;
 
@@ -32,14 +32,14 @@ SHOW WARNINGS;
 -- Table `Vanguard`.`Cidades`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Vanguard`.`Cidades` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `cidade_id` INT NOT NULL AUTO_INCREMENT,
   `nome_cidade` VARCHAR(100) NOT NULL,
-  `Estado_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `Estado_id`),
-  INDEX `fk_Cidades_Estado_idx` (`Estado_id` ASC),
-  CONSTRAINT `fk_Cidades_Estado`
-    FOREIGN KEY (`Estado_id`)
-    REFERENCES `Vanguard`.`Estado` (`id`)
+  `estado_id` INT NOT NULL,
+  PRIMARY KEY (`cidade_id`, `estado_id`),
+  INDEX `fk_estado_idx` (`estado_id` ASC),
+  CONSTRAINT `fk_estado`
+    FOREIGN KEY (`estado_id`)
+    REFERENCES `Vanguard`.`estado` (`estado_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -49,26 +49,26 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- Table `Vanguard`.`Usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Vanguard`.`Usuario` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `Nome` VARCHAR(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Vanguard`.`usuario` (
+  `usuario_id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(50) NOT NULL,
   `dt_nasc` DATE NOT NULL,
   `cep` INT(8) NOT NULL,
   `bairro` VARCHAR(100) NOT NULL,
   `rua` VARCHAR(100) NOT NULL,
   `num_predial` INT(5) NOT NULL,
-  `Cidades_id` INT NOT NULL,
-  `Cidades_Estado_id` INT NOT NULL,
+  `cidades_id` INT NOT NULL,
+  `estado_id` INT NOT NULL,
   `email` VARCHAR(150) NOT NULL,
   `senha` VARCHAR(100) NOT NULL,
   `is_admin` TINYINT(1) DEFAULT 0,  -- Campo para indicar se o usuário é administrador (0 = Não, 1 = Sim)
-  PRIMARY KEY (`id`, `Cidades_id`, `Cidades_Estado_id`),
+  PRIMARY KEY (`usuario_id`, `cidades_id`, `estado_id`),
   UNIQUE INDEX `cep_UNIQUE` (`cep` ASC),
-  INDEX `fk_Usuario_Cidades1_idx` (`Cidades_id` ASC, `Cidades_Estado_id` ASC),
+  INDEX `fk_Usuario_cidades1_idx` (`cidades_id` ASC, `estado_id` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  CONSTRAINT `fk_Usuario_Cidades1`
-    FOREIGN KEY (`Cidades_id`, `Cidades_Estado_id`)
-    REFERENCES `Vanguard`.`Cidades` (`id`, `Estado_id`)
+  CONSTRAINT `fk_Usuario_cidades1`
+    FOREIGN KEY (`cidades_id`, `estado_id`)
+    REFERENCES `Vanguard`.`Cidades` (`cidade_id`, `estado_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -81,15 +81,10 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Vanguard`.`Produto` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
+  `classe` VARCHAR(150) NOT NULL,
   `preco` DECIMAL(6,2) NOT NULL,
-  `cor` VARCHAR(2) NOT NULL,
-  `estoque_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Produto_Estoque_idx` (`estoque_id` ASC),
-  CONSTRAINT `fk_Produto_Estoque`
-    FOREIGN KEY (`estoque_id`)
-    REFERENCES `estoque` (`id`)
-    ON DELETE NO ACTION
+    PRIMARY KEY (`id`),
+      ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 SHOW WARNINGS;
@@ -98,13 +93,13 @@ SHOW WARNINGS;
 -- Table `Vanguard`.`carrinho`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Vanguard`.`carrinho` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `Usuario_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `Usuario_id`),
-  INDEX `fk_carrinho_Usuario1_idx` (`Usuario_id` ASC),
-  CONSTRAINT `fk_carrinho_Usuario1`
-    FOREIGN KEY (`Usuario_id`)
-    REFERENCES `Vanguard`.`Usuario` (`id`)
+  `carrinho_id` INT NOT NULL AUTO_INCREMENT,
+  `usuario_id` INT NOT NULL,
+  PRIMARY KEY (`carrinho_id`, `usuario_id`),
+  INDEX `fk_carrinho_usuario1_idx` (`usuario_id` ASC),
+  CONSTRAINT `fk_carrinho_usuario1`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `Vanguard`.`usuario` (`usuario_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -112,44 +107,19 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `Vanguard`.`Estoque`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `estoque` (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    quantidade INT NOT NULL
-) ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `Vanguard`.`Histórico_Estoque`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `historico_estoque` (
-    id SERIAL PRIMARY KEY,
-    item_id INT NOT NULL,
-    quantidade INT NOT NULL,
-    tipo_movimentacao VARCHAR(50) NOT NULL, -- 'entrada' ou 'saida'
-    data_movimentacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_historico_estoque_item`
-        FOREIGN KEY (`item_id`)
-        REFERENCES `estoque` (`id`)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION
-) ENGINE = InnoDB;
-
--- -----------------------------------------------------
 -- Table `Vanguard`.`Produto_carrinho`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Vanguard`.`Produto_carrinho` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `quantidade` INT NOT NULL,
   `Produto_id` INT NOT NULL,
   `carrinho_id` INT NOT NULL,
-  PRIMARY KEY (`Id`, `Produto_id`, `carrinho_id`),
+  PRIMARY KEY (`id`, `Produto_id`, `carrinho_id`),
   INDEX `fk_Produto_carrinho_Produto1_idx` (`Produto_id` ASC),
   INDEX `fk_Produto_carrinho_carrinho1_idx` (`carrinho_id` ASC),
   CONSTRAINT `fk_Produto_carrinho_Produto1`
     FOREIGN KEY (`Produto_id`)
-    REFERENCES `Vanguard`.`Produto` (`id`)
+    REFERENCES `Vanguard`.`Produto` (`produto_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Produto_carrinho_carrinho1`

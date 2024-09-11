@@ -41,8 +41,34 @@ if(isset($_GET['delete_all'])){
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<header class="cabecalho">
+      <div class="logo">
+         <a href="dashboard.html" class="logo"><img src="src/imagem/logos/VanguardLogo - titulo.png"
+               alt="Logo da Vanguard" /> </a>
+      </div>
 
+
+
+      <nav class="menu" id="menu">
+         <a href="dashboard.html">Dashboard</a>
+         <a href="visualizarProdutos.php">Visualizar os produtos</a>
+         <a href="Usuários.php">Visualizar os usuários</a>
+      </nav>
+
+      <?php
+
+      $select_rows = mysqli_query($conn, "SELECT * FROM `carrinho`") or die('query failed');
+      $row_count = mysqli_num_rows($select_rows);
+
+      ?>
+
+      <a href="carrinho.php" class="cart">cart <span><?php echo $row_count; ?></span> </a>
+
+      <div id="menu-btn" class="fas fa-bars"></div>
+
+      </div>
+
+   </header>
 <div class="container">
 
 <section class="shopping-cart">

@@ -32,6 +32,9 @@
 
                 </li>
                 <li>
+                    <a href="carrinho.php" class="cart">cart</a>
+                </li>
+                <li>
                     <a href="servicos.html" target="_blank">Serviços</a>
                 </li>
                 <li>
@@ -45,32 +48,32 @@
         <div class="content">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="">
                 <div class="carousel-inner" style="display:; margin-left:90%; margin-top:30%;">
-                        <div class="carousel-indicators">
+                    <div class="carousel-indicators">
 
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
 
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
 
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                        </div>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
 
-                   
-                            <div class="carousel-item active">
-                                <img src="src/imagem/produtos/slide1.png" class="d-block" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="src/imagem/produtos/slide2.png" class="d-block" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="src/imagem/produtos/slide3.png" class="d-block" alt="...">
-                            </div>
-                        </div>
+
+                    <div class="carousel-item active">
+                        <img src="src/imagem/produtos/slide1.png" class="d-block" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="src/imagem/produtos/slide2.png" class="d-block" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="src/imagem/produtos/slide3.png" class="d-block" alt="...">
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
     </main>
     <section class="compre-ja">
 

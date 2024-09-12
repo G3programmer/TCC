@@ -36,6 +36,9 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="src/css/responsividade/responsivo.css">
     <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 
 </head>
 
@@ -54,16 +57,15 @@ if ($result->num_rows > 0) {
                     <a class="btn-quem-somos" href="indexLogadoCliente.html">Home</a>
                 </li>
                 <li>
-                    <a href="contas.php">Sistema</a>
-                </li>
+                    <a href="produtos.php">Produtos</a>
                 </li>
                 <li>
-                    <a class="btn-servicos" href="cronograma.html">Agenda</a>
+                    <a class="btn-servicos" href="serviços.html">Serviços</a>
                 </li>                <li>
-                    <a class="btn-servicos" href="dashboard.html">Dashboard</a>
+                    <a class="btn-servicos" href="equipe.html">Sobre nós</a>
                 </li>
                 <li>
-                    <a href="estoque.php" target="_blank">estoque</a>
+                    <a href="avaliar.php" target="_blank">Avalie-nos</a>
                 </li>
                 <li>
                     <a href="src/php/logout.php">Logout</a>
@@ -88,10 +90,17 @@ if ($result->num_rows > 0) {
                     <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
                     <br>
                     <?php
-                    echo "<h2 class='nome'><u>$nomeUsuario</u></h2>";
+                    echo "<h2 class='nome'><p>$nomeUsuario</p></h2>";
                     ?>
                     <br>
                     <p class="descricao">pequeno exemplo se um usuário escrevesse aqui</p>
+                    <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <button class="btn btn-light ">
+                            <a aria-current="page"
+                         href="editarPerfil.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"/></svg></a>
+                        </button>  </li>
+                </ul>
                 </div>
             </form>
         </div>
@@ -134,7 +143,7 @@ if ($result->num_rows > 0) {
                     </h6>
                 </a>
                 <hr />
-                <a href="produtos.html">
+                <a href="produtos.php">
                     <h6>
                         Nossos produtos
                     </h6>

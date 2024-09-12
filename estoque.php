@@ -38,15 +38,14 @@ if (isset($_GET['delete'])) {
 
 if (isset($_POST['update_product'])) {
    $update_p_produto_id = $_POST['update_p_produto_id'];
-   $update_p_nome_produto = $_POST['update_p_nome'];
+   $update_p_nome_produto = $_POST['update_p_nome_produto'];
    $update_p_preco = $_POST['update_p_preco'];
    $update_p_classe = $_POST['update_p_classe'];
-   $update_p_classe = $_POST['update_p_classe'];
-   $update_p_imagem = $_FILES['update_p_imagem']['nome'];
-   $update_p_imagem_tmp_name = $_FILES['update_p_imagem']['tmp_nome'];
+   $update_p_imagem = $_FILES['update_p_imagem']['name'];
+   $update_p_imagem_tmp_name = $_FILES['update_p_imagem']['tmp_name'];
    $update_p_imagem_folder = 'src/imagem/produtos/' . $update_p_imagem;
 
-   $update_query = mysqli_query($conn, "UPDATE `produtos` SET nome_produto = '$update_p_nome', preco = '$update_p_preco', classe = '$update_p_classe' , imagem = '$update_p_imagem' WHERE produto_id = '$update_p_produto_id'");
+   $update_query = mysqli_query($conn, "UPDATE `produtos` SET nome_produto = '$update_p_nome_produto', preco = '$update_p_preco', classe = '$update_p_classe' , imagem = '$update_p_imagem' WHERE produto_id = '$update_p_produto_id'");
 
    if ($update_query) {
       move_uploaded_file($update_p_imagem_tmp_nome, $update_p_imagem_folder);
@@ -92,8 +91,7 @@ if (isset($_POST['update_product'])) {
 
 
       <nav class="menu" id="menu">
-         <a href="dashboard.html">Dashboard</a>
-         <a href="visualizarProdutos.php">Visualizar os produtos</a>
+         <a href="dashboard.php">Dashboard</a>
          <a href="Usuários.php">Visualizar os usuários</a>
       </nav>
 
@@ -104,7 +102,7 @@ if (isset($_POST['update_product'])) {
 
       ?>
 
-      <a href="carrinho.php" class="cart">cart <span><?php echo $row_count; ?></span> </a>
+
 
       <div id="menu-btn" class="fas fa-bars"></div>
 
@@ -208,7 +206,7 @@ if (isset($_POST['update_product'])) {
 
                      <input type="hidden" name="update_p_produto_id" value="<?php echo $fetch_edit['produto_id']; ?>">
 
-                     <input type="text" class="box" required name="update_p_nome"
+                     <input type="text" class="box" required name="update_p_nome_produto"
                         value="<?php echo $fetch_edit['nome_produto']; ?>">
 
                      <input type="number" min="0" class="box" required name="update_p_preco"

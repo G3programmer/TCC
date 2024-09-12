@@ -1,5 +1,3 @@
-<!--Fazer outro layou nesse -->
-
 <?php
 // Inclua a conexão com o banco de dados
 include('src/php/conexao.php');

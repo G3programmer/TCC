@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+include_once('src/php/conexao.php');
 
 if(isset($_POST['update_update_btn'])){
    $update_value = $_POST['update_quantity'];
@@ -36,7 +36,7 @@ if(isset($_GET['delete_all'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="src/css/rename.css">
 
 </head>
 <body>
@@ -51,8 +51,8 @@ if(isset($_GET['delete_all'])){
 
       <nav class="menu" id="menu">
          <a href="dashboard.html">Dashboard</a>
-         <a href="visualizarProdutos.php">Visualizar os produtos</a>
-         <a href="Usuários.php">Visualizar os usuários</a>
+         <a href="estoque.php">Visualizar os produtos</a>
+         <a href="contas.php">Visualizar os usuários</a>
       </nav>
 
       <?php
@@ -90,7 +90,7 @@ if(isset($_GET['delete_all'])){
 
          <?php 
          
-         $select_cart = mysqli_query($conn, "SELECT * FROM `cart`");
+         $select_cart = mysqli_query($conn, "SELECT * FROM `carrinho`");
          $grand_total = 0;
          if(mysqli_num_rows($select_cart) > 0){
             while($fetch_cart = mysqli_fetch_assoc($select_cart)){

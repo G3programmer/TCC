@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once('src/php/conexao.php');
-
 // Verifica se o usuário está logado, caso contrário redireciona para o login
 if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     unset($_SESSION['email']);

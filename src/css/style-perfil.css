@@ -27,6 +27,7 @@
     padding: 30px;
     color: #e8e8e8;
     font-weight: bolder;
+    text-decoration: none;
     font-size: 15px;
     font-family: 'Codygoon';
 }
@@ -174,6 +175,8 @@
 
 .roda-pe .opcoes .lista a {
     margin: 1pc;
+    text-decoration: none;
+    color: #fff;
     margin-bottom: 2pc;
     margin-top: 2pc;
 }

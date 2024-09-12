@@ -111,7 +111,9 @@ section{
    display: flex;
    position: relative;
    overflow: hidden;
+   margin-top: 5px;
    background-image: url(../imagem/Fundo/fundo-estoque.jpg);
+   border: 1px solid #fff;
    background-size: cover;
 }
 

@@ -1,4 +1,3 @@
-
 .cabecalho {
     height: 80px;
     background-color: rgb(0, 0, 0);
@@ -61,7 +60,7 @@
     font-family: 'Codygoon';
     border: solid 2px #fff;
     border-radius: 5px;
-    background:rgba(108, 116, 255, 0.604);
+    background: rgba(108, 116, 255, 0.604);
     position: absolute;
     z-index: 1;
     min-height: calc(80vh - 45px);
@@ -71,31 +70,90 @@
     max-width: 750px;
 }
 
-.home .painel .titulo{
+.home .painel .titulo {
     align-self: center;
     text-align: center;
-    
+
 }
 
 .home .painel .li {
- display: flex;
+    display: flex;
 }
 
 /*solicitação*/
 .home .perfil {
-    display: flex;
+    display: grid;
     margin: 1pc;
-    margin-left: 60%;
+    margin-left: 55%;
     width: 40pc;
     height: 30px;
     font-family: 'Codygoon';
     border: solid 2px #fff;
     border-radius: 5px;
-    background:rgba(108, 116, 255, 0.604);
+    background: rgba(108, 116, 255, 0.604);
     position: relative;
     z-index: 1;
     min-height: calc(80vh - 45px);
     gap: 10pc;
     padding: 30px;
     max-width: 750px;
+}
+
+.home .perfil .area-foto {
+    display: flex;
+    position: relative;
+    background-color: black;
+    width: 12pc;
+    height: 12pc;
+    overflow: hidden;
+    border-radius: 100%;
+    border: solid black 1pc;
+    justify-self: center;
+
+}
+
+.home .perfil .area-foto .foto {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.home .perfil .info {
+    display: grid;
+    text-decoration: none;
+    justify-content: center;
+    text-align: center;
+}
+
+.home .perfil .info .bem-vindo {
+    margin-top: -9pc;
+    color: #fff;
+    font-weight: bold;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 3pc;
+}
+
+.home .perfil .info .nome {
+    font-size: 2.6pc;
+    margin-top: -7pc;
+    color: #fff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+
+}
+.home .perfil .info button{
+    display: flex;
+    width: 250px;
+    height: 40px;
+   }
+.home .perfil .info .editar{
+    width: 200px;
+    height: 30px;
+    margin: -2px 0px 5px 0px;
+    margin-left: 10px;
+    padding: auto;
+    float: right;
+    background: #25252589;
+    color: #fff;
 }

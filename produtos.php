@@ -1,3 +1,12 @@
+<?php 
+include('src/php/conexao.php');
+
+$select_sistema = mysqli_query($conn, "SELECT * FROM `produtos`");
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -92,178 +101,91 @@
         <h1 class="titulo">Nossos Produtos</h1>
 
         <!--começa a lista aqui-->
-
+    <div class="produtos">
         <h1 class="titulo">Sistemas Operacionais</h1>
 
-        <!--parrot-->
-        <div class="row" style="gap:4pc;">
-            <div class="card col-1" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/parrot.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Parrot</h5>
-                    <p class="card-text">Um dos sistemas utilizados para pentest defencivo.</p>
-                    <a href="#" class="btn btn-primary">Ver mais</a>
-                </div>
-            </div>
-
-            <br>
-            <!--Arch-->
-            <div class="card col-2" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/BlackArch.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <br>
-
-            <!--Kali-->
-            <div class="card col-3" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/kali.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+        <?php
+$select_sistema = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Sistema Operacional'");
+if (mysqli_num_rows($select_sistema) > 0) {
+?>
+    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+<?php
+    while ($row = mysqli_fetch_assoc($select_sistema)) {
+?>
+        <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+            <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top" style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <br>
-        <!--linha 2-->
-        <!--Backbox-->
-        <div class="row" style="gap:4pc;">
-            <div class="card col-1" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/backbox.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Parrot</h5>
-                    <p class="card-text">Um dos sistemas utilizados para pentest defencivo.</p>
-                    <a href="#" class="btn btn-primary">Ver mais</a>
-                </div>
-            </div>
-
-            <br>
-            <!--Samurai-->
-            <div class="card col-2" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/Samurai-Web-Testing-Framework.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <br>
-        </div>
-
+<?php
+    }
+?>
+    </div>
+<?php
+}
+?>
 
         <!--Segunda parte -->
 
         <h1 class="titulo">Ferramentas</h1>
-        <!--ripper-->
-        <div class="row" style="gap:4pc;">
-            <div class="card col-1" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/JTR.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <br>
-
-            <!--nmap-->
-            <div class="card col-2" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/nmap.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <br>
-            <!--metasploit-->
-            <div class="card col-3" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/metasploit.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+      <?php
+$select_ferramenta = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Ferramenta'");
+if (mysqli_num_rows($select_ferramenta) > 0) {
+?>
+    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+<?php
+    while ($row = mysqli_fetch_assoc($select_ferramenta)) {
+?>
+        <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+            <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top" style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <!--linha 2-->
-        <br>
-        <!--maltego-->
-        <div class="row" style="gap:4pc;">
-            <div class="card col-1" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/maltego.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+<?php
+    }
+?>
+    </div>
+<?php
+}
+?>
 
-            <br>
-
-            <!--burp-->
-            <div class="card col-2" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/burp-suite.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 7pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <br>
-        </div>
 
         <!-- Terceira parte -->
 
         <h1 class="titulo">Proteções</h1>
 
-        <div class="row" style="gap:4pc;">
-            <div class="card col-1" style="width: 15rem; background:black; color:#fff; justify-content:center;">
-                <img src="src/imagem/produtos/powerfull.png" class="card-img-top" alt="..."
-                    style="display:grid; width: 13pc; margin:auto; padding-top:10px;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+        <?php
+$select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Proteção'");
+if (mysqli_num_rows($select_protecao) > 0) {
+?>
+    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+<?php
+    while ($row = mysqli_fetch_assoc($select_protecao)) {
+?>
+        <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+            <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top" style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
+        </div>
+<?php
+    }
+?>
+    </div>
+<?php
+}
+?>
+
             <br>
+            </div>
     </section>
 
 
@@ -273,7 +195,6 @@
         crossorigin="anonymous"></script>
 
     <script src="src/js/botoes.js"></script>
-    <script src="src/js/troca_produto_imagem.js"></script>
     <script src="src/js/vitrine.js"></script>
 </body>
 

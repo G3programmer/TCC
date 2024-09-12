@@ -1,0 +1,84 @@
+<?php 
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
+    <link rel="stylesheet" href="src/css/index-relatar.css">
+    <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/eingrantch-mono" rel="stylesheet">   
+    <link rel="stylesheet" href="src/css/style-relatar.css">
+    <title>Vanguard | Relatar</title>
+</head>
+
+<body>
+    <header class="cabecalho">
+        <a href="indexLogado.html">
+        <div class="logo">
+            <img src="src/imagem/logos/VanguardLogo - titulo.png" alt="Logo da Vanguard" />
+        </div>
+</a>
+        <button id="OpenMenu">&#9776;</button>
+
+        <nav id="menu">
+            <button id="CloseMenu">X</button>
+            <ul class="menu">
+                <li>
+                    <a class="btn-quem-somos" href="#quem-somos">Quem somos</a>
+                </li>
+                <li>
+                    <a class="btn-parcerias" href="#parcerias">Parcerias</a>
+                </li>
+                <li>
+                    <a class="btn-avaliar" href="#avaliar">Avaliar</a>
+                </li>
+                <li>
+                    <a class="btn-servicos" href="servicos.html">Serviços</a>
+                </li>
+                <li>
+                    <a href="produtos.html" target="_blank">Produtos</a>
+                </li>
+                <li>
+                    <a class="btn-login" href="login.html">Logout</a>
+                </li>
+                <li>
+                    <a
+                        href="mailto:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">Suporte</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="home">
+        <div class="container">
+        <form class="formulario" id="relatorio-form" method="POST" action="src/php/dashboard.php">
+
+            <div class="input-search">
+                <label class="titulo" for="inputTitle">Como podemos atender? <br> 
+                    (red team ou blue team?)</label>
+                <input class="caixa-de-texto" type="text" name="relatorio" id="inputTitle">
+            </div>
+
+            <div class="input-search">
+                <label class="segundo titulo" for="inputDescription">Forneça informações como <br> bairro, rua, cep e mais detalhes para o atendimento </label>
+                <textarea class="caixa-de-texto" type="text" name="description" rows="5" id="inputDescription"></textarea>
+
+                <div class="input-search">
+                    <input class="btn-enviar" type="submit" value="Enviar">
+
+                </div>
+            </div>
+        </form>
+        </div>
+    </main>
+
+    <footer class="rodape">
+
+    </footer>
+    <script src="src/js/suporte.js"></script>
+</body>
+</html>

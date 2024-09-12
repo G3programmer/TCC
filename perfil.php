@@ -10,17 +10,20 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
 $logado = $_SESSION['email'];
 
 // Buscar o nome do usuário do banco de dados
-$sql = "SELECT nome, foto FROM usuario WHERE email = '$logado' LIMIT 1";
+$sql = "SELECT * FROM usuario WHERE email = '$logado' LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    $user_Id = $row['usuario_id']; // ID do usuário
     $nomeUsuario = $row['nome'];
     $fotoUsuario = $row['foto']; // Caminho ou nome da imagem
 } else {
     $nomeUsuario = 'Usuário';
     $fotoUsuario = 'default.png'; // Imagem padrão se a foto não for encontrada
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +64,8 @@ if ($result->num_rows > 0) {
                 </li>
                 <li>
                     <a class="btn-servicos" href="serviços.html">Serviços</a>
-                </li>                <li>
+                </li>
+                <li>
                     <a class="btn-servicos" href="equipe.html">Sobre nós</a>
                 </li>
                 <li>
@@ -95,12 +99,20 @@ if ($result->num_rows > 0) {
                     <br>
                     <p class="descricao">pequeno exemplo se um usuário escrevesse aqui</p>
                     <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <button class="btn btn-light ">
-                            <a aria-current="page"
-                         href="editarPerfil.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"/></svg></a>
-                        </button>  </li>
-                </ul>
+                        <li class="nav-item">
+                            <?php
+                           
+                                echo "    
+                        <button class='btn btn-light'>
+                                
+                          <a 
+                         href='editarPerfil.php?usuario_id=$user_Id' title='Editar Perfil'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z'/></svg></a></button>";
+                            
+
+                            ?>
+
+                        </li>
+                    </ul>
                 </div>
             </form>
         </div>

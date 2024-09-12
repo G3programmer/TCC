@@ -3,23 +3,23 @@
 include_once('src/php/conexao.php');
 
 if(isset($_POST['update_update_btn'])){
-   $update_value = $_POST['update_quantity'];
-   $update_id = $_POST['update_quantity_id'];
-   $update_quantity_query = mysqli_query($conn, "UPDATE `cart` SET quantity = '$update_value' WHERE id = '$update_id'");
+   $update_value = $_POST['update_quantidade'];
+   $update_id = $_POST['update_quantidade_produto_id'];
+   $update_quantity_query = mysqli_query($conn, "UPDATE `carrinho` SET quantidade = '$update_value' WHERE carrinho_id = '$update_id'");
    if($update_quantity_query){
-      header('location:cart.php');
+      header('location:carrinho.php');
    };
 };
 
 if(isset($_GET['remove'])){
    $remove_id = $_GET['remove'];
-   mysqli_query($conn, "DELETE FROM `cart` WHERE id = '$remove_id'");
-   header('location:cart.php');
+   mysqli_query($conn, "DELETE FROM `carrinho` WHERE carrinho_id = '$remove_id'");
+   header('location:carrinho.php');
 };
 
 if(isset($_GET['delete_all'])){
-   mysqli_query($conn, "DELETE FROM `cart`");
-   header('location:cart.php');
+   mysqli_query($conn, "DELETE FROM `carrinho`");
+   header('location:carrinho.php');
 }
 
 ?>
@@ -34,6 +34,7 @@ if(isset($_GET['delete_all'])){
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="src/css/rename.css">
@@ -49,12 +50,32 @@ if(isset($_GET['delete_all'])){
 
 
 
-      <nav class="menu" id="menu">
-         <a href="dashboard.html">Dashboard</a>
-         <a href="estoque.php">Visualizar os produtos</a>
-         <a href="contas.php">Visualizar os usuários</a>
-      </nav>
-
+      <nav id="menu">
+         
+            <ul class="menu">
+            <li>
+                    <a class="btn-servicos" href="indexLogadoCliente.html">home</a>
+                </li>    
+            <li>
+                    <a class="btn-servicos" href="servicos.html">Serviços</a>
+                </li>
+                <li>
+                    <a href="produtos.php" target="_blank">Produtos</a>
+                </li>
+                <li>
+                    <a href="src/php/logout.php">Logout</a>
+                </li>
+                <li>
+                    <a href="perfil.php">perfil</a>
+                </li>
+                <li>
+                    <a
+                        href="mailto:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">Suporte</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+ 
       <?php
 
       $select_rows = mysqli_query($conn, "SELECT * FROM `carrinho`") or die('query failed');
@@ -97,18 +118,18 @@ if(isset($_GET['delete_all'])){
          ?>
 
          <tr>
-            <td><img src="uploaded_img/<?php echo $fetch_cart['image']; ?>" height="100" alt=""></td>
+            <td><img src="uploaded_img/<?php echo $fetch_cart['imagem']; ?>" height="100" alt=""></td>
             <td><?php echo $fetch_cart['name']; ?></td>
-            <td>$<?php echo number_format($fetch_cart['price']); ?>/-</td>
+            <td>$<?php echo number_format($fetch_cart['preco']); ?>/-</td>
             <td>
                <form action="" method="post">
-                  <input type="hidden" name="update_quantity_id"  value="<?php echo $fetch_cart['id']; ?>" >
+                  <input type="hidden" name="update_quantidade_produto_id"  value="<?php echo $fetch_cart['carrinho_id']; ?>" >
                   <input type="number" name="update_quantity" min="1"  value="<?php echo $fetch_cart['quantity']; ?>" >
                   <input type="submit" value="update" name="update_update_btn">
                </form>   
             </td>
-            <td>$<?php echo $sub_total = number_format($fetch_cart['price'] * $fetch_cart['quantity']); ?>/-</td>
-            <td><a href="cart.php?remove=<?php echo $fetch_cart['id']; ?>" onclick="return confirm('remove item from cart?')" class="delete-btn"> <i class="fas fa-trash"></i> remove</a></td>
+            <td>$<?php echo $sub_total = number_format($fetch_cart['preco'] * $fetch_cart['quantidade']); ?>/-</td>
+            <td><a href="carrinho.php?remove=<?php echo $fetch_cart['carrinho_id']; ?>" onclick="return confirm('remove item from cart?')" class="delete-btn"> <i class="fas fa-trash"></i> remove</a></td>
          </tr>
          <?php
            $grand_total += $sub_total;  
@@ -116,10 +137,10 @@ if(isset($_GET['delete_all'])){
          };
          ?>
          <tr class="table-bottom">
-            <td><a href="products.php" class="option-btn" style="margin-top: 0;">continue shopping</a></td>
+            <td><a href="produtos.php" class="option-btn" style="margin-top: 0;">continue shopping</a></td>
             <td colspan="3">grand total</td>
             <td>$<?php echo $grand_total; ?>/-</td>
-            <td><a href="cart.php?delete_all" onclick="return confirm('are you sure you want to delete all?');" class="delete-btn"> <i class="fas fa-trash"></i> delete all </a></td>
+            <td><a href="carrinho.php?delete_all" onclick="return confirm('are you sure you want to delete all?');" class="delete-btn"> <i class="fas fa-trash"></i> delete all </a></td>
          </tr>
 
       </tbody>
@@ -127,7 +148,7 @@ if(isset($_GET['delete_all'])){
    </table>
 
    <div class="checkout-btn">
-      <a href="checkout.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">procced to checkout</a>
+      <a href="confirmarPagamento.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">procced to checkout</a>
    </div>
 
 </section>
@@ -135,7 +156,7 @@ if(isset($_GET['delete_all'])){
 </div>
    
 <!-- custom js file link  -->
-<script src="js/script.js"></script>
+<script src="src/js/estoque.js"></script>
 
 </body>
 </html>

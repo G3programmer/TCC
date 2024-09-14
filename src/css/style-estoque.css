@@ -142,6 +142,18 @@ section{
    object-fit: cover;
 }
 
+.home .btn {
+   justify-content: center;
+   background-color: #0a8fe8;
+   color: #fff;
+}
+
+.home .btn:hover {
+   justify-content: center;
+   background-color: #00253eda;
+   color: #fff;
+}
+
 .option a{ 
    font-size: 79%;
    width: auto;

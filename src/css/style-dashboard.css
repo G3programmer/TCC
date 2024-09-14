@@ -54,7 +54,7 @@
 .home .painel {
     display: flex;
     margin: 1pc;
-    margin-left: 1pc;
+    margin-left: 2pc;
     width: 40pc;
     height: 30px;
     font-family: 'Codygoon';
@@ -66,18 +66,50 @@
     min-height: calc(80vh - 45px);
     flex-direction: column;
     gap: 10px;
-    padding: 30px;
+    padding: 10px 5px 10px 5px;
     max-width: 750px;
 }
 
 .home .painel .titulo {
     align-self: center;
     text-align: center;
-
+    color: #fff;
+    margin-left: 2pc;
+    margin-top: 2pc;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
 
-.home .painel .li {
+.home .painel .lista {
+    margin-top: 5pc;
+}
+
+.home .painel .lista button {
+    border-radius: 10px;
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+    background: #ffffff2b;
+    border: none;
+}
+
+.home .painel .lista button:hover {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.381);
+    transition:  0.5s;    transform: translateY(-5px);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.home .painel .lista button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+.home .painel li {
     display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 /*solicitação*/
@@ -147,6 +179,7 @@
     width: 250px;
     height: 40px;
    }
+
 .home .perfil .info .editar{
     width: 200px;
     height: 30px;

@@ -55,12 +55,11 @@ if ($result->num_rows > 0) {
                 Sistema
             </h1>
 
-            <div></div>
-
-            <a href="contas.php"> Lista de Usuários </a>
-            <a href="estoque.php"> Lista de produtos </a>
-            <a href="contas.php"> Lista de Usuários </a>
-
+            <ul class="lista">
+                <li><button><a href="contas.php"> Lista de Usuários</a></button></li>
+                <li><button><a href="estoque.php"> Lista de produtos</a></button></li>
+                <li><button><a href="contas.php"> Lista de Usuários </a></button></li>
+            </ul>
         </div>
 
         <form class="perfil" action="perfil.php">
@@ -77,9 +76,14 @@ if ($result->num_rows > 0) {
                 <ul class="nav nav-pills">
                     <li class="nav-item">
                         <button class="btn btn-light ">
-                            <a aria-current="page"
-                         href="editarPerfil.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"/></svg></a><p class="editar">Editar o Perfil</p>
-                        </button>  </li>
+                            <a aria-current="page" href="editarPerfil.php"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24">
+                                    <path
+                                        d="M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z" />
+                                </svg></a>
+                            <p class="editar">Editar o Perfil</p>
+                        </button>
+                    </li>
                 </ul>
 
             </div>

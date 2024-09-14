@@ -128,15 +128,15 @@ if (isset($_POST['update_product'])) {
 
          <form action="" method="post" class="add-product-form" enctype="multipart/form-data">
             <h3>Adicionar novo produto</h3>
-            <input type="text" name="p_nome" placeholder="enter the product name" class="box" required>
+            <input type="text" name="p_nome" placeholder="Digite o nome do produto" class="box" required>
 
-            <input type="number" name="p_preco" min="0" placeholder="enter the product price" class="box" required>
+            <input type="number" name="p_preco" min="0" placeholder="Digite o preço do produto" class="box" required>
 
-            <input type="text" name="p_classe" min="0" placeholder="enter the product price" class="box" required>
+            <input type="text" name="p_classe" min="0" placeholder="Digite a classe desse produto" class="box" required>
 
             <input type="file" name="p_imagem" accept="image/png, image/jpg, image/jpeg" class="box" required>
 
-            <input type="submit" value="add the product" name="add_product" class="btn">
+            <input type="submit" value="Adicionar" name="add_product" class="btn">
          </form>
 
       </section>

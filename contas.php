@@ -55,7 +55,7 @@ $result = $conn->query($sql);
         <nav id="menu">
             <button id="CloseMenu">X</button>
             <ul class="menu">
-                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="avaliar.html">Avaliações</a></li>
                 <li><a class="btn-servicos" href="servicos.html" target="_blank">Serviços</a></li>
                 <li><a href="produtos.php" target="_blank">Produtos</a></li>

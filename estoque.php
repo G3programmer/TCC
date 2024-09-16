@@ -1,17 +1,27 @@
 <?php
 
 @include 'src/php/conexao.php';
+session_start();
+include_once('src/php/conexao.php');
+// Verifica se o usuário está logado, caso contrário redireciona para o login
+if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
+}
 
 if (isset($_POST['add_product'])) {
    $p_nome = $_POST['p_nome'];
    $p_preco = $_POST['p_preco'];
    $p_classe = $_POST['p_classe'];
+   $p_descricao = $POST['p_descricao'];
    $p_imagem = $_FILES['p_imagem']['name']; // Corrigido de 'nome' para 'name'
    $p_imagem_tmp_name = $_FILES['p_imagem']['tmp_name']; // Corrigido de 'tmp_nome' para 'tmp_name'
 
    $p_imagem_folder = 'src/imagem/produtos/' . $p_imagem;
 
-   $insert_query = mysqli_query($conn, "INSERT INTO `produtos`(nome_produto, preco, classe , imagem) VALUES('$p_nome', '$p_preco','$p_classe', '$p_imagem')") or die('query failed');
+   $insert_query = mysqli_query($conn, "INSERT INTO `produtos`(nome_produto, preco, classe , descricao, imagem) VALUES('$p_nome', '$p_preco','$p_classe', '$p_descricao' '$p_imagem')") or die('query failed');
 
    if ($insert_query) {
       move_uploaded_file($p_imagem_tmp_name, $p_imagem_folder);
@@ -41,11 +51,12 @@ if (isset($_POST['update_product'])) {
    $update_p_nome_produto = $_POST['update_p_nome_produto'];
    $update_p_preco = $_POST['update_p_preco'];
    $update_p_classe = $_POST['update_p_classe'];
+   $update_p_descricao = $_POST['update_p_descricao'];
    $update_p_imagem = $_FILES['update_p_imagem']['name'];
    $update_p_imagem_tmp_name = $_FILES['update_p_imagem']['tmp_name'];
    $update_p_imagem_folder = 'src/imagem/produtos/' . $update_p_imagem;
 
-   $update_query = mysqli_query($conn, "UPDATE `produtos` SET nome_produto = '$update_p_nome_produto', preco = '$update_p_preco', classe = '$update_p_classe' , imagem = '$update_p_imagem' WHERE produto_id = '$update_p_produto_id'");
+   $update_query = mysqli_query($conn, "UPDATE `produtos` SET nome_produto = '$update_p_nome_produto', preco = '$update_p_preco', classe = '$update_p_classe' , descricao = '$update_p_descricao', imagem = '$update_p_imagem' WHERE produto_id = '$update_p_produto_id'");
 
    if ($update_query) {
       move_uploaded_file($update_p_imagem_tmp_nome, $update_p_imagem_folder);
@@ -134,6 +145,8 @@ if (isset($_POST['update_product'])) {
 
             <input type="text" name="p_classe" min="0" placeholder="Digite a classe desse produto" class="box" required>
 
+            <input type="text" name ="p_descricao" min="0" placeholder="Digite aqui a descrição do produto" class="box" required>
+
             <input type="file" name="p_imagem" accept="image/png, image/jpg, image/jpeg" class="box" required>
 
             <input type="submit" value="Adicionar" name="add_product" class="btn">
@@ -150,6 +163,7 @@ if (isset($_POST['update_product'])) {
                <th>Nome</th>
                <th>preço</th>
                <th>classe</th>
+               <th>descricao</th>
                <th>ação</th>
             </thead>
 
@@ -165,8 +179,9 @@ if (isset($_POST['update_product'])) {
                      <tr>
                         <td><img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" height="100" alt=""></td>
                         <td><?php echo $row['nome_produto']; ?></td>
-                        <td>$<?php echo $row['preco']; ?>/-</td>
+                        <td>$<?php echo $row['preco']; ?></td>
                         <td> <?php echo $row['classe']; ?></td>
+                        <td> <?php echo $row['descricao']; ?></td>
                         <td class="option">
                            <a href="estoque.php?delete=<?php echo $row['produto_id']; ?>" class="btn btn-sm btn-danger" id="delete" onclick="return confirm('are your sure you want to delete this?');"> 
                               <i class="fas fa-trash"></i> 
@@ -214,6 +229,9 @@ if (isset($_POST['update_product'])) {
 
                      <input type="text" min="0" class="box" required name="update_p_classe"
                         value="<?php echo $fetch_edit['classe']; ?>">
+
+                        <input type="text" min="0" class="box" required name="update_p_descricao"
+                        value="<?php echo $fetch_edit['descricao']; ?>">
 
                      <input type="file" class="box" required name="update_p_imagem" accept="image/png, image/jpg, image/jpeg">
 

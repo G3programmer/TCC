@@ -1,10 +1,12 @@
 <?php
 session_start();
 include_once('src/php/conexao.php');
-
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+// Verifica se o usuário está logado, caso contrário redireciona para o login
+if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
 }
 
 $logado = $_SESSION['email'];

@@ -1,28 +1,34 @@
 <?php
-
+session_start();
 include_once('src/php/conexao.php');
+// Verifica se o usuário está logado, caso contrário redireciona para o login
+if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
+}
 
-if(isset($_POST['update_update_btn'])){
-   $update_value = $_POST['update_quantidade'];
-   $update_id = $_POST['update_quantidade_produto_id'];
-   $update_quantity_query = mysqli_query($conn, "UPDATE `carrinho` SET quantidade = '$update_value' WHERE carrinho_id = '$update_id'");
-   if($update_quantity_query){
-      header('location:carrinho.php');
-   };
-};
+if(isset($_POST['adicionar'])){
 
-if(isset($_GET['remove'])){
-   $remove_id = $_GET['remove'];
-   mysqli_query($conn, "DELETE FROM `carrinho` WHERE carrinho_id = '$remove_id'");
-   header('location:carrinho.php');
-};
+   $produto_nome = $_POST['product_nome'];
+   $produto_preco = $_POST['product_preco'];
+   $produto_imagem = $_POST['product_imagem'];
+   $produto_quantidade = 1;
 
-if(isset($_GET['delete_all'])){
-   mysqli_query($conn, "DELETE FROM `carrinho`");
-   header('location:carrinho.php');
+   $select_cart = mysqli_query($conn, "SELECT * FROM `carrinho` WHERE nome_produto = '$produto_nome'");
+
+   if(mysqli_num_rows($select_cart) > 0){
+      $message[] = 'product already added to cart';
+   }else{
+      $insert_product = mysqli_query($conn, "INSERT INTO `carrinho`(nome_produto, preco, imagem, quantidade) VALUES('$produto_nome', '$produto_preco', '$produto_imagem', '$produto_quantidade')");
+      $message[] = 'product added to cart succesfully';
+   }
+
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -119,13 +125,11 @@ if(isset($_GET['delete_all'])){
 
          <tr>
             <td><img src="uploaded_img/<?php echo $fetch_cart['imagem']; ?>" height="100" alt=""></td>
-            <td><?php echo $fetch_cart['name']; ?></td>
+            <td><?php echo $fetch_cart['nome_produto']; ?></td>
             <td>$<?php echo number_format($fetch_cart['preco']); ?>/-</td>
             <td>
                <form action="" method="post">
-                  <input type="hidden" name="update_quantidade_produto_id"  value="<?php echo $fetch_cart['carrinho_id']; ?>" >
-                  <input type="number" name="update_quantity" min="1"  value="<?php echo $fetch_cart['quantity']; ?>" >
-                  <input type="submit" value="update" name="update_update_btn">
+                  <input type="hidden" name="update_quantidade_produto_id"  value="<?php echo $fetch_cart['carrinho_id']; ?>">
                </form>   
             </td>
             <td>$<?php echo $sub_total = number_format($fetch_cart['preco'] * $fetch_cart['quantidade']); ?>/-</td>

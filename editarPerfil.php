@@ -1,6 +1,13 @@
 <?php
-// Inclua a conexão com o banco de dados
-include('src/php/conexao.php');
+session_start();
+include_once('src/php/conexao.php');
+// Verifica se o usuário está logado, caso contrário redireciona para o login
+if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
+}
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

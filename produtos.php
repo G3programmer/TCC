@@ -9,21 +9,20 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
 }
 
 // Processamento do formulário
-if (isset($_POST['adicionar'])) {
-    $produto_nome = mysqli_real_escape_string($conn, $_POST['nome_produto']);
-    $produto_preco = mysqli_real_escape_string($conn, $_POST['preco']);
-    $produto_classe = mysqli_real_escape_string($conn, $_POST['classe']);
-    $produto_descricao = mysqli_real_escape_string($conn, $_POST['descricao']);
+if (isset($_GET['adicionar'])) {
+    $produto_nome = $_GET['nome_produto'];
+    $produto_preco = $_GET['preco'];
+    $produto_classe = $_GET['classe'];
+    $produto_descricao =$_GET['descricao'];
 
     // Verifica se a imagem foi enviada corretamente
-    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
-        $imagem_nome = $_FILES['imagem']['name'];
-        $imagem_tmp = $_FILES['imagem']['tmp_name'];
-        $imagem_pasta = 'src/imagem/produtos/' . $imagem_nome;
-
-        // Move o arquivo para a pasta desejada
-        if (move_uploaded_file($imagem_tmp, $imagem_pasta)) {
-            $produto_quantidade = 1;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        // Obtenha os detalhes do arquivo
+        $fileTmpPath = $_FILES['foto']['tmp_name'];
+        $fileNome = $_FILES['foto']['name'];
+        $fileSize = $_FILES['foto']['size'];
+        $fileType = $_FILES['foto']['type'];
+        $foto = addslashes(file_get_contents($fileTmpPath));
 
             // Verifica se o produto já existe no carrinho
             $select_cart = mysqli_query($conn, "SELECT * FROM `carrinho` WHERE nome_produto = '$produto_nome'");
@@ -43,10 +42,8 @@ if (isset($_POST['adicionar'])) {
         } else {
             echo "<script>alert('Erro ao fazer upload da imagem!');</script>";
         }
-    } else {
-        echo "<script>alert('Por favor, envie uma imagem válida!');</script>";
     }
-}
+
 ?>
 
 
@@ -108,15 +105,17 @@ if (isset($_POST['adicionar'])) {
         </nav>
     </header>
     <main class="home">
-    <?php
+        <?php
 
-if(isset($message)){
-   foreach($message as $message){
-      echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
-   };
-};
+        if (isset($message)) {
+            foreach ($message as $message) {
+                echo '<div class="message"><span>' . $message . '</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+            }
+            ;
+        }
+        ;
 
-?>
+        ?>
         <!-- Teste -->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -131,20 +130,20 @@ if(isset($message)){
 
                 <div class="carousel-item active" data-bs-interval="5000">
                     <a href="#sistema">
-                    <img src="src/imagem/produtos/1.png" class="d-block w-100" alt="...">
+                        <img src="src/imagem/produtos/1.png" class="d-block w-100" alt="...">
                     </a>
                 </div>
-               
+
                 <div class="carousel-item" data-bs-interval="5000">
-                <a href="#ferramentas">
-                <img src="src/imagem/produtos/2.png" class="d-block w-100" alt="...">
-               </a>
+                    <a href="#ferramentas">
+                        <img src="src/imagem/produtos/2.png" class="d-block w-100" alt="...">
+                    </a>
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
-                <a href="#protecao">    
-                <img src="src/imagem/produtos/3.png" class="d-block w-100" alt="...">
-                </a>    
-            </div>
+                    <a href="#protecao">
+                        <img src="src/imagem/produtos/3.png" class="d-block w-100" alt="...">
+                    </a>
+                </div>
             </div>
         </div>
         </div>
@@ -179,8 +178,8 @@ if(isset($message)){
                             <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
                                 <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
                                     style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
-                                    
-                                    <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+
+                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
 
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
@@ -201,76 +200,76 @@ if(isset($message)){
                     <?php
                 }
                 ?>
-            <h1 class="titulo" id="ferramentas">Ferramentas</h1>
-            <?php
-            $select_ferramenta = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Ferramenta'");
-            if (mysqli_num_rows($select_ferramenta) > 0) {
-                ?>
-                <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                    <?php
-                    while ($row = mysqli_fetch_assoc($select_ferramenta)) {
-                        ?>
-                        <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
-                            <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
-                                style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
-                                <br>
-                                <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
-
-                                <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
-                                <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
-                                            src="src/imagem/icones/carrinho-de-compras.png" alt="">
-                                    </button>
-                            </div>
-
-                        </div>
-                    
-                    <?php
-                    }?>
-                </div>
+                <h1 class="titulo" id="ferramentas">Ferramentas</h1>
                 <?php
-            }
-            ?>
+                $select_ferramenta = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Ferramenta'");
+                if (mysqli_num_rows($select_ferramenta) > 0) {
+                    ?>
+                    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <?php
+                        while ($row = mysqli_fetch_assoc($select_ferramenta)) {
+                            ?>
+                            <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+                                <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
+                                    style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                                    <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                                    <br>
+                                    <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
 
-
-            <!-- Terceira parte -->
-
-            <h1 class="titulo" id="protecao">Proteções</h1>
-
-            <?php
-            $select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Proteção'");
-            if (mysqli_num_rows($select_protecao) > 0) {
-                ?>
-                <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                    <?php
-                    while ($row = mysqli_fetch_assoc($select_protecao)) {
-                        ?>
-                        <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
-                            <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
-                                style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
-                                <br>
-                                <p class="card-text"><?php echo $row['descricao']; ?></p>
-                                <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
-                                <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
+                                    <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
+                                    <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
                                             src="src/imagem/icones/carrinho-de-compras.png" alt="">
                                     </button>
                                 </div>
-                        </div>
-                        </form>
-                        <?php
-                    }
-                    ?>
-                </div>
-                <?php
-            }
-            ?>
 
-            <br>
+                            </div>
+
+                            <?php
+                        } ?>
+                    </div>
+                    <?php
+                }
+                ?>
+
+
+                <!-- Terceira parte -->
+
+                <h1 class="titulo" id="protecao">Proteções</h1>
+
+                <?php
+                $select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Proteção'");
+                if (mysqli_num_rows($select_protecao) > 0) {
+                    ?>
+                    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <?php
+                        while ($row = mysqli_fetch_assoc($select_protecao)) {
+                            ?>
+                            <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+                                <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
+                                    style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                                    <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                                    <br>
+                                    <p class="card-text"><?php echo $row['descricao']; ?></p>
+                                    <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
+                                    <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
+                                            src="src/imagem/icones/carrinho-de-compras.png" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                    </form>
+                    <?php
+                        }
+                        ?>
+            </div>
+            <?php
+                }
+                ?>
+
+        <br>
         </div>
     </section>
 

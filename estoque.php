@@ -15,13 +15,14 @@ if (isset($_POST['add_product'])) {
    $p_nome = $_POST['p_nome'];
    $p_preco = $_POST['p_preco'];
    $p_classe = $_POST['p_classe'];
-   $p_descricao = $POST['p_descricao'];
+   $p_descricao = $_POST['p_descricao'];
    $p_imagem = $_FILES['p_imagem']['name']; // Corrigido de 'nome' para 'name'
    $p_imagem_tmp_name = $_FILES['p_imagem']['tmp_name']; // Corrigido de 'tmp_nome' para 'tmp_name'
 
    $p_imagem_folder = 'src/imagem/produtos/' . $p_imagem;
 
-   $insert_query = mysqli_query($conn, "INSERT INTO `produtos`(nome_produto, preco, classe , descricao, imagem) VALUES('$p_nome', '$p_preco','$p_classe', '$p_descricao' '$p_imagem')") or die('query failed');
+   $insert_query = mysqli_query($conn, "INSERT INTO `produtos`(nome_produto, preco, classe, descricao, imagem) VALUES('$p_nome', '$p_preco','$p_classe', '$p_descricao', '$p_imagem')") or die('query failed');
+
 
    if ($insert_query) {
       move_uploaded_file($p_imagem_tmp_name, $p_imagem_folder);
@@ -141,7 +142,7 @@ if (isset($_POST['update_product'])) {
             <h3>Adicionar novo produto</h3>
             <input type="text" name="p_nome" placeholder="Digite o nome do produto" class="box" required>
 
-            <input type="number" name="p_preco" min="0" placeholder="Digite o preço do produto" class="box" required>
+            <input type="text" name="p_preco" min="0" placeholder="Digite o preço do produto" class="box" required>
 
             <input type="text" name="p_classe" min="0" placeholder="Digite a classe desse produto" class="box" required>
 
@@ -224,7 +225,7 @@ if (isset($_POST['update_product'])) {
                      <input type="text" class="box" required name="update_p_nome_produto"
                         value="<?php echo $fetch_edit['nome_produto']; ?>">
 
-                     <input type="number" min="0" class="box" required name="update_p_preco"
+                     <input type="text" min="0" class="box" required name="update_p_preco"
                         value="<?php echo $fetch_edit['preco']; ?>">
 
                      <input type="text" min="0" class="box" required name="update_p_classe"

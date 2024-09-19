@@ -33,6 +33,6 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 
 ## Demonstração da página inicial
 <p align="center">
-<img src="ExemplartccFeitocomoClipchamp1-ezgif.com-video-to-gif-converter.gif">
+<img src="Demo.gif">
 </p>
 

@@ -35,4 +35,3 @@ Esse projeto tem como objetivo apresentar o último trabalho do curso técnico e
 <p align="center">
 <img src="Demo.gif">
 </p>
-

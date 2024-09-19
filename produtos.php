@@ -9,40 +9,39 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
 }
 
 // Processamento do formulário
-if (isset($_GET['adicionar'])) {
-    $produto_nome = $_GET['nome_produto'];
-    $produto_preco = $_GET['preco'];
-    $produto_classe = $_GET['classe'];
-    $produto_descricao =$_GET['descricao'];
+if (isset($_POST['plano'])) {
+    $produto_id = $_POST['produto_id'];
+    $produto_nome = $_POST['nome_produto'];
+    $produto_preco = $_POST['preco'];
+    $produto_classe = $_POST['classe'];
+    $produto_descricao = $_POST['descricao'];
+    $produto_quantidade = 1;
 
-    // Verifica se a imagem foi enviada corretamente
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        // Obtenha os detalhes do arquivo
-        $fileTmpPath = $_FILES['foto']['tmp_name'];
-        $fileNome = $_FILES['foto']['name'];
-        $fileSize = $_FILES['foto']['size'];
-        $fileType = $_FILES['foto']['type'];
-        $foto = addslashes(file_get_contents($fileTmpPath));
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['imagem']['tmp_name'];
+        $imagem_nome = addslashes(file_get_contents($fileTmpPath));
 
-            // Verifica se o produto já existe no carrinho
-            $select_cart = mysqli_query($conn, "SELECT * FROM `carrinho` WHERE nome_produto = '$produto_nome'");
+        // Verifica se o produto já existe no carrinho
+        $select_cart = mysqli_query($conn, "SELECT * FROM `carrinho` WHERE nome_produto = '$produto_nome'");
 
-            if (mysqli_num_rows($select_cart) > 0) {
-                echo "<script>alert('Produto já adicionado ao carrinho!');</script>";
-            } else {
-                // Insere os dados no banco de dados
-                $insert_product = mysqli_query($conn, "INSERT INTO `carrinho` (nome_produto, preco, classe, descricao, imagem, quantidade) VALUES ('$produto_nome', '$produto_preco', '$produto_classe', '$produto_descricao', '$imagem_nome', '$produto_quantidade')");
-
-                if ($insert_product) {
-                    echo "<script>alert('Produto adicionado ao carrinho com sucesso!');</script>";
-                } else {
-                    echo "<script>alert('Falha ao adicionar o produto!');</script>";
-                }
-            }
+        if (mysqli_num_rows($select_cart) > 0) {
+            echo "<script>alert('Produto já adicionado ao carrinho');</script>";
         } else {
-            echo "<script>alert('Erro ao fazer upload da imagem!');</script>";
+            $insert_product = mysqli_query($conn, "INSERT INTO `plano` (produto_id, nome_produto, preco, classe, descricao, imagem, quantidade)
+            VALUES ('$produto_id', '$produto_nome', '$produto_preco', '$produto_classe', '$produto_descricao', '$imagem_nome', '$produto_quantidade')");
+
+            if ($insert_product) {
+                echo "<script>alert('Produto adicionado ao carrinho com sucesso!');</script>";
+            } else {
+                echo "<script>alert('Falha ao adicionar o produto!');</script>";
+            }
         }
+    } else {
+        echo "<script>alert('Erro ao fazer upload da imagem!');</script>";
     }
+}
+
+
 
 ?>
 
@@ -105,18 +104,6 @@ if (isset($_GET['adicionar'])) {
         </nav>
     </header>
     <main class="home">
-        <?php
-
-        if (isset($message)) {
-            foreach ($message as $message) {
-                echo '<div class="message"><span>' . $message . '</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
-            }
-            ;
-        }
-        ;
-
-        ?>
-        <!-- Teste -->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -150,8 +137,6 @@ if (isset($_GET['adicionar'])) {
     </main>
     <section class="compre-ja">
 
-
-
         <form id="formBusca" action="src/php/pesquisaProdutos.php" method="GET">
             <div class="caixa-pesquisa">
 
@@ -166,7 +151,8 @@ if (isset($_GET['adicionar'])) {
         <!--começa a lista aqui-->
         <div class="produtos">
             <h1 class="titulo" id="sistema">Sistemas Operacionais</h1>
-            <form method="post" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
+
                 <?php
                 $select_sistema = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Sistema Operacional'");
                 if (mysqli_num_rows($select_sistema) > 0) {
@@ -187,10 +173,7 @@ if (isset($_GET['adicionar'])) {
                                     <br>
                                     <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
 
-                                    <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
-                                    <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
-                                            src="src/imagem/icones/carrinho-de-compras.png" alt="">
-                                    </button>
+                                    <button name="plano" class="btn btn-primary btn-customizado">Compre/Assine agora!</button>
                                 </div>
                             </div>
                             <?php
@@ -212,16 +195,16 @@ if (isset($_GET['adicionar'])) {
                             <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
                                 <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
                                     style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+
+                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
                                     <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
                                     <br>
                                     <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
 
-                                    <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
-                                    <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
-                                            src="src/imagem/icones/carrinho-de-compras.png" alt="">
-                                    </button>
+                                    <button name="plano" class="btn btn-primary btn-customizado">Compre/Assine agora!</button>
                                 </div>
 
                             </div>
@@ -250,38 +233,39 @@ if (isset($_GET['adicionar'])) {
                                 <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
                                     style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
                                 <div class="card-body">
+                                    <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
                                     <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
                                     <br>
                                     <p class="card-text"><?php echo $row['descricao']; ?></p>
-                                    <a href="checkout.php" class="btn btn-primary btn-customizado">Compre/Assine agora!</a>
-                                    <button name="adicionar" type="submit" class="carrinho"><img class="carrinho-imagem"
-                                            src="src/imagem/icones/carrinho-de-compras.png" alt="">
-                                    </button>
+                                    <button name="plano" class="btn btn-primary btn-customizado">Compre/Assine agora!</button>
                                 </div>
                             </div>
-                    </form>
+                            <?php
+                        } ?>
+
+                    </div>
+
                     <?php
-                        }
-                        ?>
-            </div>
-            <?php
                 }
                 ?>
+            </form>
 
-        <br>
         </div>
     </section>
 
 
-    <script src="src/js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 
-    <script src="src/js/botoes.js"></script>
-    <script src="src/js/vitrine.js"></script>
+
+
 </body>
+<script src="src/js/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 
+<script src="src/js/botoes.js"></script>
+<script src="src/js/vitrine.js"></script>
 
 </html>

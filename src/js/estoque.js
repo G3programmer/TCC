@@ -14,5 +14,5 @@ window.onscroll = () =>{
 
 document.querySelector('#close-edit').onclick = () =>{
    document.querySelector('.edit-form-container').style.display = 'none';
-   window.location.href = 'estoque.php';
+   window.location.href = 'estoque.php','produto.php';
 };

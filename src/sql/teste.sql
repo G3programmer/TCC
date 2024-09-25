@@ -86,6 +86,9 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- Table `Vanguard`.`usuario`
 -- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Table `Vanguard`.`usuario`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Vanguard`.`usuario` (
   `usuario_id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(50) NOT NULL,
@@ -96,9 +99,9 @@ CREATE TABLE IF NOT EXISTS `Vanguard`.`usuario` (
   `foto` LONGBLOB NULL,
   `estado_id` INT NOT NULL,
   `cidades_id` INT NOT NULL,
-  `plano_id` INT NOT NULL,
+  `plano_id` INT,
   `is_admin` TINYINT NOT NULL,
-  PRIMARY KEY (`usuario_id`, `estado_id`, `cidades_id`, `plano_id`),
+  PRIMARY KEY (`usuario_id`),
   INDEX `fk_Usuario_Cidades1_idx` (`cidades_id` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
@@ -117,24 +120,6 @@ CREATE TABLE IF NOT EXISTS `Vanguard`.`usuario` (
   CONSTRAINT `fk_usuario_plano1`
     FOREIGN KEY (`plano_id`)
     REFERENCES `Vanguard`.`plano` (`plano_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `Vanguard`.`admin_relatorio`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Vanguard`.`admin_relatorio` (
-  `usuario_id` INT NOT NULL,
-  `usuario_estado_id` INT NOT NULL,
-  `usuario_cidades_id` INT NOT NULL,
-  PRIMARY KEY (`usuario_id`, `usuario_estado_id`, `usuario_cidades_id`),
-  INDEX `fk_usuario_has_relatorio_usuario1_idx` (`usuario_id` ASC, `usuario_estado_id` ASC, `usuario_cidades_id` ASC),
-  CONSTRAINT `fk_usuario_has_relatorio_usuario1`
-    FOREIGN KEY (`usuario_id` , `usuario_estado_id` , `usuario_cidades_id`)
-    REFERENCES `Vanguard`.`usuario` (`usuario_id` , `estado_id` , `cidades_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

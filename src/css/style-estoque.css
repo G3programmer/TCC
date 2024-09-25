@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
-:root{
-   --blue:#2980b9;
-   --red:tomato;
-   --orange:orange;
-   --black:#333;
-   --white:#fff;
-   --bg-color:#eee;
-   --dark-bg:rgba(0,0,0,.7);
-   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
-   --border:.1rem solid #999;
-}
 
 html{
    font-size: 72.5%;
@@ -33,12 +22,12 @@ section{
 
 
 .message{
-   background-color: var(--blue);
+   background-color: rgb(54, 112, 200);
    position: sticky;
    top:0; left:0;
    z-index: 10000;
    border-radius: .5rem;
-   background-color: var(--white);
+   background-color:#fff;
    padding:1.5rem 2rem;
    margin:0 auto;
    max-width: 1200px;
@@ -50,17 +39,17 @@ section{
 
 .message span{
    font-size: 2rem;
-   color:var(--black);
+   color:#333;
 }
 
 .message i{
    font-size: 2.5rem;
-   color:var(--black);
+   color:#333;
    cursor: pointer;
 }
 
 .message i:hover{
-   color:var(--red);
+   color:tomato;
 }
 
 .cabecalho {
@@ -179,7 +168,7 @@ section{
 .add-product-form{
    z-index: 1;
    max-width: 50rem;
-   background-color: var(--bg-color);
+   background-color:#eee;
    border-radius: .5rem;
    padding:2rem;
    margin:0 auto;
@@ -189,7 +178,7 @@ section{
 .add-product-form h3{
    font-size: 2.5rem;
    margin-bottom: 1rem;
-   color:var(--black);
+   color:#333;
    font-family: 'Eingrantch Mono';
    text-transform: uppercase;
    text-align: center;
@@ -199,9 +188,9 @@ section{
    text-transform: none;
    padding:1.2rem 1.4rem;
    font-size: 1.7rem;
-   color:var(--black);
+   color:#333;
    border-radius: .5rem;
-   background-color: var(--white);
+   background-color:#fff;
    margin:1rem 0;
    width: 100%;
 }
@@ -226,6 +215,7 @@ section{
 
 .display-product-table .empty{
    margin-bottom: 2rem;
+   color: #fff;
    text-align: center;
    font-size: 2rem;
    padding:1.5rem;
@@ -235,7 +225,7 @@ section{
    position: fixed;
    top:0; left:0;
    z-index: 1100;
-   background-color: var(--dark-bg);
+   background-color:rgba(0,0,0,.7);
    padding:2rem;
    display: none;
    align-items: center;
@@ -247,14 +237,14 @@ section{
 .edit-form-container form{
    width: 50rem;
    border-radius: .5rem;
-   background-color: var(--white);
+   background-color:#fff;
    text-align: center;
    padding:2rem;
 }
 
 .edit-form-container form .box{
    width: 100%;
-   background-color: var(--bg-color);
+   background-color:#eee;
    border-radius: .5rem;
    margin:1rem 0;
    font-size: 1.7rem;
@@ -273,8 +263,8 @@ section{
 .products .box-container .box{
    text-align: center;
    padding:2rem;
-   box-shadow: var(--box-shadow);
-   border:var(--border);
+   box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+   border:.1rem solid #999;
    border-radius: .5rem;
 }
 
@@ -285,12 +275,12 @@ section{
 .products .box-container .box h3{
    margin:1rem 0;
    font-size: 2.5rem;
-   color:var(--black);
+   color:#333;
 }
 
 .products .box-container .box .price{
    font-size: 2.5rem;
-   color:var(--black);
+   color:#333;
 }
 
 

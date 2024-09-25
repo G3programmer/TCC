@@ -13,16 +13,17 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if(!empty($_GET['usuario_id']))
-{
-    $id = $_GET['usuario_id'];
-    $sqlSelect = "SELECT * FROM usuario WHERE usuario_id = $id";
-    $result = $conn->query($sqlSelect);
-    if($result->num_rows > 0)
-    {
-        while($user_data = mysqli_fetch_assoc($result))
-        {
-            $nome = $user_data['nome'];
+if(!empty($_GET['usuario_id'])) {
+        $id = $_GET['usuario_id'];
+        $stmt = $conn->prepare("SELECT * FROM usuario WHERE usuario_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if($result->num_rows > 0) {
+            while($user_data = $result->fetch_assoc()) {
+                // Atribuição de valores continua aqui
+                 $nome = $user_data['nome'];
             $senha = $user_data['senha'];
             $email = $user_data['email'];
             $dt_nasc = $user_data['dt_nasc'];
@@ -30,25 +31,15 @@ if(!empty($_GET['usuario_id']))
             // Verificação para evitar erro de array indefinido
             $cidade = isset($user_data['cidade_id']) ? $user_data['cidade_id'] : ''; 
             $estado = isset($user_data['estado_id']) ? $user_data['estado_id'] : '';
+        
+
+            $fotoUsuario = isset($user_data['foto']) ? $user_data['foto'] : 'default.png';
+
+                }
         }
-
-
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            // Obtenha os detalhes do arquivo
-            $fileTmpPath = $_FILES['foto']['tmp_name'];
-            $fileNome = $_FILES['foto']['name'];
-            $fileSize = $_FILES['foto']['size'];
-            $fileType = $_FILES['foto']['type'];
-            $foto = addslashes(file_get_contents($fileTmpPath));
-        }
- }
-
 }
-else {
-        header('Location: contas.php');
-        exit;
     
-    }
+            
 // Carrega a lista de estados
 $sql_code_states = "SELECT * FROM estado ORDER BY nome_estado ASC";
 $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
@@ -56,7 +47,7 @@ $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
 // Carrega a lista de cidades
 $sql_code_cities = "SELECT * FROM cidades ORDER BY nome_cidade ASC";
 $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
-;
+
 ?>
 
 <!DOCTYPE html>
@@ -111,13 +102,10 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                 </div>
 
                                 <div class="col-6">
-                                <select name="estado" id="estado" class="form-select" required>
-                                <label for="inputState" class="form-label">State</label>
-                                   
-                                <option value="">Selecione um estado</option>
-                            <?php while ($estado = $sql_query_states->fetch_assoc()) { ?>
-                                <option value="<?php echo $estado['estado_id']; ?>">
-                                    <?php echo $estado['nome_estado']; ?>
+                                <select name="estado" id="estado" class="form-select"   required>
+                                <?php while ($estadoRow = $sql_query_states->fetch_assoc()) { ?>
+                                        <option value="<?php echo $estadoRow['estado_id']; ?>">
+                                        <?php echo htmlspecialchars($estadoRow['nome_estado']); ?>
                                 </option>
                             <?php } ?>
                         </select>
@@ -126,9 +114,9 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                     <div class="col-6">
                                 <select name="cidade" id="cidade" class="form-select"   required>
                                 <label for="inputState" class="form-label">State</label>
-                                <?php while ($cidade = $sql_query_cities->fetch_assoc()) { ?>
-                                <option value="<?php echo $cidade['cidade_id']; ?>">
-                                    <?php echo $cidade['nome_cidade']; ?>
+                                <?php while ($cidadeRow = $sql_query_cities->fetch_assoc()) { ?>
+                                        <option value="<?php echo $cidadeRow['cidade_id']; ?>">
+                                        <?php echo htmlspecialchars($cidadeRow['nome_cidade']); ?>
                                 </option>
                             <?php } ?>
                         </select>
@@ -142,13 +130,13 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                         name="dt_nasc" value=<?php echo $dt_nasc;?>>
                                 </div>
 
-                              <!--  <div class="col-md-5">
+                              <div class="col-md-5">
                                         <label for="inputZip" class="form-label">foto</label>
-                                <input type="file" class="form-control" name="foto" id="foto" required>
+                                <input type="file" class="form-control" name="foto" id="foto">
                         <span>Foto de perfil</span>
-</div> -->
+</div> 
 
-<input type="number" name="usuario_id" value=<?php echo $id;?>>
+<input type="hidden" name="usuario_id" value=<?php echo $id;?>>
               
                           <div class="col-12">
                                         <button type="submit" class="btn btn-primary" name="update">Sign in</button>

@@ -85,16 +85,12 @@ if (isset($_POST['plano'])) {
                 </li>
                 <li>
 
-                    <?php
-
-                    $select_rows = mysqli_query($conn, "SELECT * FROM `carrinho`") or die('query failed');
-                    $row_count = mysqli_num_rows($select_rows);
-
-                    ?>
-
                 <li>
                     <a href="carrinho.php"><img class="carrinho" src="src/imagem/icones/carrinho-de-compras.png"
-                            alt=""><span><?php echo $row_count; ?></span> </a>
+                            alt=""></a>
+                </li>
+                <li>
+                    <a href="src/php/logout.php">Logout</a>
                 </li>
                 <li>
                     <a
@@ -117,7 +113,7 @@ if (isset($_POST['plano'])) {
 
                 <div class="carousel-item active" data-bs-interval="5000">
                     <a href="#sistema">
-                        <img src="src/imagem/produtos/1.png" class="d-block w-100" alt="...">
+                        <img src="src/imagem/produtos/3.png" class="d-block w-100" alt="...">
                     </a>
                 </div>
 
@@ -128,7 +124,7 @@ if (isset($_POST['plano'])) {
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
                     <a href="#protecao">
-                        <img src="src/imagem/produtos/3.png" class="d-block w-100" alt="...">
+                        <img src="src/imagem/produtos/1.png" class="d-block w-100" alt="...">
                     </a>
                 </div>
             </div>
@@ -154,7 +150,7 @@ if (isset($_POST['plano'])) {
             <form method="POST" enctype="multipart/form-data">
 
                 <?php
-                $select_sistema = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Sistema Operacional'");
+                $select_sistema = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%sistem%' OR classe LIKE '%opera%'");
                 if (mysqli_num_rows($select_sistema) > 0) {
                     ?>
                     <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
@@ -185,7 +181,7 @@ if (isset($_POST['plano'])) {
                 ?>
                 <h1 class="titulo" id="ferramentas">Ferramentas</h1>
                 <?php
-                $select_ferramenta = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Ferramenta'");
+                $select_ferramenta = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%errament%'");
                 if (mysqli_num_rows($select_ferramenta) > 0) {
                     ?>
                     <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
@@ -222,7 +218,7 @@ if (isset($_POST['plano'])) {
                 <h1 class="titulo" id="protecao">Proteções</h1>
 
                 <?php
-                $select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe = 'Proteção'");
+                $select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%prote%'");
                 if (mysqli_num_rows($select_protecao) > 0) {
                     ?>
                     <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">

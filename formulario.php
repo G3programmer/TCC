@@ -19,10 +19,21 @@ if (isset($_POST['submit'])) {
         $fileNome = $_FILES['foto']['name'];
         $fileSize = $_FILES['foto']['size'];
         $fileType = $_FILES['foto']['type'];
-        $foto = addslashes(file_get_contents($fileTmpPath));
-
+        $foto = $_FILES['foto']['name']; // Corrigido de 'nome' para 'name'
+        $foto_tmp_name = $_FILES['foto']['tmp_name']; // Corrigido de 'tmp_nome' para 'tmp_name'
+     
+        $foto_folder = 'src/imagem/pessoas/' . $foto;
+     
         // Insira os dados no banco de dados, incluindo a imagem
-        $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidade_id, foto) 
+
+        if ($insert_query) {
+            move_uploaded_file($foto_tmp_name, $foto_folder);
+            $message[] = 'product add succesfully';
+         } else {
+            $message[] = 'could not add the product';
+         }
+
+        $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidades_id, foto) 
             VALUES ('$nome','$dt_nasc','$email','$senha','$cpf','$estado','$cidade','$foto')");
 
         if ($result) {
@@ -39,8 +50,8 @@ if (isset($_POST['submit'])) {
         // Exibe um pop-up se a imagem não for carregada corretamente
         echo "<script>alert('Erro ao carregar a imagem.');</script>";
     }
-}
 
+}
 
 // Carrega a lista de estados
 $sql_code_states = "SELECT * FROM estado ORDER BY nome_estado ASC";

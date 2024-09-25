@@ -1,12 +1,40 @@
 <?php
-
 @include 'src/php/conexao.php';
 session_start();
-include_once('src/php/conexao.php');
+
 // Verifica se o usuário está logado, caso contrário redireciona para o login
 if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
+}
+
+$email = $_SESSION['email'];
+$senha = $_SESSION['senha'];
+
+// Usa prepared statement para prevenir SQL Injection
+$stmt = $conn->prepare("SELECT is_admin FROM usuario WHERE email = ? AND senha = ?");
+$stmt->bind_param("ss", $email, $senha);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    
+    // Verifica se o usuário é administrador
+    if ($row['is_admin'] == 1) {
+        if (basename($_SERVER['PHP_SELF']) !== 'estoque.php') { // Evita redirecionamento em loop
+            header('Location: estoque.php');
+            exit;
+        }
+    } else {
+        if (basename($_SERVER['PHP_SELF']) !== 'perfil.php') { // Evita redirecionamento em loop
+            header('Location: perfil.php');
+            exit;
+        }
+    }
+} else {
     header('Location: login.html');
     exit;
 }
@@ -104,15 +132,10 @@ if (isset($_POST['update_product'])) {
 
       <nav class="menu" id="menu">
          <a href="dashboard.php">Dashboard</a>
-         <a href="Usuários.php">Visualizar os usuários</a>
+         <a href="contas.php">Visualizar os usuários</a>
+                    <a href="src/php/logout.php">Logout</a>
       </nav>
 
-      <?php
-
-      $select_rows = mysqli_query($conn, "SELECT * FROM `carrinho`") or die('query failed');
-      $row_count = mysqli_num_rows($select_rows);
-
-      ?>
 
 
 
@@ -172,6 +195,7 @@ if (isset($_POST['update_product'])) {
                <?php
 
                $select_produto = mysqli_query($conn, "SELECT * FROM `produtos`");
+
                if (mysqli_num_rows($select_produto) > 0) {
                   while ($row = mysqli_fetch_assoc($select_produto)) {
                      ?>
@@ -195,11 +219,11 @@ if (isset($_POST['update_product'])) {
 
                      <?php
                   }
-                  ;
+                  
                } else {
                   echo "<div class='empty'>no product added</div>";
                }
-               ;
+               
                ?>
             </tbody>
          </table>

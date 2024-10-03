@@ -2,51 +2,39 @@
 session_start();
 include_once('conexao.php');
 
+// Verifica se o usuário está logado, caso contrário redireciona para o login
+if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
+}
+
+// Verifica se o formulário foi enviado
 if (isset($_POST['update'])) {
-    $id = $_POST['usuario_id'];
+    $usuario_id = $_POST['usuario_id'];
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
     $dt_nasc = $_POST['dt_nasc'];
-    $estado = $_POST['estado']; // Certifique-se de que o nome do campo no HTML é 'estado'
-    $cidade = $_POST['cidade']; // Certifique-se de que o nome do campo no HTML é 'cidade'
+    $estado = $_POST['estado'];
+    $cidade = $_POST['cidade'];
 
-    // Verifica se uma nova imagem foi enviada
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-        $foto = $_FILES['foto'];
-        $nomeFoto = $foto['name'];
-        $tempFoto = $foto['tmp_name'];
-        $caminhoFoto = '../imagem/pessoas/' . $nomeFoto;
+    // Verifica se o checkbox está marcado
+    $is_admin = isset($_POST['is_admin']) ? 1 : 0;
 
-        // Move o arquivo para o diretório de destino
-        if (move_uploaded_file($tempFoto, $caminhoFoto)) {
-            // Sucesso no upload, agora salvamos o nome da imagem no banco de dados
-            $sqlUpdate = "UPDATE usuario SET nome='$nome', email='$email', senha='$senha', cpf='$cpf', dt_nasc='$dt_nasc', estado_id='$estado', cidades_id='$cidade', foto='$nomeFoto' WHERE usuario_id='$id'";
-        } else {
-            echo "Erro ao fazer o upload da imagem.";
-            exit;
-        }
+    // Atualiza os dados no banco de dados
+    $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, cpf = ?, dt_nasc = ?, estado_id = ?, cidades_id = ?, is_admin = ? WHERE usuario_id = ?");
+    $stmt->bind_param("ssssiisii", $nome, $email, $senha, $cpf, $dt_nasc, $estado, $cidade, $is_admin, $usuario_id);
+    
+    if ($stmt->execute()) {
+        // Redireciona para uma página de sucesso ou perfil
+        header('Location: ../../contas.php');
+        exit;
     } else {
-        // Se nenhuma nova imagem foi enviada, atualize os outros dados sem modificar a foto
-        $sqlUpdate = "UPDATE usuario SET nome='$nome', email='$email', senha='$senha', cpf='$cpf', dt_nasc='$dt_nasc', estado_id='$estado', cidades_id='$cidade' WHERE usuario_id='$id'";
-    }
-
-    // Verifique se a cidade e o estado existem
-    $checkStateCity = "SELECT COUNT(*) as count FROM cidades WHERE cidade_id='$cidade' AND estado_id='$estado'";
-    $result = $conn->query($checkStateCity);
-    $row = $result->fetch_assoc();
-
-    if ($row['count'] > 0) {
-        // Executa a query de atualização
-        if ($conn->query($sqlUpdate) === TRUE) {
-            header('Location: ../../contas.php');
-            exit;
-        } else {
-            echo "Erro ao atualizar o perfil: " . $conn->error;
-        }
-    } else {
-        echo "Cidade ou estado inválido.";
+        // Lida com erro de execução
+        echo "Erro ao atualizar: " . $stmt->error;
     }
 }
 ?>

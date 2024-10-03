@@ -16,6 +16,27 @@
     height: 55px;
 }
 
+.cabecalho .menu {
+    display: flex;
+    flex: 1 1 200px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.cabecalho .menu li a {
+    padding: 30px;
+    color: #e8e8e8;
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: 'Codygoon';
+}
+
+.cabecalho .menu li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
 .home {
     display: flex;
     background: #131c2b;
@@ -108,7 +129,7 @@ formulário
 }
 
 .home .box .titulo {
-    font-family:'Eingrantch Mono';
+    font-family: 'Eingrantch Mono';
     color: #fff;
     margin-bottom: 15px;
     font-weight: 500;
@@ -244,7 +265,7 @@ formulário
 }
 
 .home .box .formulario .inputBox .estado,
-.home .box .formulario .inputBox .cidade  {
+.home .box .formulario .inputBox .cidade {
     background: #87868656;
     display: flex;
     border: none;
@@ -255,6 +276,55 @@ formulário
     color: #fff;
 }
 
+.home .box .formulario .inputBox .estado:focus,
+.home .box .formulario .inputBox .cidade:focus {
+    outline: none;
+    background: #2c8abd;
+    color: #fff;
+ }
+
+.home .box .formulario .inputBox .estado option:checked,
+.home .box .formulario .inputBox .cidade option:checked {
+    background: #15a136;
+    color: #fff;
+ }
+
+ .home .box .formulario .inputBoxFile {
+    position: relative;
+    font-family: 'Codygoon';
+    font-size: 15px;
+    width: 300px;
+    margin-top: 9px;
+ }
+
+ .home .box .formulario .inputBoxFile input {
+    position: relative;
+    justify-content: center;
+    width: 100%;
+    margin-top: 45px;
+    background: #fff;
+    padding: 10px 10px 10px;
+    outline: none;
+    border-radius: 6px;
+    border: none;
+    box-shadow: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    z-index: 10;
+ }
+
+ .home .box .formulario .inputBoxFile span{
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    pointer-events: none;
+    color: #fff;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    z-index: 20;
+}
+
 .home .box .formulario .next-btn {
     position: relative;
     justify-self: center;
@@ -262,7 +332,7 @@ formulário
     font-size: 15px;
     background: none;
     border-radius: 5px;
-    color:#fff;
+    color: #fff;
     border: none;
     cursor: pointer;
     width: 100px;
@@ -286,7 +356,7 @@ formulário
     font-size: 15px;
     background: none;
     border-radius: 5px;
-    color:#fff;
+    color: #fff;
     border: none;
     cursor: pointer;
     width: 100px;
@@ -337,29 +407,29 @@ formulário
 }
 
 .home .box .formulario .cadastrar {
-position: absolute;
-background: rgba(69, 69, 69, 0.381);
-cursor: pointer;
-width:18pc;
-margin-top: 2pc;
-justify-self: center;
-border:none;
-font-family: 'Codygoon';
-border-radius: 20px;
-color: #fff;
-transition: 0.5s;
-padding: 5px 0px 5px 0px;
+    position: absolute;
+    background: rgba(69, 69, 69, 0.381);
+    cursor: pointer;
+    width: 18pc;
+    margin-top: 2pc;
+    justify-self: center;
+    border: none;
+    font-family: 'Codygoon';
+    border-radius: 20px;
+    color: #fff;
+    transition: 0.5s;
+    padding: 5px 0px 5px 0px;
 }
 
 .home .box .formulario .cadastrar:hover {
     color: black;
     font-weight: bold;
     background: #fff;
-    transition:  0.5s;   
+    transition: 0.5s;
 }
 
 .home .box .formulario .btns {
-justify-self: center;
+    justify-self: center;
 }
 
 .home .box .formulario .btns .login-btn {
@@ -371,7 +441,7 @@ justify-self: center;
     font-size: 15px;
     background: none;
     border-radius: 5px;
-    color:#fff;
+    color: #fff;
     border: none;
     cursor: pointer;
     width: 100px;
@@ -395,7 +465,7 @@ justify-self: center;
     font-size: 15px;
     background: none;
     border-radius: 5px;
-    color:#fff;
+    color: #fff;
     border: none;
     cursor: pointer;
     width: 100px;

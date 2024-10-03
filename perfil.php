@@ -102,8 +102,6 @@ if (isset($user_Id) && !empty($row['foto'])) {
         <?php
         echo "<h2 class='nome'><p>" . htmlspecialchars($nomeUsuario) . "</p></h2>";
         ?>
-        <br>
-        <p class="descricao">pequeno exemplo se um usuário escrevesse aqui</p>
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <?php
@@ -118,6 +116,14 @@ if (isset($user_Id) && !empty($row['foto'])) {
                 ?>
             </li>
         </ul>
+        <br><br><br>
+        
+<!-- Fazer o plano list aqui -->
+<div class="descricao">
+<h1 class="titulo"> Plano(s) Ativos</h1>
+
+</div>
+        
     </div>
 <?php 
 }

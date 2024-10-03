@@ -21,17 +21,15 @@ if (isset($_POST['submit'])) {
         $fileType = $_FILES['foto']['type'];
         $foto = $_FILES['foto']['name']; // Corrigido de 'nome' para 'name'
         $foto_tmp_name = $_FILES['foto']['tmp_name']; // Corrigido de 'tmp_nome' para 'tmp_name'
-     
+
         $foto_folder = 'src/imagem/pessoas/' . $foto;
-     
+
         // Insira os dados no banco de dados, incluindo a imagem
 
         if ($insert_query) {
             move_uploaded_file($foto_tmp_name, $foto_folder);
-            $message[] = 'product add succesfully';
-         } else {
-            $message[] = 'could not add the product';
-         }
+        } else {
+        }
 
         $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidades_id, foto) 
             VALUES ('$nome','$dt_nasc','$email','$senha','$cpf','$estado','$cidade','$foto')");
@@ -82,6 +80,16 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
     <header class="cabecalho">
         <a href="index.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
                 alt="titulo da Vanguard"></a>
+
+        <nav id="menu">
+            <button id="CloseMenu">X</button>
+            <ul class="menu">
+                <li>
+                    <a class="btn-quem-somos" href="index.html">Home</a>
+
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <main class="home">
@@ -133,8 +141,9 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                         <i></i>
                     </div>
 
+                    
                     <div class="inputBox">
-                        <select name="estado" id="estado" required>
+                        <select name="estado" class="estado" id="estado" required>
                             <option value="">Selecione um estado</option>
                             <?php while ($estado = $sql_query_states->fetch_assoc()) { ?>
                                 <option value="<?php echo $estado['estado_id']; ?>">
@@ -145,7 +154,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                     </div>
 
                     <div class="inputBox">
-                        <select name="cidade" id="cidade" required>
+                        <select name="cidade" class="cidade" id="cidade" required>
                             <option value="">Selecione uma Cidade</option>
                             <?php while ($cidade = $sql_query_cities->fetch_assoc()) { ?>
                                 <option value="<?php echo $cidade['cidade_id']; ?>">
@@ -155,7 +164,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                         </select>
                     </div>
 
-                    <div class="inputBox">
+                    <div class="inputBoxFile">
                         <input type="file" name="foto" required>
                         <span>Foto de perfil</span>
                         <i></i>

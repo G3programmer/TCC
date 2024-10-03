@@ -2,7 +2,6 @@
 session_start();
 include_once('src/php/conexao.php');
 // Verifica se o usuário está logado, caso contrário redireciona para o login
-
 if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
@@ -10,37 +9,35 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     exit;
 }
 
-$id = $_GET['usuario_id'];
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Verifica se o ID do usuário foi passado
-if (!empty($_GET['usuario_id'])) {
-   
-    $stmt = $conn->prepare("SELECT * FROM usuario WHERE usuario_id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute() or die($stmt->error);
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        while ($user_data = $result->fetch_assoc()) {
-            // Atribuição de valores continua aqui
+if(!empty($_GET['usuario_id'])) {
+        $id = $_GET['usuario_id'];
+        $stmt = $conn->prepare("SELECT * FROM usuario WHERE usuario_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if($result->num_rows > 0) {
+            while($user_data = $result->fetch_assoc()) {
+                // Atribuição de valores continua aqui
             $nome = $user_data['nome'];
             $senha = $user_data['senha'];
             $email = $user_data['email'];
             $dt_nasc = $user_data['dt_nasc'];
             $cpf = $user_data['cpf'];
+            // Verificação para evitar erro de array indefinido
             $cidade = isset($user_data['cidade_id']) ? $user_data['cidade_id'] : ''; 
             $estado = isset($user_data['estado_id']) ? $user_data['estado_id'] : '';
-            $fotoUsuario = isset($user_data['foto']) ? $user_data['foto'] : 'default.png';
-        }
-    }
-}
+        
 
-    
-            
+            $fotoUsuario = isset($user_data['foto']) ? $user_data['foto'] : 'default.png';
+
+                }
+        }
+}     
 // Carrega a lista de estados
 $sql_code_states = "SELECT * FROM estado ORDER BY nome_estado ASC";
 $sql_query_states = $conn->query($sql_code_states) or die($conn->error);
@@ -62,7 +59,6 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
                 crossorigin="anonymous">
-
         <link rel="stylesheet" href="src/css/responsivo-cadastro.css">
         <link href="https://fonts.cdnfonts.com/css/eingrantch-mono" rel="stylesheet">
         <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
@@ -81,12 +77,9 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                 <div class="area">
                 <form class="row g-3" action="src/php/saveEdit.php" method="POST" enctype="multipart/form-data">
 
-                <input type="number" name="usuario_id" value=<?php echo $id;?>>
-     
                                 <div class="col-md-6">
                                         <label for="inputEmail4" class="form-label">Nome</label>
-                                        <input
-                                         type="text" class="form-control" id="inputEmail4" name="nome" value=<?php echo $nome;?>>
+                                        <input type="text" class="form-control" id="inputEmail4" name="nome" value=<?php echo $nome;?>>
                                 </div>
                                 <div class="col-md-6">
                                         <label for="inputPassword4" class="form-label">Email</label>
@@ -119,7 +112,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                 <select name="cidade" id="cidade" class="form-select"   required>
                                 <label for="inputState" class="form-label">State</label>
                                 <?php while ($cidadeRow = $sql_query_cities->fetch_assoc()) { ?>
-                                        <option value="<?php echo $cidadeRow['cidades_id']; ?>">
+                                        <option value="<?php echo $cidadeRow['cidade_id']; ?>">
                                         <?php echo htmlspecialchars($cidadeRow['nome_cidade']); ?>
                                 </option>
                             <?php } ?>
@@ -140,7 +133,18 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                         <span>Foto de perfil</span>
 </div> 
 
+<div class="col-md-6">
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="is_admin">
+  <label class="form-check-label" for="flexCheckDefault">
+    Admin
+  </label>
+</div>
+</div>
 
+
+<input type="hidden" name="usuario_id" value=<?php echo $id;?>>
+              
                           <div class="col-12">
                                         <button type="submit" class="btn btn-primary" name="update">Sign in</button>
                                 </div>

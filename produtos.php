@@ -10,39 +10,32 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
 
 // Processamento do formulário
 if (isset($_POST['plano'])) {
+    $plano_id = $_POST['plano_id'];
+    $plano_nome = $_POST['nome_plano'];
+    $plano_preco = $_POST['preco_plano'];
+    $plano_tempo = $_POST['tempo'];
     $produto_id = $_POST['produto_id'];
-    $produto_nome = $_POST['nome_produto'];
-    $produto_preco = $_POST['preco'];
-    $produto_classe = $_POST['classe'];
-    $produto_descricao = $_POST['descricao'];
-    $produto_quantidade = 1;
 
-    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['imagem']['tmp_name'];
-        $imagem_nome = addslashes(file_get_contents($fileTmpPath));
 
-        // Verifica se o produto já existe no carrinho
-        $select_cart = mysqli_query($conn, "SELECT * FROM `carrinho` WHERE nome_produto = '$produto_nome'");
+    // Verifica se o produto já existe no carrinho
+    $select_plan = mysqli_query($conn, "SELECT * FROM `plano` WHERE nome_plano = '$plano_nome'");
 
-        if (mysqli_num_rows($select_cart) > 0) {
-            echo "<script>alert('Produto já adicionado ao carrinho');</script>";
-        } else {
-            $insert_product = mysqli_query($conn, "INSERT INTO `plano` (produto_id, nome_produto, preco, classe, descricao, imagem, quantidade)
-            VALUES ('$produto_id', '$produto_nome', '$produto_preco', '$produto_classe', '$produto_descricao', '$imagem_nome', '$produto_quantidade')");
-
-            if ($insert_product) {
-                echo "<script>alert('Produto adicionado ao carrinho com sucesso!');</script>";
-            } else {
-                echo "<script>alert('Falha ao adicionar o produto!');</script>";
-            }
-        }
+    if (mysqli_num_rows($select_plan) > 0) {
+        echo "<script>alert('Assinatura já guardada');</script>";
     } else {
-        echo "<script>alert('Erro ao fazer upload da imagem!');</script>";
+        // Corrigindo a consulta de inserção
+        $insert_plan = mysqli_query($conn, "INSERT INTO `plano` (produto_id, nome_plano, preco_plano, tempo) 
+               VALUES ('$produto_id', '$plano_nome', '$plano_preco', '$plano_tempo')");
+
+        if ($insert_plan) {
+            echo "<script>alert('Produto adicionado ao carrinho com sucesso!');</script>";
+        } else {
+            echo "<script>alert('Falha ao adicionar o produto!');</script>";
+        }
     }
+} else {
+    echo "<script>alert('Erro ao fazer upload da imagem!');</script>";
 }
-
-
-
 ?>
 
 
@@ -163,13 +156,19 @@ if (isset($_POST['plano'])) {
 
                                 <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
 
+                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+                                <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
+                                <input type="hidden" name="preco_plano" value="<?php echo $row['preco']; ?>">
+                                <input type="hidden" name="tempo" value="<?php echo '12 meses'; ?>">
+                                <!-- Defina o valor conforme necessário -->
+
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
                                     <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
                                     <br>
                                     <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
 
-                                    <button name="plano" class="btn btn-primary btn-customizado">Compre/Assine agora!</button>
+                                    <button name="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
                                 </div>
                             </div>
                             <?php
@@ -193,6 +192,12 @@ if (isset($_POST['plano'])) {
                                     style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
 
                                 <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+
+                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+                                <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
+                                <input type="hidden" name="preco_plano" value="<?php echo $row['preco']; ?>">
+                                <input type="hidden" name="tempo" value="<?php echo '12 meses'; ?>">
+                                <!-- Defina o valor conforme necessário -->
 
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
@@ -228,6 +233,13 @@ if (isset($_POST['plano'])) {
                             <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
                                 <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
                                     style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+
+                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
+                                <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
+                                <input type="hidden" name="preco_plano" value="<?php echo $row['preco']; ?>">
+                                <input type="hidden" name="tempo" value="<?php echo '12 meses'; ?>">
+                                <!-- Defina o valor conforme necessário -->
+
                                 <div class="card-body">
                                     <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
 

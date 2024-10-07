@@ -33,11 +33,14 @@ if (isset($_POST['plano'])) {
             echo "<script>alert('Falha ao adicionar o produto!');</script>";
         }
     }
-} else {
-    echo "<script>alert('Erro ao fazer upload da imagem!');</script>";
 }
-?>
 
+$sql_code_plan = "SELECT * FROM plano ORDER BY nome_plano ASC";
+$sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
+
+// Carrega a lista de cidades
+
+?>
 
 
 <!DOCTYPE html>
@@ -52,7 +55,6 @@ if (isset($_POST['plano'])) {
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    ">
     <link href="https://fonts.cdnfonts.com/css/milestone-one" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
     <title>Vanguard | Produtos</title>
@@ -77,10 +79,7 @@ if (isset($_POST['plano'])) {
                     <a href="servicos.html" target="_blank">Serviços</a>
                 </li>
                 <li>
-
-                <li>
-                    <a href="carrinho.php"><img class="carrinho" src="src/imagem/icones/carrinho-de-compras.png"
-                            alt=""></a>
+                    <a href="perfil.php">Perfil</a>
                 </li>
                 <li>
                     <a href="src/php/logout.php">Logout</a>
@@ -158,17 +157,13 @@ if (isset($_POST['plano'])) {
 
                                 <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
                                 <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
-                                <input type="hidden" name="preco_plano" value="<?php echo $row['preco']; ?>">
-                                <input type="hidden" name="tempo" value="<?php echo '12 meses'; ?>">
-                                <!-- Defina o valor conforme necessário -->
-
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                    <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                                    <p class="card-text"><?php echo $row['classe']; ?></p>
                                     <br>
                                     <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
 
-                                    <button name="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
+                                    <button id="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
                                 </div>
                             </div>
                             <?php
@@ -195,17 +190,13 @@ if (isset($_POST['plano'])) {
 
                                 <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
                                 <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
-                                <input type="hidden" name="preco_plano" value="<?php echo $row['preco']; ?>">
-                                <input type="hidden" name="tempo" value="<?php echo '12 meses'; ?>">
-                                <!-- Defina o valor conforme necessário -->
-
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                    <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                                    <p class="card-text"><?php echo $row['classe']; ?></p>
                                     <br>
                                     <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
 
-                                    <button name="plano" class="btn btn-primary btn-customizado">Compre/Assine agora!</button>
+                                    <button id="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
                                 </div>
 
                             </div>
@@ -236,18 +227,14 @@ if (isset($_POST['plano'])) {
 
                                 <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
                                 <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
-                                <input type="hidden" name="preco_plano" value="<?php echo $row['preco']; ?>">
-                                <input type="hidden" name="tempo" value="<?php echo '12 meses'; ?>">
-                                <!-- Defina o valor conforme necessário -->
-
                                 <div class="card-body">
                                     <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
 
                                     <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                    <p class="card-text">$<?php echo $row['preco']; ?> - <?php echo $row['classe']; ?></p>
+                                    <p class="card-text"><?php echo $row['classe']; ?></p>
                                     <br>
                                     <p class="card-text"><?php echo $row['descricao']; ?></p>
-                                    <button name="plano" class="btn btn-primary btn-customizado">Compre/Assine agora!</button>
+                                    <button id="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
                                 </div>
                             </div>
                             <?php
@@ -265,15 +252,44 @@ if (isset($_POST['plano'])) {
 
 
 
+    <div id="confirmPlan" class="plan" style="display: none;">
+    <div class="plan-content">
+        <h2>Veja nossos planos</h2>
+        <p>Escolha um de nossos planos para assinar</p>
+        <!-- Exibição de planos -->
+        <div class="plan-options">
+        <?php
+        $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
+        $result = $conn->query($query);
 
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                
+                echo '<div class="plan-item">';
+
+                echo '<h4>' . $row['nome_plano'] . '</h4>';
+                
+                echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
+                
+                echo '<p> Sobre: </p> <br>' . $row['descricao'], '<br>';
+
+                echo '<button type="button" class="btn btn-primary selectPlanBtn" data-plan-id="' . $row['plano_id'] . '">Selecionar</button>';
+                
+                echo '</div>';
+            }
+        }
+        ?>
+        </div>
+        <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+    </div>
+</div>
 
 </body>
 <script src="src/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-
 <script src="src/js/botoes.js"></script>
-<script src="src/js/vitrine.js"></script>
+<script src="src/js/showPlan.js"></script>
 
 </html>

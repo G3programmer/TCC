@@ -122,6 +122,8 @@ if (isset($user_Id) && !empty($row['foto'])) {
 <div class="descricao">
 <h1 class="titulo"> Plano(s) Ativos</h1>
 
+<p id="cronometro"></p>
+
 </div>
         
     </div>
@@ -191,5 +193,5 @@ if (isset($user_Id) && !empty($row['foto'])) {
         </p>
     </footer>
 </body>
-
+<script src="src/js/cronometro.js"></script>
 </html>

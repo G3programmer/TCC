@@ -1,34 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
-
-html{
-   font-size: 72.5%;
-   overflow-x: hidden;
-}
-
-
 *{
    font-family: 'Poppins', sans-serif;
-   margin:0; 
-   padding:0;
+   margin:0; padding:0;
    box-sizing: border-box;
    outline: none; border:none;
    text-decoration: none;
    text-transform: capitalize;
 }
 
+html{
+   font-size: 62.5%;
+   overflow-x: hidden;
+}
+
+.container{
+   max-width: 1200px;
+   margin:0 auto;
+   /* padding-bottom: 5rem; */
+}
+
 section{
    padding:2rem;
 }
 
+.heading{
+   text-align: center;
+   font-size: 3.5rem;
+   text-transform: uppercase;
+   color:#333;
+   margin-bottom: 2rem;
+}
+
+.btn,
+.option-btn,
+.delete-btn{
+   display: block;
+   width: 100%;
+   text-align: center;
+   background-color:#2980b9;
+   color:#fff;
+   font-size: 1.7rem;
+   padding:1.2rem 3rem;
+   border-radius: .5rem;
+   cursor: pointer;
+   margin-top: 1rem;
+}
+
+.btn:hover,
+.option-btn:hover,
+.delete-btn:hover{
+   background-color: #333;
+}
+
+.option-btn i,
+.delete-btn i{
+   padding-right: .5rem;
+}
+
+.option-btn{
+   background-color:orange;
+}
+
+.delete-btn{
+   margin-top: 0;
+   background-color: tomato;
+}
 
 .message{
-   background-color: rgb(54, 112, 200);
+   background-color: #2980b9;
    position: sticky;
    top:0; left:0;
    z-index: 10000;
    border-radius: .5rem;
-   background-color:#fff;
+   background-color: #fff;
    padding:1.5rem 2rem;
    margin:0 auto;
    max-width: 1200px;
@@ -40,7 +85,7 @@ section{
 
 .message span{
    font-size: 2rem;
-   color:#333;
+   color: #333;
 }
 
 .message i{
@@ -102,7 +147,7 @@ section{
    position: relative;
    overflow: hidden;
    margin-top: 5px;
-   background-image: url(../imagem/Fundo/fundo-estoque.jpg);
+   background-image: url(../imagem/Fundo/teste.png);
    border: 1px solid #fff;
    background-size: cover;
 }
@@ -151,14 +196,13 @@ section{
 }
 
 .option #delete{ 
-   display: flex;
-   font-size: 80%;
-   width: 100px;
-   height: auto;
-   margin-bottom: 10px;
-   padding: 5px;
-   border-radius: 20px;
+background: rgb(188, 31, 31);
 }
+
+.option #delete:hover {
+   background-color: #d3212100;
+}
+
 
  td {
    color: #fff;
@@ -283,6 +327,9 @@ section{
    font-size: 2.5rem;
    color:#333;
 }
+
+
+
 
 
 
@@ -459,6 +506,10 @@ Cores que variam de acordo com a rede social (sombra da imagem)
 
 
 
+
+
+
+
 /* media queries  */
 
 @media (max-width:1200px){
@@ -500,19 +551,19 @@ Cores que variam de acordo com a rede social (sombra da imagem)
       transform: rotate(180deg);
    }
 
-   .cabecalho .flex .menu{
+   .header .flex .navbar{
       position: absolute;
       top:99%; left:0; right:0;
-      background-color: red;
+      background-color: #2980b9;
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
       transition: .2s linear;
    }
 
-   .cabecalhocabecalho .flex .menu.active{
+   .header .flex .navbar.active{
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
    }
 
-   .cabecalho .flex .menu a{
+   .header .flex .navbar a{
       margin:2rem;
       display: block;
       text-align: center;
@@ -521,7 +572,6 @@ Cores que variam de acordo com a rede social (sombra da imagem)
 
    .display-product-table{
       overflow-x: scroll;
-      
    }
 
    .display-product-table table{

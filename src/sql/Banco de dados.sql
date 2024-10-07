@@ -95,8 +95,7 @@ CREATE TABLE `plano` (
   `plano_id` int(11) NOT NULL,
   `nome_plano` varchar(150) NOT NULL,
   `preco_plano` decimal(3,2) NOT NULL,
-  `tempo` date NOT NULL,
-  `produto_id` int(11) NOT NULL
+  `tempo` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -119,16 +118,16 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`produto_id`, `nome_produto`, `plano_id`, `classe`, `descricao`, `imagem`) VALUES
-(1, 'Backbox', 500, 'Sistema Operacional', ' uma distribuição GNU/Linux derivada do Ubuntu, voltada para executar testes de penetração e de vulnerabilidade, o sistema dispõe de várias ferramentas para análise de sistemas e de redes.', 0x6261636b626f782e706e67),
-(2, 'Black Arch', 500, 'Sistema Operacional', 'uma distribuição Linux para testes de penetração e pesquisadores de segurança. É uma derivação do ArchLinux e os usuários podem instalar componentes do BlackArch individualmente ou por grupos em cima da distribuição.', 0x426c61636b417263682e706e67),
-(3, 'Kali', 500, 'Sistema Operacional', 'uma distribuição GNU/Linux baseada no Debian, considerado o sucessor do Back Track. O projeto apresenta várias melhorias, além de mais aplicativos. É voltado principalmente para auditoria e segurança de computadores em geral.', 0x6b616c692e706e67),
-(4, 'Parrot OS', 500, 'Sistema Operacional', 'O Parrot OS é um sistema operacional Linux, baseado no Debian, que procura atender um público bem específico, especialistas em segurança, pessoas que trabalham que computação forense, estudantes de ciência da computação e engenharia, pesquisadores, desenvolvedores de software e, claro, os hackers.', 0x706172726f742e706e67),
-(5, 'Samurai Web Testing Framerowk', 500, 'Sistema Operacional', 'uma máquina virtual, suportada no VirtualBox e no VMWare, que foi pré-configurada para funcionar como um ambiente de pen-testing web. A VM contém as melhores ferramentas de código aberto e gratuitas que se concentram em testar e atacar sites.', 0x53616d757261692d5765622d54657374696e672d4672616d65776f726b2e706e67),
-(6, 'Burp Suite', 751, 'Ferramenta', 'atua como um proxy web que permite interceptar e modificar solicitações e respostas HTTP/HTTPS entre o cliente e o servidor.', 0x627572702d73756974652e706e67),
-(7, 'John The Ripper', 751, 'Ferramenta', ' uma ferramenta gratuita de software para quebrar senhas. Originalmente desenvolvido para o sistema operacional Unix, pode rodar em quinze plataformas diferentes', 0x4a54522e706e67),
-(8, 'Maltego', 751, 'Ferramenta', 'O foco do Maltego é analisar as relações do mundo real entre informações que são publicamente acessíveis na Internet. Isso inclui a infraestrutura de apoio à Internet, bem como a localização de informações sobre as pessoas e a organização que as possuem', 0x6d616c7465676f2e706e67),
-(9, 'Metasploit', 751, 'Ferramenta', ' é um projeto de segurança de computadores que fornece informações sobre vulnerabilidades de segurança e ajuda em testes de penetração e desenvolvimento de assinaturas IDS.', 0x6d65746173706c6f69742e706e67),
-(10, 'Nmap', 751, 'Ferramentas', 'muito utilizado para avaliar a segurança dos computadores, e para descobrir serviços ou servidores em uma rede de computadores. Nmap é conhecido pela sua rapidez e pelas opções que dispõe', 0x6e6d61702e706e67);
+(1, 'Backbox', 0, 'Sistema Operacional', ' uma distribuição GNU/Linux derivada do Ubuntu, voltada para executar testes de penetração e de vulnerabilidade, o sistema dispõe de várias ferramentas para análise de sistemas e de redes.', 0x6261636b626f782e706e67),
+(2, 'Black Arch', 0, 'Sistema Operacional', 'uma distribuição Linux para testes de penetração e pesquisadores de segurança. É uma derivação do ArchLinux e os usuários podem instalar componentes do BlackArch individualmente ou por grupos em cima da distribuição.', 0x426c61636b417263682e706e67),
+(3, 'Kali', 0, 'Sistema Operacional', 'uma distribuição GNU/Linux baseada no Debian, considerado o sucessor do Back Track. O projeto apresenta várias melhorias, além de mais aplicativos. É voltado principalmente para auditoria e segurança de computadores em geral.', 0x6b616c692e706e67),
+(4, 'Parrot OS', 0, 'Sistema Operacional', 'O Parrot OS é um sistema operacional Linux, baseado no Debian, que procura atender um público bem específico, especialistas em segurança, pessoas que trabalham que computação forense, estudantes de ciência da computação e engenharia, pesquisadores, desenvolvedores de software e, claro, os hackers.', 0x706172726f742e706e67),
+(5, 'Samurai Web Testing Framerowk', 0, 'Sistema Operacional', 'uma máquina virtual, suportada no VirtualBox e no VMWare, que foi pré-configurada para funcionar como um ambiente de pen-testing web. A VM contém as melhores ferramentas de código aberto e gratuitas que se concentram em testar e atacar sites.', 0x53616d757261692d5765622d54657374696e672d4672616d65776f726b2e706e67),
+(6, 'Burp Suite', 0, 'Ferramenta', 'atua como um proxy web que permite interceptar e modificar solicitações e respostas HTTP/HTTPS entre o cliente e o servidor.', 0x627572702d73756974652e706e67),
+(7, 'John The Ripper', 0, 'Ferramenta', ' uma ferramenta gratuita de software para quebrar senhas. Originalmente desenvolvido para o sistema operacional Unix, pode rodar em quinze plataformas diferentes', 0x4a54522e706e67),
+(8, 'Maltego', 0, 'Ferramenta', 'O foco do Maltego é analisar as relações do mundo real entre informações que são publicamente acessíveis na Internet. Isso inclui a infraestrutura de apoio à Internet, bem como a localização de informações sobre as pessoas e a organização que as possuem', 0x6d616c7465676f2e706e67),
+(9, 'Metasploit', 0, 'Ferramenta', ' é um projeto de segurança de computadores que fornece informações sobre vulnerabilidades de segurança e ajuda em testes de penetração e desenvolvimento de assinaturas IDS.', 0x6d65746173706c6f69742e706e67),
+(10, 'Nmap', 0, 'Ferramentas', 'muito utilizado para avaliar a segurança dos computadores, e para descobrir serviços ou servidores em uma rede de computadores. Nmap é conhecido pela sua rapidez e pelas opções que dispõe', 0x6e6d61702e706e67);
 
 -- --------------------------------------------------------
 
@@ -217,8 +216,7 @@ ALTER TABLE `estado`
 -- Índices de tabela `plano`
 --
 ALTER TABLE `plano`
-  ADD PRIMARY KEY (`plano_id`,`produto_id`),
-  ADD KEY `fk_plano_produto1_idx` (`produto_id`);
+  ADD PRIMARY KEY (`plano_id`);
 
 --
 -- Índices de tabela `produtos`
@@ -299,13 +297,6 @@ ALTER TABLE `avaliacao`
 --
 ALTER TABLE `cidades`
   ADD CONSTRAINT `fk_Cidades_Estado` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`estado_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Restrições para tabelas `plano`
---
-ALTER TABLE `plano`
-  ADD CONSTRAINT `fk_plano_produto1` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`produto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
 --
 -- Restrições para tabelas `relatorio`
 --

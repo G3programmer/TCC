@@ -1,20 +1,11 @@
-html {
-    scroll-behavior: smooth;
-}
-
-/* Avaliar se muda ou não o header */
-
 .cabecalho {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
     height: 80px;
     background-color: rgb(0, 0, 0);
     display: flex;
     flex: 1 1 100vw;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 30px;
     border-bottom: 1px solid rgb(26, 25, 25);
 }
 
@@ -27,31 +18,16 @@ html {
 .cabecalho .menu {
     display: flex;
     flex: 1 1 200px;
-    gap: 20px;
     align-items: center;
     justify-content: flex-end;
 }
 
-.cabecalho .menu li .carrinho {
-    margin-top: 15px;
-    width: 50px;
-    color: #e8e8e8;
-    font-weight: bolder;
-    font-size: 15px;
-}
 
 .cabecalho .menu li a {
     padding: 30px;
-    text-decoration: none;
     color: #e8e8e8;
     font-weight: bolder;
     font-size: 15px;
-    font-family: 'Codygoon';
-}
-
-.cabecalho .menu li span {
-    margin: 10px;
-    margin-top: 5px;
     font-family: 'Codygoon';
 }
 
@@ -61,205 +37,36 @@ html {
 }
 
 .home {
-    display: flex;
-    justify-self: center;
-    align-content: center;
-    background-image: url(../imagem/Fundo/teste-de-fundo.png);
-    background-size: cover;
-    width: 100%;
-    min-height: calc(100vh - 80px);
+        display: flex;
+        position: relative;
+        min-height: calc(100vh - 80px);
+        overflow: hidden;
+        justify-content: center; 
 }
 
-.home::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Cor preta com 50% de opacidade */
-    z-index: 1;
-}
-
-
-.home .slide {
-    z-index: 2;
-    display: grid;
-    position: relative;
-    width: 100%;
-    align-self: center;
-    justify-content: center;
-}
-
-.home .carousel-item {
-    width: 100% !important;
-}
-
-.home .carousel-inner {
-    width: 940px;
-}
-
-
-
-/* parte da vitrine*/
-
-.compre-ja {
-    display: grid;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    margin-top: 14pc;
-    margin-left: auto;
-}
-
-
-.compre-ja .titulo {
-    justify-content: center;
-    text-align: center;
-    font-size: 50px;
-    margin-top: 90px;
-    font-family: 'Codygoon';
+.home .container {
+    margin: 15px;
+    padding: 5px;
     color: #fff;
+    background-color: rgb(90, 50, 50);
+}
+
+.home .container .checkout-form {
+    background: #05050574;
+    padding: 10px 5px 10px 5px;
 }
 
 
 
 
-/*Parte da barra de pesquisa*/
-
-.compre-ja .caixa-pesquisa {
-    position: absolute;
-    bottom: -20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    height: 50px;
-    padding: 2px;
-    border-radius: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.compre-ja .caixa-pesquisa .barra {
-    background: none;
-    border: 0;
-    outline: 0;
-    width: 320px;
-    padding-left: 20px;
-}
-
-.compre-ja .caixa-pesquisa .pesquisa-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-
-.aviso {
-    display: flex;
-    margin-top: 5pc;
-    margin-left: 40%;
-    border: 2px solid #fff;
-    background-color: #1a1a1acf;
-    border-radius: 5px;
-    color: #fff;
-    font-family: 'Codygoon', sans-serif;
-}
-
-.compre-ja .produtos .card {
-    justify-self: center !important;
-
-}
-
-.compre-ja .produtos .descricao {
-    max-width: 300px;
-    width: auto;
-    text-align: justify;
-}
-
-.compre-ja .produtos .carrinho {
-    background: none;
-    border: none;
-    margin-left: 10px;
-    padding: 5px -15px 5px 10px;
-    width: 60px;
-    height: auto;
-    border-radius: 10px;
-    transition: all 0.3s ease !important;
-
-}
-
-.compre-ja .produtos .carrinho:hover {
-    background: #0a0029;
-    border: 1px solid rgb(0, 76, 255);
-    transition: all 0.3s ease !important;
-    transform: scale(1.05) !important;
-
-}
-
-
-
-.compre-ja .produtos button:hover {
-    background: #000821;
-}
-
-.btn-customizado {
-    transition: all 0.5s ease !important;
-}
-
-.btn-customizado:hover {
-    transition: all 0.5s ease !important;
-    background: #000821 !important;
-    /* Cor ao passar o mouse */
-    border: 1px solid rgb(0, 76, 255) !important;
-    transform: scale(1.05) !important;
-}
 
 
 
 
-.plan {
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    color: #fff;
-    font-family: 'Codygoon';
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.951);
-    padding: 20px;
-    border: 2px solid black;
-    z-index: 1000;
-    width: 90%;
-    height: 84%;
-}
 
-.plan-content {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
 
-.plan-options {
-    display: flex;
-    justify-content: space-between; /* Alinha as colunas uma ao lado da outra */
-    flex-wrap: wrap; /* Permite que as colunas se movam para a próxima linha se não houver espaço suficiente */
-    margin: 20px 0; /* Adiciona um espaço entre as opções de plano e o título */
-}
 
-.plan-item {
-    flex: 1; /* Faz com que cada item ocupe uma parte igual do espaço disponível */
-    background: rgba(26, 26, 26, 0.884);
-    margin: 10px; /* Adiciona margens entre as colunas */
-    padding: 10px; /* Adiciona um pouco de espaço interno */
-    box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos nas dimensões totais */
-}
+
 
 
 
@@ -268,12 +75,12 @@ html {
 
 .roda-pe {
     height: 40pc;
-    color: #fff;
     display: grid;
     margin: auto;
     width: 100%;
     padding-top: 3%;
     flex: 1 1 100vw;
+    color: #fff;
     background-color: #1a1a1a;
 }
 
@@ -296,8 +103,6 @@ html {
 
 .roda-pe .opcoes .lista a {
     margin: 1pc;
-    text-decoration: none;
-    color: #fff;
     margin-bottom: 2pc;
     margin-top: 2pc;
 }
@@ -434,6 +239,3 @@ html {
     color: #fff;
     text-align: center;
 }
-
-
-/*Final da parte da barra de pesquisa*/

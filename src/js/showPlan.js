@@ -14,3 +14,11 @@ btnAssinar.addEventListener('click', function(event) {
 cancelBtn.addEventListener('click', function() {
     confirmPlanDiv.style.display = 'none'; // Esconde a div de planos
 });
+
+document.querySelectorAll('.selectPlanBtn').forEach(button => {
+    button.addEventListener('click', function() {
+        const planId = this.getAttribute('data-plan-id');
+        // Redireciona para checkout.php passando o ID do plano
+        window.location.href = 'checkout.php?plan_id=' + planId;
+    });
+});

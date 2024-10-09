@@ -35,7 +35,7 @@ section{
 .btn,
 .option-btn,
 .delete-btn{
-   display: block;
+   display: flex;
    width: 100%;
    text-align: center;
    background-color:#2980b9;
@@ -268,7 +268,8 @@ background: rgb(188, 31, 31);
 
 .edit-form-container{
    position: fixed;
-   top:0; left:0;
+   top:0; 
+   left:0;
    z-index: 1100;
    background-color:rgba(0,0,0,.7);
    padding:2rem;

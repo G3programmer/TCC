@@ -88,48 +88,46 @@ if ($result->num_rows > 0) {
         <img class="imagem-fundo" src="src/imagem/Fundo/fundo-perfil.png" alt="fundo de uma cidade de noite">
         <div class="painel">
             <form class="perfil" action="perfil.php">
-            <?php 
-// Exemplo de condição
-if (isset($user_Id) && !empty($row['foto'])) {
-?>
-    <div class="area-foto">
-        <img src="src/imagem/pessoas/<?php echo htmlspecialchars($row['foto']); ?>" alt="">
-    </div>
-
-    <div class="info">
-        <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
-        <br>
-        <?php
-        echo "<h2 class='nome'><p>" . htmlspecialchars($nomeUsuario) . "</p></h2>";
-        ?>
-        <ul class="nav nav-pills">
-            <li class="nav-item">
                 <?php
-                    echo "    
-                    <button class='btn btn-light'>
-                        <a href='editarPerfil.php?usuario_id=" . htmlspecialchars($user_Id) . "' title='Editar Perfil'>
-                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                                <path d='M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z'/>
-                            </svg>
-                        </a>
-                    </button>";
+                // Exemplo de condição
+                if (isset($user_Id) && !empty($row['foto'])) {
+                    ?>
+                    <div class="area-foto">
+                        <img src="src/imagem/pessoas/<?php echo htmlspecialchars($row['foto']); ?>" alt="">
+                    </div>
+
+                    <div class="info">
+                        <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
+                        <br>
+                        <?php
+                        echo "<h2 class='nome'><p>" . htmlspecialchars($nomeUsuario) . "</p></h2>";
+                        ?>
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a href="editarPerfil.php?usuario_id=<?= htmlspecialchars($user_Id) ?>"
+                                    title="Editar Perfil" class="btn btn-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path
+                                            d="M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <br><br><br>
+
+                        <!-- Fazer o plano list aqui -->
+                        <div class="descricao">
+                            <h1 class="titulo"> Plano(s) Ativos</h1>
+
+                            <p id="cronometro"></p>
+
+                        </div>
+
+                    </div>
+                <?php
+                }
                 ?>
-            </li>
-        </ul>
-        <br><br><br>
-        
-<!-- Fazer o plano list aqui -->
-<div class="descricao">
-<h1 class="titulo"> Plano(s) Ativos</h1>
-
-<p id="cronometro"></p>
-
-</div>
-        
-    </div>
-<?php 
-}
-?>
 
         </div>
     </main>
@@ -194,4 +192,5 @@ if (isset($user_Id) && !empty($row['foto'])) {
     </footer>
 </body>
 <script src="src/js/cronometro.js"></script>
+
 </html>

@@ -211,7 +211,7 @@ $sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
 
                 <!-- Terceira parte -->
 
-                <h1 class="titulo" id="protecao">Proteções</h1>
+                <h1 class="titulo" id="protecao">Produtos Vanguard</h1>
 
                 <?php
                 $select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%prote%'");
@@ -251,34 +251,56 @@ $sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
     </section>
 
 
+<!-- Fundo escuro -->
+<div class="overlay" style="display: none;"></div>
+
 
     <div id="confirmPlan" class="plan" style="display: none;">
+    
     <div class="plan-content">
         <h2>Veja nossos planos</h2>
         <p>Escolha um de nossos planos para assinar</p>
         <!-- Exibição de planos -->
-        <div class="plan-options">
+
+        <form method="POST" enctype="multipart/form-data">
+    <div class="plan-options">
         <?php
         $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                
                 echo '<div class="plan-item">';
-
                 echo '<h4>' . $row['nome_plano'] . '</h4>';
-                
                 echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
-                
-                echo '<p> Sobre: </p> <br>' . $row['descricao'], '<br>';
-
+                echo '<p>Sobre: ' . $row['descricao'] . '</p>'; // Corrigido para exibir descrição corretamente
                 echo '<button type="button" class="btn btn-primary selectPlanBtn" data-plan-id="' . $row['plano_id'] . '">Selecionar</button>';
-                
                 echo '</div>';
             }
         }
         ?>
+    </div>
+</form>
+
+
+
+<?php
+// Verifica se o formulário foi enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $plano_id = $_POST['plano_id'];
+
+    // Aqui você pode adicionar o código para inserir o plano_id no banco de dados
+    // Exemplo:
+    $sql = "INSERT INTO usuario (plano_id) VALUES ('$plano_id')";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "Plano selecionado com sucesso!";
+    } else {
+        echo "Erro ao selecionar plano: " . $conn->error;
+    }
+}
+?>
+
         </div>
         <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
     </div>

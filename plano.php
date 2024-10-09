@@ -4,10 +4,10 @@ session_start();
 
 // Verifica se o usuário está logado, caso contrário redireciona para o login
 if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
-    unset($_SESSION['email']);
-    unset($_SESSION['senha']);
-    header('Location: login.html');
-    exit;
+   unset($_SESSION['email']);
+   unset($_SESSION['senha']);
+   header('Location: login.html');
+   exit;
 }
 
 $email = $_SESSION['email'];
@@ -20,84 +20,85 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    
-    // Verifica se o usuário é administrador
-    if ($row['is_admin'] == 1) {
-        if (basename($_SERVER['PHP_SELF']) !== 'plano.php') { // Evita redirecionamento em loop
-            header('Location: plano.php');
-            exit;
-        }
-    } else {
-        if (basename($_SERVER['PHP_SELF']) !== 'perfil.php') { // Evita redirecionamento em loop
-            header('Location: perfil.php');
-            exit;
-        }
-    }
+   $row = $result->fetch_assoc();
+
+   // Verifica se o usuário é administrador
+   if ($row['is_admin'] == 1) {
+      if (basename($_SERVER['PHP_SELF']) !== 'plano.php') { // Evita redirecionamento em loop
+         header('Location: plano.php');
+         exit;
+      }
+   } else {
+      if (basename($_SERVER['PHP_SELF']) !== 'perfil.php') { // Evita redirecionamento em loop
+         header('Location: perfil.php');
+         exit;
+      }
+   }
 } else {
-    header('Location: login.html');
-    exit;
+   header('Location: login.html');
+   exit;
 }
 
 // Verifica se uma requisição de exclusão foi feita
 if (isset($_GET['delete'])) {
-    $delete_id = mysqli_real_escape_string($conn, $_GET['delete']);
-    $delete_query = mysqli_query($conn, "DELETE FROM plano WHERE plano_id = '$delete_id'");
+   $delete_id = mysqli_real_escape_string($conn, $_GET['delete']);
+   $delete_query = mysqli_query($conn, "DELETE FROM plano WHERE plano_id = '$delete_id'");
 
-    if ($delete_query) {
-        // Redireciona após a exclusão
-        header('location:plano.php?msg=Plano excluído com sucesso!');
-        exit;
-    } else {
-        // Mensagem de erro
-        header('location:plano.php?msg=Erro ao excluir o plano: ' . mysqli_error($conn));
-        exit;
-    }
+   if ($delete_query) {
+      // Redireciona após a exclusão
+      header('location:plano.php?msg=Plano excluído com sucesso!');
+      exit;
+   } else {
+      // Mensagem de erro
+      header('location:plano.php?msg=Erro ao excluir o plano: ' . mysqli_error($conn));
+      exit;
+   }
 }
 
 // Verifique se o formulário foi enviado para adicionar um novo plano
 if (isset($_POST['submit'])) {
-    $nome_plano = $_POST['nome_plano'];
-    $preco_plano = $_POST['preco_plano'];
-    $tempo = $_POST['tempo'];
-    $data_final = date('Y-m-d', strtotime("+$tempo months"));
-    $descricao = $_POST['descricao'];
+   $nome_plano = $_POST['nome_plano'];
+   $preco_plano = $_POST['preco_plano'];
+   $tempo = $_POST['tempo'];
+   $data_final = date('Y-m-d', strtotime("+$tempo months"));
+   $descricao = $_POST['descricao'];
 
-    // Prepare a consulta para inserir
-    $result = mysqli_query($conn, "INSERT INTO plano (nome_plano, preco_plano, tempo, descricao) 
+   // Prepare a consulta para inserir
+   $resulte = mysqli_query($conn, "INSERT INTO plano (nome_plano, preco_plano, tempo, descricao) 
         VALUES ('$nome_plano', '$preco_plano', '$tempo', '$descricao')");
 
-    if ($result) {
-        // Redireciona após a inserção
-        header('location:plano.php?msg=Plano adicionado com sucesso!');
-        exit;
-    } else {
-        // Mensagem de erro
-        header('location:plano.php?msg=Erro ao adicionar o plano: ' . mysqli_error($conn));
-        exit;
-    }
+   if ($resulte) {
+      // Redireciona após a inserção
+      header('location:plano.php?msg=Plano adicionado com sucesso!');
+      exit;
+   } else {
+      // Mensagem de erro
+      header('location:plano.php?msg=Erro ao adicionar o plano: ' . mysqli_error($conn));
+      exit;
+   }
 }
 
 // Verifique se o formulário foi enviado para atualizar um plano
 if (isset($_POST['update_plano'])) {
-    $update_p_plano_id = $_POST['update_p_plano_id'];
-    $update_p_nome_plano = $_POST['update_p_nome_plano'];
-    $update_p_preco = $_POST['update_p_preco'];
-    $update_p_tempo = $_POST['update_p_tempo'];
-    $update_p_descricao = $_POST['update_p_descricao'];
+   $update_p_plano_id = $_POST['update_p_plano_id'];
+   $update_p_nome_plano = $_POST['update_p_nome_plano'];
+   $update_p_preco = $_POST['update_p_preco'];
+   $update_p_tempo = $_POST['update_p_tempo'];
+   $update_p_descricao = $_POST['update_p_descricao'];
 
-    $update_query = mysqli_query($conn, "UPDATE plano SET nome_plano = '$update_p_nome_plano', preco_plano = '$update_p_preco', tempo = '$update_p_tempo', descricao = '$update_p_descricao' WHERE plano_id = '$update_p_plano_id'");
+   $update_query = mysqli_query($conn, "UPDATE plano SET nome_plano = '$update_p_nome_plano', preco_plano = '$update_p_preco', tempo = '$update_p_tempo', descricao = '$update_p_descricao' WHERE plano_id = '$update_p_plano_id'");
 
-    if ($update_query) {
-        // Redireciona após a atualização
-        header('location:plano.php?msg=Plano atualizado com sucesso!');
-        exit;
-    } else {
-        // Mensagem de erro
-        header('location:plano.php?msg=Erro ao atualizar o plano: ' . mysqli_error($conn));
-        exit;
-    }
+   if ($update_query) {
+      // Redireciona após a atualização
+      header('location:plano.php?msg=Plano atualizado com sucesso!');
+      exit;
+   } else {
+      // Mensagem de erro
+      header('location:plano.php?msg=Erro ao atualizar o plano: ' . mysqli_error($conn));
+      exit;
+   }
 }
+
 ?>
 
 
@@ -161,51 +162,106 @@ if (isset($_POST['update_plano'])) {
                <th>Ação</th>
             </thead>
             <tbody>
-               <?php $select_plano = mysqli_query($conn, "SELECT * FROM plano");
-
-              if (mysqli_num_rows($select_plano) > 0) {
+               <?php
+               $select_plano = mysqli_query($conn, "SELECT * FROM plano");
+               if (mysqli_num_rows($select_plano) > 0) {
                   while ($row = mysqli_fetch_assoc($select_plano)) {
                       if ($row['tempo'] == -1) {
                           $tempo_restante = "Para Sempre"; // Define o tempo como "Para Sempre"
+                          $month = $dia = "N/A"; // Para planos vitalícios, não há mês e dia
                       } else {
-                          if (isset($row['data_final']) && !empty($row['data_final'])) { // Verifica se 'data_final' existe e não está vazio
-                              $currentDate = new DateTime(); // Data atual
-                              $dataFinal = new DateTime($row['data_final']); // Data final do plano
-                              $interval = $currentDate->diff($dataFinal);
-                              $tempo_restante = $currentDate < $dataFinal ? $interval->format('%m meses, %d dias') : 'Expirado';
-                          } else {
-                              $tempo_restante = "Data final não definida"; // Caso 'data_final' esteja indefinida ou nula
-                          }
+                          // Calcular a data final com base no tempo
+                          $data_final = date('Y-m-d', strtotime("+{$row['tempo']} months"));
+                          $data_atual = new DateTime();
+                          $data_final_obj = new DateTime($data_final);
+                          
+                          // Calcular a diferença
+                          $diferenca = $data_atual->diff($data_final_obj);
+                          $month = $diferenca->m; // Obtém a diferença em meses
+                          $dia = $diferenca->d; // Obtém a diferença em dias
+                          
+                          $tempo_restante = ($data_atual < $data_final_obj) ? "Até {$month} mês(es) e {$dia} dia(s)" : 'Expirado';
                       }
-                      // Código para exibir o plano e o tempo restante
-                   
-              ?>
-                     <tr>
-                        <td><?php echo $row['nome_plano']; ?></td>
-                        <td>$<?php echo $row['preco_plano']; ?></td>
-                        <td><?php echo $row['tempo'] == -1 ? 'Para Sempre' : $row['tempo']; ?> meses</td>
-                        <td><?php echo $tempo_restante; ?></td>
-                        <td class="option">
-                           <a href="plano.php?delete=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-danger"
-                              id="delete" onclick="return confirm('Tem certeza de que deseja excluir isso?');">
-                              <i class="fas fa-trash"></i> Excluir
-                           </a>
-                           <a href="plano.php?edit=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-primary">
-                              <i class="fas fa-edit"></i> Atualizar
-                           </a>
-                        </td>
-                     </tr>
-                     <?php
+                      ?>
+                      <tr>
+                          <td><?php echo $row['nome_plano']; ?></td>
+                          <td>$<?php echo $row['preco_plano']; ?></td>
+                          <td><?php echo $row['tempo'] == -1 ? 'Para Sempre' : $row['tempo']; ?></td>
+                          <td><?php echo $tempo_restante; ?></td>
+                          <td class="option">
+                              <a href="plano.php?delete=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-danger"
+                                 id="delete" onclick="return confirm('Are you sure you want to delete this?');">
+                                 <i class="fas fa-trash"></i> Delete
+                              </a>
+                              <a href="plano.php?edit=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-primary">
+                                 <i class="fas fa-edit"></i> Update
+                              </a>
+                          </td>
+                      </tr>
+                      <?php
                   }
-               } else {
+              } else {
                   echo "<tr><td colspan='5' class='empty'>Nenhum produto adicionado</td></tr>";
-               }
+              }
+              
+              
                ?>
             </tbody>
 
          </table>
       </div>
    </main>
+
+   <section class="edit-form-container">
+      <?php
+      if (isset($_GET['edit'])) {
+
+         $edit_id = $_GET['edit'];
+         $edit_query = mysqli_query($conn, "SELECT * FROM `plano` WHERE plano_id = $edit_id");
+
+         if (mysqli_num_rows($edit_query) > 0) {
+            while ($fetch_edit = mysqli_fetch_assoc($edit_query)) {
+               ?>
+               <form action="" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="update_p_plano_id" value="<?php echo $fetch_edit['plano_id']; ?>">
+
+                  <!-- Campo para editar o nome do plano -->
+                  <span>Nome do plano</span>
+                  <input type="text" class="box" required name="update_p_nome_plano"
+                     value="<?php echo $fetch_edit['nome_plano']; ?>">
+
+                  <!-- Campo para editar o tempo do plano -->
+                  <span>tempo do plano</span>
+                  <input type="text" class="box" required name="update_p_tempo" value="<?php echo $fetch_edit['tempo']; ?>">
+
+                  <!-- Campo para editar o preço do plano -->
+                  <span>preço do plano</span>
+                  <input type="text" class="box" required name="update_p_preco"
+                     value="<?php echo $fetch_edit['preco_plano']; ?>">
+
+                  <!-- Campo para editar a descrição do plano -->
+                  <span>descrição</span>
+                  <input type="text" class="box" required name="update_p_descricao"
+                     value="<?php echo $fetch_edit['descricao']; ?>">
+
+                  <!-- Botão de submissão para atualizar o plano -->
+                  <input type="submit" value="Atualizar plano" name="update_plano" class="btn">
+
+                  <!-- Botão para cancelar a edição -->
+                  <input id="close-edit" type="reset" value="Cancelar" class="option-btn">
+               </form>
+               <?php
+            }
+            ;
+         }
+         ;
+         echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
+      }
+      ;
+      ?>
+
+   </section>
+
 
    <footer class="roda-pe">
 
@@ -266,8 +322,8 @@ if (isset($_POST['update_plano'])) {
          Direitos Autorais Reservados à Vanguard&#8482;
       </p>
    </footer>
-   <script src="src/js/script.js"></script>
-
 </body>
+<script src="src/js/plano.js"></script>
+
 
 </html>

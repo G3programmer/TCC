@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include_once('src/php/conexao.php');

@@ -4,56 +4,122 @@ include_once('src/php/conexao.php');
 
 // Verifica se o usuário está logado, caso contrário redireciona para o login
 if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
-   unset($_SESSION['email']);
-   unset($_SESSION['senha']);
-   header('Location: login.html');
-   exit;
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
 }
 
 $logado = $_SESSION['email'];
 
-// Buscar o nome do usuário do banco de dados
+// Buscar o nome do usuário no banco de dados
 $sql = "SELECT * FROM usuario WHERE email = '$logado' LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $user_Id = $row['usuario_id']; // ID do usuário
-   $nomeUsuario = $row['nome'];
-   $fotoUsuario = $row['foto']; // Caminho ou nome da imagem
+    $row = $result->fetch_assoc();
+    $user_Id = $row['usuario_id']; // ID do usuário
+    $nomeUsuario = $row['nome'];
+    $fotoUsuario = $row['foto']; // Caminho ou nome da imagem
 } else {
-   $nomeUsuario = 'Usuário';
-   $fotoUsuario = 'default.png'; // Imagem padrão se a foto não for encontrada
+    $nomeUsuario = 'Usuário';
+    $fotoUsuario = 'default.png'; // Imagem padrão se a foto não for encontrada
 }
 
-$sql_code_plan = "SELECT * FROM plano ORDER BY nome_plano ASC";
-$sql_plan_query = $conn->query($sql_code_plan) or die($conn->error);
-
-$planoSelecionado = null; // Variável para armazenar o plano selecionado
-if (isset($_POST['p_plano'])) {
-   $planoId = $_POST['p_plano'];
-
-   // Consulta para buscar os detalhes do plano
-   $query = "SELECT plano_id, nome_plano, preco_plano, descricao FROM plano WHERE plano_id = ?";
-   $stmt = $conn->prepare($query);
-
-   if ($stmt) {
-      $stmt->bind_param("i", $planoId);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      if ($result->num_rows > 0) {
-         $planoSelecionado = $result->fetch_assoc(); // Armazena o plano selecionado
-      } else {
-         echo 'Plano não encontrado.';
-      }
-
-      $stmt->close(); // Fecha a declaração
-   } else {
-      echo 'Erro na preparação da consulta.';
-   }
+// Obter o ID do plano (via GET ou POST)
+if (isset($_GET['plan_id'])) {
+    $planoId = $_GET['plan_id'];
+} elseif (isset($_POST['plano_id'])) {
+    $planoId = $_POST['plano_id'];
+} else {
+    echo "ID do plano não definido.";
+    exit;
 }
+
+// Se o ID do plano estiver definido, busca os detalhes do plano
+$planoSelecionado = null;
+if (isset($planoId)) {
+    // Consulta para buscar os detalhes do plano
+    $query = "SELECT * FROM plano WHERE plano_id = ?";
+    $stmt = $conn->prepare($query);
+
+    if ($stmt) {
+        $stmt->bind_param("i", $planoId);
+        $stmt->execute();
+        $resulto = $stmt->get_result();
+
+        if ($resulto->num_rows > 0) {
+            $planoSelecionado = $resulto->fetch_assoc(); // Armazena o plano selecionado
+        } else {
+            echo 'Plano não encontrado.';
+        }
+
+        $stmt->close(); // Fecha a declaração
+    } else {
+        echo 'Erro na preparação da consulta.';
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = $_POST['nome'];
+    $metodo = $_POST['metodo'];
+    $senha = $_POST['senha']; // Troca de "pin" para "senha"
+    $cpf = $_POST['cpf']; // Atualizando para pegar o CPF
+
+    // Valida CPF
+    if (empty($cpf)) {
+        echo "CPF inválido.";
+        exit;
+    }
+
+    // Busca o usuário pelo CPF
+    $sql_user = "SELECT usuario_id FROM usuario WHERE cpf = ? LIMIT 1";
+    $stmt_user = $conn->prepare($sql_user);
+    $stmt_user->bind_param("s", $cpf);
+    $stmt_user->execute();
+    $result_user = $stmt_user->get_result();
+
+    if ($result_user->num_rows > 0) {
+        $usuario = $result_user->fetch_assoc();
+        $usuarioId = $usuario['usuario_id'];
+
+        
+
+        // Insere o checkout na tabela checkout
+        $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, metodo, senha, data_inicio) VALUES (?, ?, ?, CURDATE())";
+        $stmtInsert = $conn->prepare($sqlInsertCheckout);
+        $stmtInsert->bind_param("iss", $usuarioId, $metodo, $senha);
+
+        if ($stmtInsert->execute()) {
+            // Atualiza o plano_id na tabela usuário
+            $sqlUpdatePlano = "UPDATE usuario SET plano_id = ? WHERE usuario_id = ?";
+            $stmtUpdatePlano = $conn->prepare($sqlUpdatePlano);
+            $stmtUpdatePlano->bind_param("ii", $planoId, $usuarioId);
+
+            if ($stmtUpdatePlano->execute()) {
+                // Redireciona para o perfil após atualizar o plano
+                header("Location: perfil.php");
+                exit;
+            } else {
+                echo "Erro ao atualizar o plano do usuário.";
+            }
+
+            $stmtUpdatePlano->close(); // Fecha a declaração de atualização
+        } else {
+            echo "Erro ao inserir dados de checkout: " . $stmtInsert->error;
+        }
+
+        $stmtInsert->close(); // Fecha a declaração do insert
+    } else {
+        echo "Usuário não encontrado com o CPF informado.";
+    }
+
+    $stmt_user->close(); // Fecha a declaração de busca do usuário
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -65,6 +131,8 @@ if (isset($_POST['p_plano'])) {
    <title>Vanguard | Segurança eletrônica e testes de segurança</title>
    <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
    <link rel="stylesheet" href="src/css/index.css">
    <link rel="stylesheet" href="src/css/style-checkout.css">
    <link href="https://fonts.cdnfonts.com/css/codygoon" rel="stylesheet">
@@ -83,63 +151,111 @@ if (isset($_POST['p_plano'])) {
          <button id="CloseMenu">X</button>
          <ul class="menu">
             <li>
-               <a class="btn-quem-somos" href="#quem-somos" onclick="scrollToSection('quem-somos')">Quem somos</a>
-
-            </li>
-            <li>
-               <a class="btn-parcerias" href="#parcerias">Parcerias</a>
+               <a href="indexLogadoCliente.html">Home</a>
             </li>
             <li>
                <a class="btn-avaliar" href="formulario.php" target="_blank">Avaliar</a>
             </li>
             <li>
-               <a class="btn-servicos" href="formulario.php" target="_blank">Serviços</a>
+               <a class="btn-servicos" href="equipe.html" target="_blank">Serviços</a>
             </li>
             <li>
-               <a href="formulario.php" target="_blank">Produtos</a>
+               <a href="produtos.php" target="_blank">Produtos</a>
             </li>
             <li>
-               <a href="formulario.php"> Cadastrar</a>
+               <a href="perfil.php">Perfil</a>
             </li>
             <li>
-               <a class="btn-login" href="login.html">Login</a>
+               <a class="btn-login" href="src/php/logout.php">Logout</a>
             </li>
          </ul>
       </nav>
    </header>
-   <main class="home">
-      <div class="container">
-         <section class="checkout-form">
-            <h1 class="heading">Complete Your Order</h1>
 
+   <main class="home">
+      <div class="containermeu">
+         <section class="checkout-form">
+            <h1 class="heading">Confirmação de pagamento</h1>
             <form action="" method="post">
                <div class="display-order">
-                  <select name="p_plano" class="box" required>
-                     <option value="">Selecione um plano</option>
-                     <?php while ($p_plano = $sql_plan_query->fetch_assoc()) { ?>
-                        <option value="<?php echo $p_plano['plano_id']; ?>">
-                           <?php echo $p_plano['nome_plano']; ?>
-                        </option>
-                     <?php } ?>
-                  </select>
-
-                  <input type="submit" value="Buscar pelo plano" class="btn"> <!-- Botão para buscar informações -->
+                  <br>
                   <?php
                   if ($planoSelecionado) {
-                     echo 'Nome do Plano: ' . $planoSelecionado['nome_plano'] . '<br>';
-                     echo 'Preço: R$ ' . number_format($planoSelecionado['preco_plano'], 2, ',', '.') . '<br>';
-                     echo 'Descrição: ' . $planoSelecionado['descricao'] . '<br>';
+                     echo ' <div class="container text-center">';
+                     echo '<div class="row">';
+                     echo '<div class="info">';
+                     echo '<p class="col-2"> Nome do Plano: <br>' . $planoSelecionado['nome_plano'] . '</p><br>';
+                     echo '<p class="col-2"> Preço: <br> R$ ' . number_format($planoSelecionado['preco_plano'], 2, ',', '.') . '</p> <br>';
+
+                     echo '<p class="col-2"> tempo de duração em mês: <br>  ' . number_format($planoSelecionado['tempo']) . '</p> <br>';
+
+                     echo '<p class="col-5"> Descrição: <br>' . $planoSelecionado['descricao'] . '</p>';
+                     echo '</div>';
+                     echo '</div>';
+                     echo '</div>';
                   } else {
-                     echo 'Nenhum plano selecionado.';
+                     echo "Por favor, selecione um plano.";
                   }
                   ?>
-               </div>
+                  <hr>
+                  <h3>Insira os dados do pagamento</h3>
+                  <div class="container">
+                     <form action="" method="POST">
+                        <div class="row">
+                           <input type="hidden" name="plano_id"
+                              value="<?php echo isset($planoSelecionado) ? $planoSelecionado['plano_id'] : ''; ?>">
+
+                           <!-- Primeira coluna -->
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="nome">Nome</label>
+                                 <input type="text" class="form-control" placeholder="Digite o seu nome" name="nome"
+                                    required>
+                              </div>
+                           </div>
+
+                           <!-- Segunda coluna -->
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="metodo">Método de pagamento</label>
+                                 <select name="metodo" class="form-control">
+                                    <option value="PayPal">PayPal</option>
+                                    <option value="PIX">PIX</option>
+                                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <!-- Primeira coluna -->
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="cpf">CPF</label>
+                                 <input class="form-control" type="text" name="cpf" required
+                                    placeholder="Insira seu CPF">
+                              </div>
+                           </div>
+
+                           <!-- Segunda coluna -->
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="senha">Senha</label>
+                                 <input class="form-control" type="password" name="senha" required
+                                    placeholder="Insira sua senha">
+                              </div>
+                           </div>
+                        </div>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary">Finalizar checkout</button>
+                     </form>
+                  </div>
+
             </form>
          </section>
       </div>
    </main>
-
-
    <footer class="roda-pe">
 
       <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
@@ -156,12 +272,11 @@ if (isset($_POST['p_plano'])) {
          <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
                src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
 
-         <a href="https://www.instagram.com/vanguard_security.oficial/" id="instagram" title="Instagram"
-            target="_blank"><img src="src/imagem/icones/instagram.png"
-               alt="botão do perfil do instagram da Vanguard"></a>
+         <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
+               src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
 
-         <a href="https://discord.gg/BpMEzwTf" title="discord" id="discord" target="_blank"><img
-               src="src/imagem/icones/discord.png" alt="botão do chat do discord da Vanguard "></a>
+         <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
+               alt="botão do chat do discord da Vanguard "></a>
 
          <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
                alt="botão do perfil do linkedin da Vanguard"></a>
@@ -171,6 +286,7 @@ if (isset($_POST['p_plano'])) {
 
       </div>
       <div class="opcoes">
+
          <div class="lista">
             <a href="equipe.html">
                <h6>
@@ -178,19 +294,27 @@ if (isset($_POST['p_plano'])) {
                </h6>
             </a>
             <hr />
-            <a href="produtos.php">
+
+            <a href="produtos.html">
                <h6>
                   Nossos produtos
                </h6>
             </a>
             <hr />
+
+            <a href="avaliar.html">
+               <h6>Avaliar</h6>
+            </a>
+            <hr />
             <a href="serviços.html">
                <h6>Nossos serviços</h6>
             </a>
-
             <hr />
-            <a href="mailto:vanguard.seguranca.oficial@gmail.com">
-               <h6>Suporte</h6>
+            <a href="cronograma.html">
+
+               <h6>
+                  Nosso cronograma
+               </h6>
             </a>
          </div>
       </div>
@@ -200,6 +324,5 @@ if (isset($_POST['p_plano'])) {
       </p>
    </footer>
 </body>
-<script src="src/js/checkout.js"></script>
 
 </html>

@@ -159,6 +159,7 @@ if (isset($_POST['update_plano'])) {
                <th>Preço</th>
                <th>Tempo (em meses)</th>
                <th>Duração</th>
+               <th>Descrição</th>
                <th>Ação</th>
             </thead>
             <tbody>
@@ -188,6 +189,7 @@ if (isset($_POST['update_plano'])) {
                           <td>$<?php echo $row['preco_plano']; ?></td>
                           <td><?php echo $row['tempo'] == -1 ? 'Para Sempre' : $row['tempo']; ?></td>
                           <td><?php echo $tempo_restante; ?></td>
+                          <td><?php echo $row['descricao']?></td>
                           <td class="option">
                               <a href="plano.php?delete=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-danger"
                                  id="delete" onclick="return confirm('Are you sure you want to delete this?');">

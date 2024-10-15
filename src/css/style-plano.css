@@ -147,7 +147,7 @@ section{
    position: relative;
    overflow: hidden;
    margin-top: 5px;
-   background-image: url(../imagem/Fundo/teste.png);
+   background-image: url(../imagem/Fundo/fundo-plano.png);
    border: 1px solid #fff;
    background-size: cover;
 }

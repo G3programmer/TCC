@@ -87,14 +87,15 @@
 }
 
 .home .painel .perfil {
+    display: grid;
     position: absolute;
     border: solid black 4px;
     z-index: 1;
     width: 50pc;
-    background-color: rgba(1, 68, 161, 0.659);
+    background-color: rgba(1, 68, 161, 0.723);
     min-height: calc(95vh - 80px);
     padding-bottom: 10px;
-    display: grid;
+    height:auto;
     color:#fff;
     font-family: 'Codygoon';
     flex-direction: column;
@@ -128,22 +129,29 @@
 }
 
 .home .painel .perfil .info .bem-vindo {
-    margin-top: -6pc;
+    margin-top: -3pc;
     font-size: 3pc;
 }
 
 .home .painel .perfil .info .nome {
-    margin-top: -6pc;
+    margin-top: -2pc;
     font-size: 2pc;
+    margin-bottom: -10pc;
 }
 
 .home .painel .perfil .info .descricao {
     margin-top: -5pc;
-    background-color: rgba(5, 195, 195, 0.371);
+    background-color: rgba(5, 195, 195, 0.467);
     border-radius: 5px;
     padding: 5px;
     border: solid black 3px;
 }
+
+.home .painel .perfil .btn-outline-light:hover{
+    color: black !important;
+    
+}
+
 
 .roda-pe {
     height: 40pc;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/10/2024 às 04:35
+-- Tempo de geração: 13/10/2024 às 01:06
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -32,6 +32,19 @@ CREATE TABLE `avaliacao` (
   `pontos` int(5) DEFAULT NULL,
   `texto` varchar(45) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `checkout`
+--
+
+CREATE TABLE `checkout` (
+  `checkout_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `metodo` varchar(50) NOT NULL,
+  `senha` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -182,11 +195,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario_id`, `nome`, `dt_nasc`, `email`, `senha`, `cpf`, `foto`, `estado_id`, `cidades_id`, `is_admin`, `plano_id`) VALUES
-(1, 'morozini', '2005-04-21', 'morozini@gmail.com', '321', '09423569935', 'morozini.jpg', 1, 2, 1, 0),
-(9, 'Donald', '0000-00-00', 'eu@gmail.com', 'eu', '342398874', 'Donald G. Stephens.jpeg', 3, 12, 0, 0),
-(10, 'teste', '2004-03-20', 'teste@gmail.com', '321', '09876543219', 'Yasmin Safiyyah.jpeg', 2, 7, 0, 0),
-(11, 'GB', '2022-03-16', 'gb@gmail.com', '08642', '098765342', 'Yasmin Safiyyah.jpeg', 1, 12, 0, 0),
-(12, 'prefeito', '0000-00-00', 'pedrosenna@gmail.com', '3877', '87587585875', 'Donald G. Stephens.jpeg', 1, 12, 1, 0);
+(1, 'Gabriel Morozini', '2005-04-21', 'morozini@gmail.com', '123', '09423569935', 'morozini.jpg', 1, 1, 1, 0);
 
 --
 -- Índices para tabelas despejadas
@@ -196,15 +205,19 @@ INSERT INTO `usuario` (`usuario_id`, `nome`, `dt_nasc`, `email`, `senha`, `cpf`,
 -- Índices de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  ADD PRIMARY KEY (`avaliacao_id`,`usuario_id`),
-  ADD KEY `fk_Avaliacao_usuario1_idx` (`usuario_id`);
+  ADD PRIMARY KEY (`avaliacao_id`);
+
+--
+-- Índices de tabela `checkout`
+--
+ALTER TABLE `checkout`
+  ADD PRIMARY KEY (`checkout_id`);
 
 --
 -- Índices de tabela `cidades`
 --
 ALTER TABLE `cidades`
-  ADD PRIMARY KEY (`cidade_id`,`estado_id`),
-  ADD KEY `fk_Cidades_Estado_idx` (`estado_id`);
+  ADD PRIMARY KEY (`cidade_id`);
 
 --
 -- Índices de tabela `estado`
@@ -225,32 +238,26 @@ ALTER TABLE `produtos`
   ADD PRIMARY KEY (`produto_id`);
 
 --
--- Índices de tabela `relatorio`
---
-ALTER TABLE `relatorio`
-  ADD PRIMARY KEY (`relatorio_id`,`usuario_id`,`estado_id`,`cidades_id`),
-  ADD KEY `fk_relatorio_usuario1_idx` (`usuario_id`,`estado_id`,`cidades_id`);
-
---
--- Índices de tabela `servico`
---
-ALTER TABLE `servico`
-  ADD PRIMARY KEY (`servico_id`,`usuario_id`),
-  ADD KEY `fk_solicitacao_usuario1_idx` (`usuario_id`);
-
---
 -- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`usuario_id`,`estado_id`,`cidades_id`),
-  ADD UNIQUE KEY `email_UNIQUE` (`email`),
-  ADD UNIQUE KEY `cpf_UNIQUE` (`cpf`),
-  ADD KEY `fk_Usuario_Cidades1_idx` (`cidades_id`),
-  ADD KEY `fk_usuario_estado1_idx` (`estado_id`);
+  ADD PRIMARY KEY (`usuario_id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `avaliacao`
+--
+ALTER TABLE `avaliacao`
+  MODIFY `avaliacao_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `checkout`
+--
+ALTER TABLE `checkout`
+  MODIFY `checkout_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `cidades`
@@ -265,56 +272,22 @@ ALTER TABLE `estado`
   MODIFY `estado_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de tabela `plano`
+--
+ALTER TABLE `plano`
+  MODIFY `plano_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `produto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de tabela `relatorio`
---
-ALTER TABLE `relatorio`
-  MODIFY `relatorio_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `avaliacao`
---
-ALTER TABLE `avaliacao`
-  ADD CONSTRAINT `fk_Avaliacao_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Restrições para tabelas `cidades`
---
-ALTER TABLE `cidades`
-  ADD CONSTRAINT `fk_Cidades_Estado` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`estado_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
---
--- Restrições para tabelas `relatorio`
---
-ALTER TABLE `relatorio`
-  ADD CONSTRAINT `fk_relatorio_usuario1` FOREIGN KEY (`usuario_id`,`estado_id`,`cidades_id`) REFERENCES `usuario` (`usuario_id`, `estado_id`, `cidades_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Restrições para tabelas `servico`
---
-ALTER TABLE `servico`
-  ADD CONSTRAINT `fk_solicitacao_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Restrições para tabelas `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_Usuario_Cidades1` FOREIGN KEY (`cidades_id`) REFERENCES `cidades` (`cidade_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_estado1` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`estado_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

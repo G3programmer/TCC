@@ -47,7 +47,7 @@ if (isset($_POST['update'])) {
 
     if ($stmt->execute()) {
         // Redireciona para uma página de sucesso ou perfil
-        header('Location: ../../dashboard.php');
+        header('Location: ../../login.html');
         exit;
     } else {
         // Lida com erro de execução

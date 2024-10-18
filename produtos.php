@@ -16,7 +16,6 @@ if (isset($_POST['plano'])) {
     $plano_tempo = $_POST['tempo'];
     $produto_id = $_POST['produto_id'];
 
-
     // Verifica se o produto já existe no carrinho
     $select_plan = mysqli_query($conn, "SELECT * FROM `plano` WHERE nome_plano = '$plano_nome'");
 
@@ -37,8 +36,6 @@ if (isset($_POST['plano'])) {
 
 $sql_code_plan = "SELECT * FROM plano ORDER BY nome_plano ASC";
 $sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
-
-// Carrega a lista de cidades
 
 ?>
 
@@ -250,61 +247,70 @@ $sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
         </div>
     </section>
 
-
 <!-- Fundo escuro -->
-<div class="overlay" style="display: none;"></div>
-
-
-    <div id="confirmPlan" class="plan" style="display: none;">
-    
-    <div class="plan-content">
-        <h2>Veja nossos planos</h2>
-        <p>Escolha um de nossos planos para assinar</p>
-        <!-- Exibição de planos -->
-
-        <form method="POST" enctype="multipart/form-data">
-    <div class="plan-options">
-        <?php
-        $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
-        $result = $conn->query($query);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo '<div class="plan-item">';
-                echo '<h4>' . $row['nome_plano'] . '</h4>';
-                echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
-                echo '<p>Sobre: ' . $row['descricao'] . '</p>'; // Corrigido para exibir descrição corretamente
-                echo '<button type="button" class="btn btn-primary selectPlanBtn" data-plan-id="' . $row['plano_id'] . '">Selecionar</button>';
-                echo '</div>';
-            }
-        }
-        ?>
-    </div>
-</form>
-
-
-
 <?php
-// Verifica se o formulário foi enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $plano_id = $_POST['plano_id'];
+// Conectar ao banco de dados
+// ...
 
-    // Aqui você pode adicionar o código para inserir o plano_id no banco de dados
-    // Exemplo:
-    $sql = "INSERT INTO usuario (plano_id) VALUES ('$plano_id')";
+// Obter o ID do usuário a partir da sessão
+$usuario_id = $_SESSION['usuario_id']; // Ajuste conforme sua lógica de autenticação
+
+// Consulta para verificar se o usuário tem um plano ativo
+$querye = "SELECT * FROM usuario WHERE usuario_id = ?";
+$stmt = $conn->prepare($querye);
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$resulter = $stmt->get_result();
+
+// Verifica se o usuário tem um plano ativo
+if ($resulter->num_rows > 0) {
+    $user = $resulter->fetch_assoc();
     
-    if ($conn->query($sql) === TRUE) {
-        echo "Plano selecionado com sucesso!";
-    } else {
-        echo "Erro ao selecionar plano: " . $conn->error;
-    }
+    // Exibe aviso se o usuário tem um plano ativo
+    if ($user['plano_id'] != 0) {
+        // Exibe uma mensagem informando que o usuário já possui um plano
+        echo '<div class="alert alert-warning">Você já possui um plano ativo. Para assinar um novo plano, cancele seu plano atual.</div>';
+    }           
+} else {
+    // Se o usuário não tem plano ativo, mostra as opções de planos
+    ?>
+    <div id="confirmPlan" class="plan">
+        <div class="plan-content">
+            <h2>Veja nossos planos</h2>
+            <p>Escolha um de nossos planos para assinar</p>
+
+            <!-- Exibição de planos -->
+            <div class="plan-options">
+                <?php
+                // Seleção de planos do banco de dados
+                $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
+                $result = $conn->query($query);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="plan-item">';
+                        echo '<h4>' . $row['nome_plano'] . '</h4>';
+                        echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
+                        echo '<p>Sobre: ' . $row['descricao'] . '</p>';
+                        // Enviar o plano_id como parâmetro na URL para checkout.php
+                        echo '<a href="checkout.php?plano_id=' . $row['plano_id'] . '" class="btn btn-primary">Selecionar</a>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>Não há planos disponíveis.</p>';
+                }
+                ?>
+            </div>
+
+            <!-- Botão de cancelar -->
+            <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <?php
 }
 ?>
 
-        </div>
-        <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
-    </div>
-</div>
+
 
 </body>
 <script src="src/js/index.js"></script>

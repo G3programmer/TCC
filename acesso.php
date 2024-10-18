@@ -45,7 +45,7 @@ if ($resultUser->num_rows > 0) {
         $stmtProdutos->execute();
         $resultProdutos = $stmtProdutos->get_result();
 
-     
+
         $produtos = [];
         while ($rowProduto = $resultProdutos->fetch_assoc()) {
             $produtos[] = $rowProduto;
@@ -61,7 +61,7 @@ if ($resultUser->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vanguard | Planos</title>
+    <title>Vanguard | Sua Lista</title>
     <!-- Font Awesome CDN link -->
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -107,22 +107,24 @@ if ($resultUser->num_rows > 0) {
 
     <main class="home">
         <div class="lista">
-            <h2>Produtos disponíveis no seu plano:</h2>
+            <h2 class="titulo">Produtos disponíveis no seu plano:</h2>
+            <br>
             <!-- <div class="produtos-lista"> -->
             <?php foreach ($produtos as $produto): ?>
-                <ul>
-                    <li>
+                
+                    <div class="card" style="width: 18rem; justify-self:center">
                         <img src="src/imagem/produtos/<?php echo htmlspecialchars($produto['imagem']); ?>" alt="Produto"
-                            style="width: 150px; height: auto; border-radius: 10px;">
-                        <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
-                        <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
-                    </li>
+                            style="width: 15pc; height: auto; border-radius: 10px; margin:auto;">
+                        <div class="card-body">
+                            <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
+                            <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
+                            <a href="#" class="btn btn-primary">Baixar</a>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
 
-            </ul>
-
         </div>
-        </div>
+        <br>
     </main>
 
     <footer class="roda-pe">

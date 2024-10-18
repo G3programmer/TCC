@@ -27,8 +27,8 @@ if ($result->num_rows > 0) {
 }
 
 // Obter o ID do plano (via GET ou POST)
-if (isset($_GET['plan_id'])) {
-    $planoId = $_GET['plan_id'];
+if (isset($_GET['plano_id'])) {
+    $planoId = $_GET['plano_id'];
 } elseif (isset($_POST['plano_id'])) {
     $planoId = $_POST['plano_id'];
 } else {

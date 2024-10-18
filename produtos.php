@@ -248,67 +248,41 @@ $sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
     </section>
 
 <!-- Fundo escuro -->
-<?php
-// Conectar ao banco de dados
-// ...
+<!-- Fundo escuro -->
+<div class="overlay" style="display: none;"></div>
 
-// Obter o ID do usuário a partir da sessão
-$usuario_id = $_SESSION['usuario_id']; // Ajuste conforme sua lógica de autenticação
+<div id="confirmPlan" class="plan" style="display: none;">
+    <div class="plan-content">
+        <h2>Veja nossos planos</h2>
+        <p>Escolha um de nossos planos para assinar</p>
+        <!-- Exibição de planos -->
+        <div class="plan-options">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="plan-options">
+                    <?php
+                    $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
+                    $result = $conn->query($query);
 
-// Consulta para verificar se o usuário tem um plano ativo
-$querye = "SELECT * FROM usuario WHERE usuario_id = ?";
-$stmt = $conn->prepare($querye);
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$resulter = $stmt->get_result();
-
-// Verifica se o usuário tem um plano ativo
-if ($resulter->num_rows > 0) {
-    $user = $resulter->fetch_assoc();
-    
-    // Exibe aviso se o usuário tem um plano ativo
-    if ($user['plano_id'] != 0) {
-        // Exibe uma mensagem informando que o usuário já possui um plano
-        echo '<div class="alert alert-warning">Você já possui um plano ativo. Para assinar um novo plano, cancele seu plano atual.</div>';
-    }           
-} else {
-    // Se o usuário não tem plano ativo, mostra as opções de planos
-    ?>
-    <div id="confirmPlan" class="plan">
-        <div class="plan-content">
-            <h2>Veja nossos planos</h2>
-            <p>Escolha um de nossos planos para assinar</p>
-
-            <!-- Exibição de planos -->
-            <div class="plan-options">
-                <?php
-                // Seleção de planos do banco de dados
-                $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
-                $result = $conn->query($query);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="plan-item">';
-                        echo '<h4>' . $row['nome_plano'] . '</h4>';
-                        echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
-                        echo '<p>Sobre: ' . $row['descricao'] . '</p>';
-                        // Enviar o plano_id como parâmetro na URL para checkout.php
-                        echo '<a href="checkout.php?plano_id=' . $row['plano_id'] . '" class="btn btn-primary">Selecionar</a>';
-                        echo '</div>';
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="plan-item">';
+                            echo '<h4>' . $row['nome_plano'] . '</h4>';
+                            echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
+                            echo '<p>Sobre: ' . $row['descricao'] . '</p>';
+                            echo '<a class="btn btn-primary selectPlanBtn" href="checkout.php?plano_id=' . $row['plano_id'] . '">Selecionar</a>';
+                            echo '</div>';
+                        }
                     }
-                } else {
-                    echo '<p>Não há planos disponíveis.</p>';
-                }
-                ?>
-            </div>
-
-            <!-- Botão de cancelar -->
-            <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+                    ?>
+                </div>
+            </form>
         </div>
+
+        <!-- Botão de Cancelar -->
+        <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
     </div>
-    <?php
-}
-?>
+</div>
+
 
 
 

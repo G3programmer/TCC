@@ -40,12 +40,14 @@
 .home {
     display: flex;
     justify-content: center;
+    background-image: url(../imagem/Fundo/fundo-dashboard.png);
+    background-size: cover;
     position: relative;
     min-height: calc(100vh - 80px);
     overflow: hidden;
 }
 
- 
+
 .home::before {
     content: "";
     position: absolute;
@@ -67,30 +69,51 @@
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.600), rgba(0, 0, 0, 0.600) 100%, transparent 100%);
 }
 
-.home .imagem-fundo {
-    width: 100%;
-    object-fit: cover;
-}
-
 
 .home:hover::before {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.home .painel {
+.home .lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Duas colunas */
+    gap: 15px;
+    /* Espaço entre os itens */
     position: absolute;
+    color: #fff;
+    font-family: 'Eingrantch Mono';
     justify-content: center;
-    margin: 20px 30pc 20px 0px;
+    margin: 40px 0px 40px 0px;
     z-index: 1;
-    width: 300px;
-    min-height: calc(100vh - 80px);
-    flex-direction: column;
+    background: #1a1a1a;
+    border: 3px solid black;
+    width: 60%;
+    height: 90%;
+    /* Defina uma altura fixa para permitir a rolagem */
+    overflow-y: auto;
+    /* Adiciona a rolagem vertical */
 }
 
+.home .lista .titulo {
+    display: flex;
+    background: black;
+    padding: 10px 10px 10px 10px;
+    width: 203%;
+    justify-content: center;
+    text-align: center;
 
 
+}
 
-
+.card {
+    display: flex;
+    font-family: 'Codygoon';
+    color: #fff;
+    background: #101010;
+    border: 3px solid black;
+    margin: 10px 5px 10px 30px;
+}
 
 
 

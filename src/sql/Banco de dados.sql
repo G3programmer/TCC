@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/10/2024 às 01:06
+-- Tempo de geração: 21/10/2024 às 16:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -43,9 +43,19 @@ CREATE TABLE `avaliacao` (
 CREATE TABLE `checkout` (
   `checkout_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
+  `data_inicio` date NOT NULL,
   `metodo` varchar(50) NOT NULL,
   `senha` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `checkout`
+--
+
+INSERT INTO `checkout` (`checkout_id`, `usuario_id`, `data_inicio`, `metodo`, `senha`) VALUES
+(4, 3, '2024-10-17', 'PIX', 'eu'),
+(5, 57, '2024-10-18', 'PayPal', '123'),
+(6, 58, '2024-10-18', 'PayPal', '123');
 
 -- --------------------------------------------------------
 
@@ -107,9 +117,20 @@ INSERT INTO `estado` (`estado_id`, `nome_estado`, `uf`) VALUES
 CREATE TABLE `plano` (
   `plano_id` int(11) NOT NULL,
   `nome_plano` varchar(150) NOT NULL,
-  `preco_plano` decimal(3,2) NOT NULL,
-  `tempo` date NOT NULL
+  `preco_plano` decimal(5,2) NOT NULL,
+  `tempo` varchar(3) NOT NULL,
+  `descricao` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `plano`
+--
+
+INSERT INTO `plano` (`plano_id`, `nome_plano`, `preco_plano`, `tempo`, `descricao`) VALUES
+(2, 'Free', 100.00, '-1', 'Tenha acesso a: Sistema operacional'),
+(3, 'Pro', 250.00, '4', 'Tenha acesso a: Sistemas operacionais e Ferramentas'),
+(4, 'Ultra', 560.00, '6', 'Tenha acesso a: Sistemas operacionais, ferramentas e solicitação de serviço'),
+(5, 'Mega', 990.00, '12', 'Tenha acesso a: Sistemas operacionais, Ferramentas, solicitação de serviços e ferramentas edição Vanguard');
 
 -- --------------------------------------------------------
 
@@ -119,8 +140,7 @@ CREATE TABLE `plano` (
 
 CREATE TABLE `produtos` (
   `produto_id` int(11) NOT NULL,
-  `nome_produto` varchar(100) NOT NULL,
-  `plano_id` int(11) NOT NULL,
+  `nome_produto` text NOT NULL,
   `classe` varchar(20) NOT NULL,
   `descricao` text NOT NULL,
   `imagem` longblob NOT NULL
@@ -130,17 +150,54 @@ CREATE TABLE `produtos` (
 -- Despejando dados para a tabela `produtos`
 --
 
-INSERT INTO `produtos` (`produto_id`, `nome_produto`, `plano_id`, `classe`, `descricao`, `imagem`) VALUES
-(1, 'Backbox', 0, 'Sistema Operacional', ' uma distribuição GNU/Linux derivada do Ubuntu, voltada para executar testes de penetração e de vulnerabilidade, o sistema dispõe de várias ferramentas para análise de sistemas e de redes.', 0x6261636b626f782e706e67),
-(2, 'Black Arch', 0, 'Sistema Operacional', 'uma distribuição Linux para testes de penetração e pesquisadores de segurança. É uma derivação do ArchLinux e os usuários podem instalar componentes do BlackArch individualmente ou por grupos em cima da distribuição.', 0x426c61636b417263682e706e67),
-(3, 'Kali', 0, 'Sistema Operacional', 'uma distribuição GNU/Linux baseada no Debian, considerado o sucessor do Back Track. O projeto apresenta várias melhorias, além de mais aplicativos. É voltado principalmente para auditoria e segurança de computadores em geral.', 0x6b616c692e706e67),
-(4, 'Parrot OS', 0, 'Sistema Operacional', 'O Parrot OS é um sistema operacional Linux, baseado no Debian, que procura atender um público bem específico, especialistas em segurança, pessoas que trabalham que computação forense, estudantes de ciência da computação e engenharia, pesquisadores, desenvolvedores de software e, claro, os hackers.', 0x706172726f742e706e67),
-(5, 'Samurai Web Testing Framerowk', 0, 'Sistema Operacional', 'uma máquina virtual, suportada no VirtualBox e no VMWare, que foi pré-configurada para funcionar como um ambiente de pen-testing web. A VM contém as melhores ferramentas de código aberto e gratuitas que se concentram em testar e atacar sites.', 0x53616d757261692d5765622d54657374696e672d4672616d65776f726b2e706e67),
-(6, 'Burp Suite', 0, 'Ferramenta', 'atua como um proxy web que permite interceptar e modificar solicitações e respostas HTTP/HTTPS entre o cliente e o servidor.', 0x627572702d73756974652e706e67),
-(7, 'John The Ripper', 0, 'Ferramenta', ' uma ferramenta gratuita de software para quebrar senhas. Originalmente desenvolvido para o sistema operacional Unix, pode rodar em quinze plataformas diferentes', 0x4a54522e706e67),
-(8, 'Maltego', 0, 'Ferramenta', 'O foco do Maltego é analisar as relações do mundo real entre informações que são publicamente acessíveis na Internet. Isso inclui a infraestrutura de apoio à Internet, bem como a localização de informações sobre as pessoas e a organização que as possuem', 0x6d616c7465676f2e706e67),
-(9, 'Metasploit', 0, 'Ferramenta', ' é um projeto de segurança de computadores que fornece informações sobre vulnerabilidades de segurança e ajuda em testes de penetração e desenvolvimento de assinaturas IDS.', 0x6d65746173706c6f69742e706e67),
-(10, 'Nmap', 0, 'Ferramentas', 'muito utilizado para avaliar a segurança dos computadores, e para descobrir serviços ou servidores em uma rede de computadores. Nmap é conhecido pela sua rapidez e pelas opções que dispõe', 0x6e6d61702e706e67);
+INSERT INTO `produtos` (`produto_id`, `nome_produto`, `classe`, `descricao`, `imagem`) VALUES
+(25, 'back box', 'Sistema operacional', 'teste', 0x6261636b626f782e706e67),
+(26, 'Black Arch', 'Sistema Operacional', 'BlackArch Linux é uma distribuição de teste de penetração baseada em Arch Linux para testadores de penetração e pesquisadores de segurança. O repositório contém 2.921 ferramentas. Você pode instalar ferramentas individualmente ou em grupos. BlackArch Linux é compatível com instalações existentes do Arch.', 0x426c61636b417263682e706e67),
+(27, 'Kali', 'Sistema Operacional', 'É voltado principalmente para auditoria e segurança de computadores em geral. É desenvolvido e mantido pela Offensive Security Ltd.', 0x6b616c692e706e67),
+(28, 'John The Ripper', 'Ferramenta', 'É uma ferramenta de cracking de senhas altamente eficiente e de código aberto. Originalmente desenvolvida para sistemas Unix, expandiu-se para suportar várias plataformas e formatos de senha, incluindo Windows, Linux, macOS e até mesmo dispositivos móveis.', 0x4a54522e706e67),
+(29, 'Burp Suite', 'Ferramenta', 'É uma ferramenta integrada de segurança de aplicativos web que permite aos profissionais de segurança realizar uma ampla gama de testes de penetração.', 0x627572702d73756974652e706e67),
+(30, 'Metasploit', 'Ferramenta', 'É um projeto de segurança de computadores que fornece informações sobre vulnerabilidades de segurança e ajuda em testes de penetração e desenvolvimento de assinaturas IDS', 0x6d65746173706c6f69742e706e67),
+(31, 'leandro', 'ferramenta', 'asd', 0x343935356539643139323130626635383461663035633733656533313263333739653838346366666364616638316430623866636636326632633566643164655f312e6a7067);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produto_plano`
+--
+
+CREATE TABLE `produto_plano` (
+  `id` int(11) NOT NULL,
+  `produto_id` int(11) DEFAULT NULL,
+  `plano_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `produto_plano`
+--
+
+INSERT INTO `produto_plano` (`id`, `produto_id`, `plano_id`) VALUES
+(1, 25, 2),
+(2, 25, 5),
+(3, 25, 3),
+(4, 25, 4),
+(5, 26, 2),
+(6, 26, 5),
+(7, 26, 3),
+(8, 26, 4),
+(9, 27, 2),
+(10, 27, 5),
+(11, 27, 3),
+(12, 27, 4),
+(13, 28, 5),
+(14, 28, 3),
+(15, 28, 4),
+(16, 29, 5),
+(17, 29, 3),
+(18, 29, 4),
+(19, 30, 5),
+(20, 30, 3),
+(21, 30, 4),
+(22, 31, 2);
 
 -- --------------------------------------------------------
 
@@ -195,7 +252,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario_id`, `nome`, `dt_nasc`, `email`, `senha`, `cpf`, `foto`, `estado_id`, `cidades_id`, `is_admin`, `plano_id`) VALUES
-(1, 'Gabriel Morozini', '2005-04-21', 'morozini@gmail.com', '123', '09423569935', 'morozini.jpg', 1, 1, 1, 0);
+(1, 'Gabriel', '2005-04-21', 'morozini@gmail', '123', '09423569935', 'morozini.jpg', 3, 12, 1, 0),
+(2, 'Victor', '2006-03-20', 'Vmoice@gmail.com', '@gmail.como', '94823465309', 'Victor.jpg', 2, 5, 0, 0),
+(3, 'Teste', '2000-02-09', 'eu@eu', 'eu', '12345678921', 'Ryan Alves Costa.jpeg', 3, 10, 0, 5),
+(56, 'Pedro', '0000-00-00', 'pedro@gmail', 'pedro', '09876543213', 'cave man.jpg', 2, 7, 0, 0),
+(58, 'leandro2', '2000-03-21', 'leandro2@leandro2', '123', '1234', 'Donald G. Stephens.jpeg', 1, 12, 1, 5);
 
 --
 -- Índices para tabelas despejadas
@@ -238,6 +299,14 @@ ALTER TABLE `produtos`
   ADD PRIMARY KEY (`produto_id`);
 
 --
+-- Índices de tabela `produto_plano`
+--
+ALTER TABLE `produto_plano`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `produto_id` (`produto_id`),
+  ADD KEY `plano_id` (`plano_id`);
+
+--
 -- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
@@ -257,7 +326,7 @@ ALTER TABLE `avaliacao`
 -- AUTO_INCREMENT de tabela `checkout`
 --
 ALTER TABLE `checkout`
-  MODIFY `checkout_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `checkout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `cidades`
@@ -275,19 +344,36 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de tabela `plano`
 --
 ALTER TABLE `plano`
-  MODIFY `plano_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `plano_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `produto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `produto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT de tabela `produto_plano`
+--
+ALTER TABLE `produto_plano`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `produto_plano`
+--
+ALTER TABLE `produto_plano`
+  ADD CONSTRAINT `produto_plano_ibfk_1` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`produto_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `produto_plano_ibfk_2` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`plano_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

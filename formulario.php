@@ -17,38 +17,29 @@ if (isset($_POST['submit'])) {
         // Obtenha os detalhes do arquivo
         $fileTmpPath = $_FILES['foto']['tmp_name'];
         $fileNome = $_FILES['foto']['name'];
-        $fileSize = $_FILES['foto']['size'];
-        $fileType = $_FILES['foto']['type'];
-        $foto = $_FILES['foto']['name']; // Corrigido de 'nome' para 'name'
-        $foto_tmp_name = $_FILES['foto']['tmp_name']; // Corrigido de 'tmp_nome' para 'tmp_name'
+        $foto_folder = 'src/imagem/pessoas/' . $fileNome; // Caminho da pasta onde a foto será salva
 
-        $foto_folder = 'src/imagem/pessoas/' . $foto;
+        // Tente mover o arquivo para a pasta correta
+        if (move_uploaded_file($fileTmpPath, $foto_folder)) {
+            // Insira os dados no banco de dados
+            $result = mysqli_query($conn, "INSERT INTO usuario (nome, dt_nasc, email, senha, cpf, estado_id, cidades_id, foto) 
+                VALUES ('$nome', '$dt_nasc', '$email', '$senha', '$cpf', '$estado', '$cidade', '$fileNome')");
 
-        // Insira os dados no banco de dados, incluindo a imagem
-
-        if ($insert_query) {
-            move_uploaded_file($foto_tmp_name, $foto_folder);
+            if ($result) {
+                echo "<script>
+                alert('Cadastro realizado com sucesso!');
+                window.location.href = 'contas.php';
+                </script>";
+                exit;
+            } else {
+                echo "<script>alert('Erro ao cadastrar: " . mysqli_error($conn) . "');</script>";
+            }
         } else {
-        }
-
-        $result = mysqli_query($conn, "INSERT INTO usuario(nome, dt_nasc, email, senha, cpf, estado_id, cidades_id, foto) 
-            VALUES ('$nome','$dt_nasc','$email','$senha','$cpf','$estado','$cidade','$foto')");
-
-        if ($result) {
-            echo "<script>
-            alert('Cadastro realizado com sucesso!');
-            window.location.href = 'contas.php';
-          </script>";
-            exit;
-        } else {
-            // Exibe um pop-up de erro
-            echo "<script>alert('Erro ao cadastrar: " . mysqli_error($conn) . "');</script>";
+            echo "<script>alert('Erro ao mover a imagem para a pasta.');</script>";
         }
     } else {
-        // Exibe um pop-up se a imagem não for carregada corretamente
         echo "<script>alert('Erro ao carregar a imagem.');</script>";
     }
-
 }
 
 // Carrega a lista de estados
@@ -119,7 +110,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                         <span>Email</span>
                         <i></i>
                     </div>
-
+                    <br>
                     <div class="inputBox">
                         <input type="text" name="senha" id="senha" required="required">
                         <span>Senha</span>

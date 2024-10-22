@@ -8,35 +8,23 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
     exit;
 }
 
+// Inicializa a variável de busca
+$busca = '';
+
 // Processamento do formulário
 if (isset($_POST['plano'])) {
-    $plano_id = $_POST['plano_id'];
-    $plano_nome = $_POST['nome_plano'];
-    $plano_preco = $_POST['preco_plano'];
-    $plano_tempo = $_POST['tempo'];
-    $produto_id = $_POST['produto_id'];
-
-    // Verifica se o produto já existe no carrinho
-    $select_plan = mysqli_query($conn, "SELECT * FROM `plano` WHERE nome_plano = '$plano_nome'");
-
-    if (mysqli_num_rows($select_plan) > 0) {
-        echo "<script>alert('Assinatura já guardada');</script>";
-    } else {
-        // Corrigindo a consulta de inserção
-        $insert_plan = mysqli_query($conn, "INSERT INTO `plano` (produto_id, nome_plano, preco_plano, tempo) 
-               VALUES ('$produto_id', '$plano_nome', '$plano_preco', '$plano_tempo')");
-
-        if ($insert_plan) {
-            echo "<script>alert('Produto adicionado ao carrinho com sucesso!');</script>";
-        } else {
-            echo "<script>alert('Falha ao adicionar o produto!');</script>";
-        }
-    }
+    // ... (seu código de inserção aqui)
 }
 
-$sql_code_plan = "SELECT * FROM plano ORDER BY nome_plano ASC";
-$sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
+// Se a busca for realizada
+if (isset($_GET['busca'])) {
+    // Escapar caracteres especiais para evitar SQL Injection
+    $busca = mysqli_real_escape_string($conn, $_GET['busca']);
+}
 
+// Consulta para produtos
+$sql_query_plan = "SELECT * FROM produtos WHERE nome_produto LIKE '%$busca%' OR classe LIKE '%$busca%' ORDER BY nome_produto ASC";
+$sql_result = $conn->query($sql_query_plan) or die($conn->error);
 ?>
 
 
@@ -122,7 +110,7 @@ $sql_query_plan = $conn->query($sql_code_plan) or die($conn->error);
     </main>
     <section class="compre-ja">
 
-        <form id="formBusca" action="src/php/pesquisaProdutos.php" method="GET">
+        <form id="formBusca" method="GET">
             <div class="caixa-pesquisa">
 
                 <input type="text" name="busca" class="barra" placeholder="Busco por...">

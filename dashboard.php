@@ -12,21 +12,22 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
 $logado = $_SESSION['email'];
 
 // Obtém os dados do usuário
-$sql = "SELECT usuario_id, nome, foto, is_admin FROM usuario WHERE email = ? LIMIT 1";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $logado);
-$stmt->execute();
-$result = $stmt->get_result();
+$sql = "SELECT * FROM usuario WHERE email = ? LIMIT 1";
+$stmtUser = $conn->prepare($sql);
+$stmtUser->bind_param("s", $logado);
+$stmtUser->execute();
+$resultUser = $stmtUser->get_result();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $nomeUsuario = $row['nome'];
-    $fotoUsuario = $row['foto'] ?: 'default.png'; // Imagem padrão se a foto não for encontrada
-    $is_admin = $row['is_admin'];
-    $usuario_id = $row['usuario_id'];
+if ($resultUser->num_rows > 0) {
+    $row = $resultUser->fetch_assoc();
+    $user_Id = $row['usuario_id']; // ID do usuário
+    $nomeUsuario = htmlspecialchars($row['nome']);
+    $fotoUsuario = htmlspecialchars($row['foto']) ?: 'default.png';
 } else {
+    $nomeUsuario = 'Usuário';
     $fotoUsuario = 'default.png';
 }
+
 
 ?>
 
@@ -64,39 +65,43 @@ if ($result->num_rows > 0) {
         </div>
 
         <!-- Formulário correto com método POST -->
-        <form class="perfil" action="perfil.php" method="post">
-            <div class="area-foto">
-                <img src="src/imagem/pessoas/<?php echo htmlspecialchars($fotoUsuario); ?>" alt="">
-            </div>
-            <div class="info">
-                <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
-                <h2 class='nome'>
-                    <p><?php echo htmlspecialchars($nomeUsuario); ?></p>
-                </h2>
-                <ul class="nav nav-pills">
-                <li class="nav-item">
-    <a href="editarPerfilADM.php?usuario_id=<?php echo $usuario_id; ?>" class="btn btn-light" title="Editar">
-        <p class="editar">Editar o Perfil</p>
-    </a>
-</li>
+        <form class="perfil" method="post">
+            <?php if (isset($user_Id) && !empty($fotoUsuario)): ?>
+                <div class="area-foto">
+                    <img src="src/imagem/pessoas/<?php echo htmlspecialchars($fotoUsuario); ?>" alt="">
+                </div>
+                <div class="info">
+                    <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
+                    <h2 class='nome'>
+                        <p><?php echo htmlspecialchars($nomeUsuario); ?></p>
+                    </h2>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a href="editarPerfilADM.php?usuario_id=<?php echo $user_Id; ?>" class="btn btn-light"
+                                title="Editar">
 
-                    <li class="nav-item">
-                            <a  id="removeAdmBtn" class="btn btn-danger">
-                            <p class="editar">Tornar usuário padrão</p>
-    </a>
-                </ul>
+                                <p class="editar">Editar o Perfil</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a id="removeAdmBtn" class="btn btn-danger">
+                                <p class="editar">Tornar usuário padrão</p>
+                            </a>
+                    </ul>
+                </div>
+            </form>
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <h2>Confirmação</h2>
+                    <p>Você tem certeza de que deseja abandonar o status de administrador?</p>
+                    <button type="button" id="confirmBtn" class="btn btn-success">Confirmar</button>
+                    <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+                </div>
             </div>
-        </form>
-        <div id="confirmModal" class="modal">
-            <div class="modal-content">
-                <h2>Confirmação</h2>
-                <p>Você tem certeza de que deseja abandonar o status de administrador?</p>
-                <button type="button" id="confirmBtn" class="btn btn-success">Confirmar</button>
-                <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
-            </div>
-        </div>
+        <?php endif; ?>
     </main>
-    
+
     <!-- Script para controlar o modal -->
     <script src="src/js/dashboard.js"></script>
 </body>

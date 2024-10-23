@@ -1,15 +1,25 @@
-* {
-    margin: 0;
-    padding: 0;
+*{
+    font-family: 'Poppins', sans-serif;
+    margin:0; padding:0;
     box-sizing: border-box;
-}
+    outline: none; border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+ }
+ 
+ html{
+    font-size: 62.5%;
+    overflow:auto;
+ }
+
 body {
-    overflow-x: hidden;
+    overflow: hidden;
     background: rgb(31, 0, 0);
     background: linear-gradient(180deg, rgb(31, 0, 0) 14%, rgba(0,0,0,1) 100%);
     margin: 3px;
     flex: 1 1 100vw;
     flex-wrap: wrap;
+
 }
 
 ul {

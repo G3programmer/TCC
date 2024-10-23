@@ -1,27 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const planButtons = document.querySelectorAll('.btn-customizado');
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona os elementos do DOM
+    const planoBtn = document.getElementById('plano');
+    const confirmPlan = document.getElementById('confirmPlan');
+    const overlay = document.querySelector('.overlay');
+    const cancelBtn = document.getElementById('cancelBtn');
 
-    planButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault(); // Impede o envio do formulário
-            const form = event.target.closest('form');
-            const produtoId = form.querySelector('input[name="produto_id"]').value;
-            const nomePlano = form.querySelector('input[name="nome_plano"]').value;
-
-            // Armazena as informações no localStorage ou em variáveis para uso posterior
-            localStorage.setItem('produto_id', produtoId);
-            localStorage.setItem('nome_plano', nomePlano);
-
-            // Exibe a div de planos
-            document.getElementById('confirmPlan').style.display = 'block';
-            document.querySelector('.overlay').style.display = 'block';
-        });
+    // Adiciona um evento de clique ao botão "Assine agora!"
+    planoBtn.addEventListener('click', function(e) {
+        e.preventDefault(); // Impede o comportamento padrão do botão
+        confirmPlan.style.display = 'block'; // Mostra a div de confirmação
+        overlay.style.display = 'block'; // Mostra o fundo escuro
     });
 
-    // Fecha a div de planos se o overlay for clicado
-    document.getElementById("cancelBtn").addEventListener("click", function() {
-        // Esconder a div de confirmação
-        document.getElementById("confirmPlan").style.display = "none";
-        // Esconder o fundo escuro
-        document.querySelector(".overlay").style.display = "none";
-    });})
+    // Adiciona um evento de clique ao botão "Cancelar"
+    cancelBtn.addEventListener('click', function() {
+        confirmPlan.style.display = 'none'; // Esconde a div de confirmação
+        overlay.style.display = 'none'; // Esconde o fundo escuro
+    });
+});

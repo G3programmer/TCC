@@ -42,7 +42,7 @@ if (isset($_POST['update'])) {
     }
 
     // Atualiza os dados no banco de dados
-    $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, cpf = ?, dt_nasc = ?, estado_id = ?, cidades_id = ?, foto = ? WHERE usuario_id = ?");
+    $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, cpf = ?, dt_nasc = ?, estado_id = ?, cidade_id = ?, foto = ? WHERE usuario_id = ?");
     $stmt->bind_param("ssssssiss", $nome, $email, $senha, $cpf, $dt_nasc, $estado, $cidade, $fotoNome, $usuario_id);
 
     if ($stmt->execute()) {

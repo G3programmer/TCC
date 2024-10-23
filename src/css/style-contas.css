@@ -50,6 +50,8 @@
     display: grid;
     margin: 6px;
     width: 93pc;
+    height: 100%;
+    overflow-y:scroll;
     max-height: calc(80vh - 30px);
     align-items: center;
     background: #2020206b;
@@ -107,7 +109,7 @@
 
 .home .selecao {  
     background: rgba(0, 0, 0, 0.33);
-    width: 100%; 
+    width: 100%;
     justify-items: center;
     align-items: center;
 

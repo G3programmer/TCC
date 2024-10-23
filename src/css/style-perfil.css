@@ -153,6 +153,44 @@
 }
 
 
+
+.plan {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    color: #fff;
+    font-family: 'Codygoon';
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.951);
+    padding: 20px;
+    border: 2px solid black;
+    z-index: 1000;
+    width: 90%;
+    height: 84%;
+}
+
+.plan-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.plan-options {
+    display: flex;
+    justify-content: space-between; /* Alinha as colunas uma ao lado da outra */
+    flex-wrap: wrap; /* Permite que as colunas se movam para a próxima linha se não houver espaço suficiente */
+    margin: 20px 0; /* Adiciona um espaço entre as opções de plano e o título */
+}
+
+.plan-item {
+    flex: 1; /* Faz com que cada item ocupe uma parte igual do espaço disponível */
+    background: rgba(26, 26, 26, 0.884);
+    margin: 10px; /* Adiciona margens entre as colunas */
+    padding: 10px; /* Adiciona um pouco de espaço interno */
+    box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos nas dimensões totais */
+}
+
+
 .roda-pe {
     height: 40pc;
     color: #fff;

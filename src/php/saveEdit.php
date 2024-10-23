@@ -2,31 +2,56 @@
 session_start();
 include_once('conexao.php');
 
-$id = $_POST['usuario_id'];
-$nome = $_POST['nome'];
-$email = $_POST['email'];
-$senha = $_POST['senha'];
-$cpf = $_POST['cpf'];
-$estado = $_POST['estado'];
-$cidade = $_POST['cidade']; // Corrigido para "cidade"
-$dt_nasc = $_POST['dt_nasc'];
-
-// Atualizar os dados no banco de dados
-$stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, cpf = ?, cidade_id = ?, estado_id = ?, dt_nasc = ? WHERE usuario_id = ?");
-$stmt->bind_param('sssiiisi', $nome, $email, $senha, $cpf, $cidade, $estado, $dt_nasc, $id);
-
-$stmt->execute();
-
-// Atualizar foto, se houver upload
-if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-    $fotoData = file_get_contents($_FILES['foto']['tmp_name']); // Lê o conteúdo do arquivo
-
-    // Prepara a atualização da foto como BLOB
-    $stmt = $conn->prepare("UPDATE usuario SET foto = ? WHERE usuario_id = ?");
-    $stmt->bind_param('si', $fotoData, $id);
-    $stmt->execute();
+// Verifica se o usuário está logado, caso contrário redireciona para o login
+if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit;
 }
 
-header("Location: ../../login.html");
-exit;
+// Verifica se o formulário foi enviado
+if (isset($_POST['update'])) {
+    $usuario_id = $_POST['usuario_id'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    $cpf = $_POST['cpf'];
+    $dt_nasc = $_POST['dt_nasc'];
+    $estado = $_POST['estado'];
+    $cidade = $_POST['cidade'];
+
+    // Inicializa a variável para a imagem
+    $fotoNome = '';
+
+    // Verifica se um arquivo foi enviado
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        // Obtenha os detalhes do arquivo
+        $fotoTmpName = $_FILES['foto']['tmp_name'];
+        $fotoNome = $_FILES['foto']['name'];
+        $fotoFolder = '../imagem/pessoas/' . $fotoNome;
+
+        // Move o arquivo para a pasta designada
+        if (!move_uploaded_file($fotoTmpName, $fotoFolder)) {
+            echo "<script>alert('Erro ao carregar a imagem.');</script>";
+            exit;
+        }
+    } else {
+        // Caso a imagem não tenha sido alterada, mantém a imagem atual
+        $fotoNome = $_POST['foto_atual']; 
+    }
+
+    // Atualiza os dados no banco de dados
+    $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, cpf = ?, dt_nasc = ?, estado_id = ?, cidade_id = ?, foto = ? WHERE usuario_id = ?");
+    $stmt->bind_param("ssssssiss", $nome, $email, $senha, $cpf, $dt_nasc, $estado, $cidade, $fotoNome, $usuario_id);
+
+    if ($stmt->execute()) {
+        // Redireciona para uma página de sucesso ou perfil
+        header('Location: ../../login.html');
+        exit;
+    } else {
+        // Lida com erro de execução
+        echo "Erro ao atualizar: " . $stmt->error;
+    }
+}
 ?>

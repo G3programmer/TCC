@@ -1,18 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
-*{
-   font-family: 'Poppins', sans-serif;
-   margin:0; padding:0;
-   box-sizing: border-box;
-   outline: none; border:none;
-   text-decoration: none;
-   text-transform: capitalize;
-}
 
-html{
-   font-size: 62.5%;
-   overflow-x: hidden;
-}
 
 .container{
    max-width: 1200px;
@@ -336,14 +324,12 @@ background: rgb(188, 31, 31);
 
 
 .roda-pe {
-   height: 35pc;
-   padding: 3px;
-   padding-bottom: 5pc;
-   display: grid;
+   display: grid; 
    color: #fff;
-   margin: 2px;
+   height: auto;
+   position: relative;
+   z-index: 1;
    width: 100%;
-
    flex: 1 1 100vw;
    background-color: #1a1a1a;
 }
@@ -512,26 +498,6 @@ Cores que variam de acordo com a rede social (sombra da imagem)
 
 
 /* media queries  */
-
-@media (max-width:1200px){
-
-   .shopping-cart{
-      overflow-x: scroll;
-   }
-
-   .shopping-cart table{
-      width: 120rem;
-   }
-
-   .shopping-cart .heading{
-      text-align: left;
-   }
-
-   .shopping-cart .checkout-btn{
-      text-align: left;
-   }
-
-}
 
 @media (max-width:991px){
 

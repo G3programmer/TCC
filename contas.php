@@ -103,9 +103,9 @@ if (!$resulte_users) {
         <div class="container">
             <div class="area">
                 <table class="table table-dark table-hover">
-                <h4 class="titulo">Lista de Administradores</h4>
-                
-                <thead>
+                    <h4 class="titulo">Lista de Administradores</h4>
+
+                    <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
@@ -131,14 +131,12 @@ if (!$resulte_users) {
                                 echo "<td><img src='src/imagem/icones/default.png' alt='Foto padrão' width='100'></td>";
                             }
                         } ?>
-            </div>
-        </div>
-    </main>
-<br>
+            
+    <br>
     <section class="selecao">
         <table class="table table-dark table-hover">
-        <h4 class="titulo">Lista de usuários</h4>
-        <thead>
+            <h4 class="titulo">Lista de usuários</h4>
+            <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
@@ -188,8 +186,10 @@ if (!$resulte_users) {
             </tbody>
         </table>
     </section>
+    </div>
+    </div>
     </main>
-
+   
     <script src="src/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-5nA/Uft8AHT9n9p+5DxiBJGVl3LmYYbs4k6e7uFS/NVUb5+slJHCG5dB0+jhAs5Y"

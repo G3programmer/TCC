@@ -23,8 +23,7 @@ if (isset($_GET['busca'])) {
 }
 
 // Consulta para produtos
-$sql_query_plan = "SELECT * FROM produtos WHERE nome_produto LIKE '%$busca%' OR classe LIKE '%$busca%' ORDER BY nome_produto ASC";
-$sql_result = $conn->query($sql_query_plan) or die($conn->error);
+
 ?>
 
 
@@ -64,14 +63,13 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
                     <a href="servicos.html" target="_blank">Serviços</a>
                 </li>
                 <li>
+                <li class="contato">solicite um teste: <br><strong>(42) 984276920 </strong></li>
+                </li>
+                <li>
                     <a href="perfil.php">Perfil</a>
                 </li>
                 <li>
                     <a href="src/php/logout.php">Logout</a>
-                </li>
-                <li>
-                    <a
-                        href="mailto:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">Suporte</a>
                 </li>
             </ul>
         </nav>
@@ -235,42 +233,64 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
         </div>
     </section>
 
-<!-- Fundo escuro -->
-<!-- Fundo escuro -->
-<div class="overlay" style="display: none;"></div>
+<footer>
+    
 
-<div id="confirmPlan" class="plan" style="display: none;">
-    <div class="plan-content">
-        <h2>Veja nossos planos</h2>
-        <p>Escolha um de nossos planos para assinar</p>
-        <!-- Exibição de planos -->
-        <div class="plan-options">
-            <form method="POST" enctype="multipart/form-data">
-                <div class="plan-options">
-                    <?php
-                    $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
-                    $result = $conn->query($query);
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<div class="plan-item">';
-                            echo '<h4>' . $row['nome_plano'] . '</h4>';
-                            echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
-                            echo '<p>Sobre: ' . $row['descricao'] . '</p>';
-                            echo '<a class="btn btn-primary selectPlanBtn" href="checkout.php?plano_id=' . $row['plano_id'] . '">Selecionar</a>';
-                            echo '</div>';
-                        }
-                    }
-                    ?>
-                </div>
-            </form>
-        </div>
 
-        <!-- Botão de Cancelar -->
-        <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+<footer class="roda-pe">
+
+<img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
+
+
+
+<h5 class="subtitulo">
+    Nos acompanhe pelas redes sociais
+</h5>
+
+
+<div class="social_media">
+
+    <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
+            src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+
+    <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
+            src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
+
+    <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
+            alt="botão do chat do discord da Vanguard "></a>
+
+    <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
+            alt="botão do perfil do linkedin da Vanguard"></a>
+
+    <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
+            alt="botão do chat do telegram da Vanguard"></a>
+
+</div>
+<div class="opcoes">
+
+    <div class="lista">
+        <a href="equipe.html">
+            <h6>
+                A equipe
+            </h6>
+        </a>
+        <hr />
+        <h6>Entre em contato: <br><strong>(42) 984276920 </strong></h6>
+        </a>
+        <hr />
+        <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
+            <h6>
+                Suporte
+            </h6>
+        </a>
     </div>
 </div>
-
+</div>
+<p id="copyright">
+    Direitos Autorais Reservados à Vanguard&#8482;
+</p>
+</footer>
 
 
 
@@ -280,6 +300,5 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="src/js/botoes.js"></script>
-<script src="src/js/showPlan.js"></script>
 
 </html>

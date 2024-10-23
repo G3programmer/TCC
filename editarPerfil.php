@@ -32,7 +32,7 @@ if (!empty($_GET['usuario_id'])) {
                         $email = $user_data['email'];
                         $dt_nasc = $user_data['dt_nasc'];
                         $cpf = $user_data['cpf'];
-                        $cidade = isset($user_data['cidades_id']) ? $user_data['cidades_id'] : '';
+                        $cidade = isset($user_data['cidade_id']) ? $user_data['cidade_id'] : '';
                         $estado = isset($user_data['estado_id']) ? $user_data['estado_id'] : '';
                         $fotoUsuario = isset($user_data['foto']) ? $user_data['foto'] : 'default.png';
                 }
@@ -73,16 +73,16 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
 <body>
         <header class="cabecalho">
-                <a href="index.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
+                <a href="indexLogadoCliente.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
                                 alt="titulo da Vanguard"></a>
         </header>
 
         <main class="home">
                 <div class="area">
 
-<!--AQUI DEU BOA, MAS TESTE O EDITAR PERFIL ADM!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                        
-        <form class="row g-3" action="src/php/saveEdit.php" method="POST" enctype="multipart/form-data">
+                        <!--AQUI DEU BOA, MAS TESTE O EDITAR PERFIL ADM!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+                        <form class="row g-3" action="src/php/saveEdit.php" method="POST" enctype="multipart/form-data">
 
                                 <input type="hidden" name="usuario_id" value=<?php echo $id; ?>>
 
@@ -136,7 +136,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
 
                                 <div class="col-md-5">
-                                <label for="cidade" class="form-label">Data de nascimento</label>
+                                        <label for="cidade" class="form-label">Data de nascimento</label>
                                         <input type="date" class="form-control" id="inputZip" name="dt_nasc"
                                                 value="<?php echo $dt_nasc; ?>">
 
@@ -147,6 +147,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                         <input type="file" class="form-control" name="foto" id="foto">
                                         <span>Foto de perfil</span>
                                 </div>
+
 
 
                                 <div class="col-12">

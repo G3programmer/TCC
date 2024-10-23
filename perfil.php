@@ -75,6 +75,9 @@ if ($resultCheckout->num_rows > 0) {
     $nome_plano = "Nenhum plano ativo encontrado.";
     $dataVencimento = null; // Nenhuma data de vencimento se não houver plano
 }
+
+$sql_query_plan = "SELECT * FROM plano ORDER BY nome_plano ASC";
+$sql_result = $conn->query($sql_query_plan) or die($conn->error);
 ?>
 
 <!DOCTYPE html>
@@ -105,14 +108,9 @@ if ($resultCheckout->num_rows > 0) {
             <ul class="menu">
                 <li><a class="btn-quem-somos" href="indexLogadoCliente.html">Home</a></li>
                 <li><a href="produtos.php">Produtos</a></li>
-                <li><a class="btn-servicos" href="serviços.html">Serviços</a></li>
                 <li><a class="btn-servicos" href="equipe.html">Sobre nós</a></li>
-                <li><a href="avaliar.php" target="_blank">Avalie-nos</a></li>
                 <li><a href="src/php/logout.php">Logout</a></li>
-                <li><a
-                        href="mailto:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">Suporte</a>
-                </li>
-            </ul>
+              </ul>
         </nav>
     </header>
 
@@ -130,18 +128,14 @@ if ($resultCheckout->num_rows > 0) {
                         <h2 class='nome'>
                             <p><?php echo htmlspecialchars($nomeUsuario); ?></p>
                         </h2>
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills" style="gap:20px;">
                             <li class="nav-item">
                                 <a href="editarPerfil.php?usuario_id=<?= htmlspecialchars($user_Id) ?>"
-                                    title="Editar Perfil" class="btn btn-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <path
-                                            d="M14.078 7.061l2.861 2.862-10.799 10.798-3.584.723.724-3.585 10.798-10.798zm0-2.829l-12.64 12.64-1.438 7.128 7.127-1.438 12.642-12.64-5.691-5.69zm7.105 4.277l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z" />
-                                    </svg>
-                                </a>
+                                    title="Editar Perfil" class="btn btn-outline-light">Editar Perfil\</a>
                             </li>
-
                             <li class="nav-item"><a class="btn btn-outline-light" href="acesso.php">Buscar produto</a></li>
+                           <li class="nav-item"><a id="plano" class="btn btn-outline-light">Assine agora!</a></li>
+                           
                         </ul>
 
                         <br><br><br>
@@ -152,14 +146,56 @@ if ($resultCheckout->num_rows > 0) {
                             <?php if ($dataVencimento): ?>
                                 <p>Data de Vencimento: <?php echo date('d/m/Y', strtotime($dataVencimento)); ?></p>
                             <?php else: ?>
-                                <p>Nenhum plano ativo.</p>
-                            <?php endif; ?>
-                        </div>
+                                <p>Nenhum plano ativo.</p><br>
+                                
+                                <?php endif; ?>
+                            </div>
                     </div>
                 <?php endif; ?>
             </form>
         </div>
+    
+
+        
+<!-- Fundo escuro -->
+<!-- Fundo escuro -->
+<div class="overlay" style="display: none;"></div>
+
+<div id="confirmPlan" class="plan" style="display: none;">
+    <div class="plan-content">
+        <h2>Veja nossos planos</h2>
+        <p>Escolha um de nossos planos para assinar</p>
+        <!-- Exibição de planos -->
+        <div class="plan-options">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="plan-options">
+                    <?php
+                    $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
+                    $result = $conn->query($query);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="plan-item">';
+                            echo '<h4>' . $row['nome_plano'] . '</h4>';
+                            echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
+                            echo '<p>Sobre: ' . $row['descricao'] . '</p>';
+                            echo '<a class="btn btn-primary selectPlanBtn" href="checkout.php?plano_id=' . $row['plano_id'] . '">Selecionar</a>';
+                            echo '</div>';
+                        }
+                    }
+                    ?>
+                </div>
+            </form>
+        </div>
+
+        <!-- Botão de Cancelar -->
+        <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+    </div>
+</div>
     </main>
+
+
+
 
     <footer class="roda-pe">
 
@@ -207,18 +243,9 @@ if ($resultCheckout->num_rows > 0) {
                 </a>
                 <hr />
 
-                <a href="avaliar.html">
-                  <h6>Avaliar</h6>
-                </a>
-                <hr />
-                <a href="serviços.html">
-                    <h6>Nossos serviços</h6>
-                </a>
-                <hr />
-                <a href="cronograma.html">
-                
+                <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
                     <h6>
-                        Nosso cronograma
+                        Suporte
                     </h6>
                 </a>
             </div>
@@ -229,5 +256,6 @@ if ($resultCheckout->num_rows > 0) {
         </p>
     </footer>
 </body>
+<script src="src/js/showPlan.js"></script>
 
 </html>

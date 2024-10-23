@@ -42,18 +42,34 @@ if ($result->num_rows > 0) {
 // Verifica se uma requisição de exclusão foi feita
 if (isset($_GET['delete'])) {
    $delete_id = mysqli_real_escape_string($conn, $_GET['delete']);
-   $delete_query = mysqli_query($conn, "DELETE FROM plano WHERE plano_id = '$delete_id'");
 
-   if ($delete_query) {
-      // Redireciona após a exclusão
-      header('location:plano.php?msg=Plano excluído com sucesso!');
+   // Verifica se existem produtos associados ao plano usando prepared statement
+   $stmt = $conn->prepare("SELECT * FROM produto_plano WHERE plano_id = ?");
+   $stmt->bind_param("i", $delete_id);
+   $stmt->execute();
+   $result = $stmt->get_result();
+
+   if ($result->num_rows > 0) {
+      // Grava no log e redireciona com mensagem
+      error_log("Tentativa de excluir o plano $delete_id que possui produtos associados.");
+      header('Location: plano.php?msg=Não é possível excluir o plano. Existem produtos associados a ele.');
       exit;
    } else {
-      // Mensagem de erro
-      header('location:plano.php?msg=Erro ao excluir o plano: ' . mysqli_error($conn));
-      exit;
+      // Se não houver produtos associados, pode excluir o plano
+      $delete_stmt = $conn->prepare("DELETE FROM plano WHERE plano_id = ?");
+      $delete_stmt->bind_param("i", $delete_id);
+
+      if ($delete_stmt->execute()) {
+         header('Location: plano.php?msg=Plano excluído com sucesso!');
+         exit;
+      } else {
+         header('Location: plano.php?msg=Erro ao excluir o plano: ' . $conn->error);
+         exit;
+      }
    }
 }
+
+
 
 // Verifique se o formulário foi enviado para adicionar um novo plano
 if (isset($_POST['submit'])) {
@@ -138,6 +154,11 @@ if (isset($_POST['update_plano'])) {
       </nav>
    </header>
 
+      <?php if (isset($_GET['msg'])): ?>
+         <div class="alert alert-warning" style="font-size:20px; color:black;"></div>
+         <?php echo htmlspecialchars($_GET['msg']); ?>
+      <?php endif; ?>
+
    <main class="display-product-table">
       <div class="container">
          <section class="home">
@@ -153,7 +174,9 @@ if (isset($_POST['update_plano'])) {
             </form>
          </section>
 
+
          <table class="table table-dark table-hover">
+
             <thead>
                <th>Nome</th>
                <th>Preço</th>
@@ -167,52 +190,52 @@ if (isset($_POST['update_plano'])) {
                $select_plano = mysqli_query($conn, "SELECT * FROM plano");
                if (mysqli_num_rows($select_plano) > 0) {
                   while ($row = mysqli_fetch_assoc($select_plano)) {
-                      if ($row['tempo'] == -1) {
-                          $tempo_restante = "Para Sempre"; // Define o tempo como "Para Sempre"
-                          $month = $dia = "N/A"; // Para planos vitalícios, não há mês e dia
-                      } else {
-                          // Calcular a data final com base no tempo
-                          $data_final = date('Y-m-d', strtotime("+{$row['tempo']} months"));
-                          $data_atual = new DateTime();
-                          $data_final_obj = new DateTime($data_final);
-                          
-                          // Calcular a diferença
-                          $diferenca = $data_atual->diff($data_final_obj);
-                          $month = $diferenca->m; // Obtém a diferença em meses
-                          $dia = $diferenca->d; // Obtém a diferença em dias
-                          
-                          $tempo_restante = ($data_atual < $data_final_obj) ? "Até {$month} mês(es) e {$dia} dia(s)" : 'Expirado';
-                      }
-                      ?>
-                      <tr>
-                          <td><?php echo $row['nome_plano']; ?></td>
-                          <td>$<?php echo $row['preco_plano']; ?></td>
-                          <td><?php echo $row['tempo'] == -1 ? 'Para Sempre' : $row['tempo']; ?></td>
-                          <td><?php echo $tempo_restante; ?></td>
-                          <td><?php echo $row['descricao']?></td>
-                          <td class="option">
-                              <a href="plano.php?delete=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-danger"
-                                 id="delete" onclick="return confirm('Are you sure you want to delete this?');">
-                                 <i class="fas fa-trash"></i> Delete
-                              </a>
-                              <a href="plano.php?edit=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-primary">
-                                 <i class="fas fa-edit"></i> Update
-                              </a>
-                          </td>
-                      </tr>
-                      <?php
+                     if ($row['tempo'] == -1) {
+                        $tempo_restante = "Para Sempre"; // Define o tempo como "Para Sempre"
+                        $month = $dia = "N/A"; // Para planos vitalícios, não há mês e dia
+                     } else {
+                        // Calcular a data final com base no tempo
+                        $data_final = date('Y-m-d', strtotime("+{$row['tempo']} months"));
+                        $data_atual = new DateTime();
+                        $data_final_obj = new DateTime($data_final);
+
+                        // Calcular a diferença
+                        $diferenca = $data_atual->diff($data_final_obj);
+                        $month = $diferenca->m; // Obtém a diferença em meses
+                        $dia = $diferenca->d; // Obtém a diferença em dias
+               
+                        $tempo_restante = ($data_atual < $data_final_obj) ? "Até {$month} mês(es) e {$dia} dia(s)" : 'Expirado';
+                     }
+                     ?>
+                     <tr>
+                        <td><?php echo $row['nome_plano']; ?></td>
+                        <td>$<?php echo $row['preco_plano']; ?></td>
+                        <td><?php echo $row['tempo'] == -1 ? 'Para Sempre' : $row['tempo']; ?></td>
+                        <td><?php echo $tempo_restante; ?></td>
+                        <td><?php echo $row['descricao'] ?></td>
+                        <td class="option">
+                           <a href="plano.php?delete=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-danger"
+                              id="delete" onclick="return confirm('Are you sure you want to delete this?');">
+                              <i class="fas fa-trash"></i> Delete
+                           </a>
+                           <a href="plano.php?edit=<?php echo $row['plano_id']; ?>" class="btn btn-sm btn-primary">
+                              <i class="fas fa-edit"></i> Update
+                           </a>
+                        </td>
+                     </tr>
+                     <?php
                   }
-              } else {
+               } else {
                   echo "<tr><td colspan='5' class='empty'>Nenhum produto adicionado</td></tr>";
-              }
-              
-              
+               }
+
+
                ?>
             </tbody>
 
          </table>
       </div>
-   </main>
+
 
    <section class="edit-form-container">
       <?php
@@ -263,69 +286,62 @@ if (isset($_POST['update_plano'])) {
       ?>
 
    </section>
-
+   </main>
 
    <footer class="roda-pe">
+<img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
 
-      <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
-
-
-
-      <h5 class="subtitulo">
-         Nos acompanhe pelas redes sociais
-      </h5>
+<h5 class="subtitulo">
+    Nos acompanhe pelas redes sociais
+</h5>
 
 
-      <div class="social_media">
+<div class="social_media">
 
-         <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
-               src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+    <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
+            src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
 
-         <a href="https://www.instagram.com/vanguard_security.oficial/" id="instagram" title="Instagram"
-            target="_blank"><img src="src/imagem/icones/instagram.png"
-               alt="botão do perfil do instagram da Vanguard"></a>
+    <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
+            src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
 
-         <a href="https://discord.gg/BpMEzwTf" title="discord" id="discord" target="_blank"><img
-               src="src/imagem/icones/discord.png" alt="botão do chat do discord da Vanguard "></a>
+    <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
+            alt="botão do chat do discord da Vanguard "></a>
 
-         <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
-               alt="botão do perfil do linkedin da Vanguard"></a>
+    <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
+            alt="botão do perfil do linkedin da Vanguard"></a>
 
-         <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
-               alt="botão do chat do telegram da Vanguard"></a>
+    <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
+            alt="botão do chat do telegram da Vanguard"></a>
 
-      </div>
-      <div class="opcoes">
-         <div class="lista">
-            <a href="equipe.html">
-               <h6>
-                  A equipe
-               </h6>
-            </a>
-            <hr />
-            <a href="produtos.php">
-               <h6>
-                  Nossos produtos
-               </h6>
-            </a>
-            <hr />
-            <a href="serviços.html">
-               <h6>Nossos serviços</h6>
-            </a>
+</div>
+<div class="opcoes">
 
-            <hr />
-            <a href="mailto:vanguard.seguranca.oficial@gmail.com">
-               <h6>Suporte</h6>
-            </a>
-         </div>
-      </div>
-      </div>
-      <p id="copyright">
-         Direitos Autorais Reservados à Vanguard&#8482;
-      </p>
-   </footer>
+    <div class="lista">
+        <a href="equipe.html">
+            <h6>
+                A equipe
+            </h6>
+        </a>
+        <hr />
+
+        <a href="produtos.html">
+            <h6>
+                Nossos produtos
+            </h6>
+        </a>
+        <hr />
+        
+        <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
+            <h6>
+                Suporte
+            </h6>
+        </a>
+    </div>
+</div>
+<p id="copyright">
+    Direitos Autorais Reservados à Vanguard&#8482;
+</p>
+</footer>
 </body>
-<script src="src/js/plano.js"></script>
-
-
 </html>
+<script src="src/js/plano.js"></script>

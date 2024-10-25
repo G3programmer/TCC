@@ -43,6 +43,7 @@
     position: relative;
     min-height: calc(100vh - 80px);
     overflow: hidden;
+    font-family: 'Codygoon';
 }
 
 
@@ -125,8 +126,9 @@
 }
 
 
+
 .roda-pe {
-    height: 40pc;
+    height: auto;
     display: grid;
     margin: auto;
     width: 100%;
@@ -155,6 +157,7 @@
 .roda-pe .opcoes .lista a {
     margin: 1pc;
     margin-bottom: 2pc;
+    
     margin-top: 2pc;
 }
 

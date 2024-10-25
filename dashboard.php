@@ -60,6 +60,8 @@ if ($resultUser->num_rows > 0) {
                 <li><button><a href="contas.php">Lista de Usuários</a></button></li>
                 <li><button><a href="estoque.php">Lista de Produtos</a></button></li>
                 <li><button><a href="plano.php">Lista de planos</a></button></li>
+                
+                <li><button><a href="log.php">Lista de usuarios assinantes</a></button></li>
                 <li><button><a href="src/php/logout.php">Logout</a></button></li>
             </ul>
         </div>

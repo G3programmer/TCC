@@ -101,6 +101,35 @@ if (isset($_POST['update_product'])) {
    }
 }
 
+// Processa a exclusão de um produto
+if (isset($_GET['delete'])) {
+   $delete_id = $_GET['delete'];
+
+   // Excluir o produto da tabela de produtos
+   $delete_query = $conn->prepare("DELETE FROM `produtos` WHERE produto_id = ?");
+   $delete_query->bind_param("i", $delete_id);
+
+   if ($delete_query->execute()) {
+       // Excluir os registros da tabela produto_plano associados ao produto
+       $delete_planos_query = $conn->prepare("DELETE FROM `produto_plano` WHERE produto_id = ?");
+       $delete_planos_query->bind_param("i", $delete_id);
+       $delete_planos_query->execute();
+
+       // Excluir a imagem associada
+       $image_path = 'src/imagem/produtos/' . $_GET['imagem'];
+       if (file_exists($image_path)) {
+           unlink($image_path); // Remove a imagem do servidor
+       }
+
+       $message[] = 'Produto excluído com sucesso';
+       header('location:estoque.php');
+       exit;
+   } else {
+       $message[] = 'Erro ao excluir o produto';
+   }
+}
+
+
 // Recupera planos para o dropdown
 $sql_plan_code = "SELECT * FROM plano ORDER BY nome_plano ASC";
 $sql_plan_query = $conn->query($sql_plan_code) or die($conn->error);
@@ -209,6 +238,7 @@ if (isset($message)) {
                         <a href="estoque.php?delete=<?php echo $row['produto_id']; ?>"
                            onclick="return confirm('Tem certeza que deseja excluir este produto?');"
                            class="btn btn-danger">Excluir</a>
+
                         <a href="atualizar_produto.php?update=<?php echo $row['produto_id']; ?>"
                            class="btn btn-warning">Atualizar</a>
                      </td>

@@ -86,9 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
 
         // Insere o checkout na tabela checkout
-        $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, metodo, senha, data_inicio) VALUES (?, ?, ?, CURDATE())";
-        $stmtInsert = $conn->prepare($sqlInsertCheckout);
-        $stmtInsert->bind_param("iss", $usuarioId, $metodo, $senha);
+        $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, plano_id, metodo, senha, data_inicio) VALUES (?, ?, ?, ?, CURDATE())";
+$stmtInsert = $conn->prepare($sqlInsertCheckout);
+$stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senha);
+
 
         if ($stmtInsert->execute()) {
             // Atualiza o plano_id na tabela usuário

@@ -35,6 +35,7 @@ if(!empty($_GET['usuario_id'])) {
 
             $fotoUsuario = isset($user_data['foto']) ? $user_data['foto'] : 'default.png';
 
+            $is_admin = isset($user_data['is_admin']) ? $user_data['is_admin'] : 0;
                 }
         }
 }     
@@ -69,13 +70,13 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
 <body>
         <header class="cabecalho">
-                <a href="index.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
+                <a href="dashboard.php"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
                                 alt="titulo da Vanguard"></a>
         </header>
 
         <main class="home">
                 <div class="area">
-                <form class="row g-3" action="src/php/saveEdit.php" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" action="src/php/saveEditFunc.php" method="POST" enctype="multipart/form-data">
 
                                 <div class="col-md-6">
                                         <label for="inputEmail4" class="form-label">Nome</label>
@@ -99,25 +100,27 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                                 </div>
 
                                 <div class="col-6">
-                                <select name="estado" id="estado" class="form-select"   required>
-                                <?php while ($estadoRow = $sql_query_states->fetch_assoc()) { ?>
-                                        <option value="<?php echo $estadoRow['estado_id']; ?>">
-                                        <?php echo htmlspecialchars($estadoRow['nome_estado']); ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </div>
+    <select name="estado" id="estado" class="form-select" required>
+        <?php while ($estadoRow = $sql_query_states->fetch_assoc()) { ?>
+            <option value="<?php echo $estadoRow['estado_id']; ?>" 
+            <?php if ($estado == $estadoRow['estado_id']) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($estadoRow['nome_estado']); ?>
+            </option>
+        <?php } ?>
+    </select>
+</div>
 
-                    <div class="col-6">
-                                <select name="cidade" id="cidade" class="form-select"   required>
-                                <label for="inputState" class="form-label">State</label>
-                                <?php while ($cidadeRow = $sql_query_cities->fetch_assoc()) { ?>
-                                        <option value="<?php echo $cidadeRow['cidade_id']; ?>">
-                                        <?php echo htmlspecialchars($cidadeRow['nome_cidade']); ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </div>
+<div class="col-6">
+    <select name="cidade" id="cidade" class="form-select" required>
+        <?php while ($cidadeRow = $sql_query_cities->fetch_assoc()) { ?>
+            <option value="<?php echo $cidadeRow['cidade_id']; ?>" 
+            <?php if ($cidade == $cidadeRow['cidade_id']) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($cidadeRow['nome_cidade']); ?>
+            </option>
+        <?php } ?>
+    </select>
+</div>
+
 
                                         
                           
@@ -134,70 +137,32 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 </div> 
 
 <div class="col-md-6">
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="is_admin">
-  <label class="form-check-label" for="flexCheckDefault">
-    Admin
-  </label>
-</div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="is_admin"
+        <?php if (isset($is_admin) && $is_admin == 1) echo 'checked'; ?>>
+        <label class="form-check-label" for="flexCheckDefault">
+            Admin
+        </label>
+    </div>
+
+
 </div>
 
 
 <input type="hidden" name="usuario_id" value=<?php echo $id;?>>
               
                           <div class="col-12">
-                                        <button type="submit" class="btn btn-primary" name="update">Sign in</button>
+                          <button type="submit" class="btn btn-primary" name="update">Atualizar</button>
+                          <a href="contas.php" class="btn btn-primary">Voltar</a>
+                                
                                 </div>
                         </form>
                 </div>
         </main>
+</body>
 
-        <footer class="roda-pe">
-                <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
-                <h5 class="subtitulo">Nos acompanhe pelas redes sociais</h5>
-                <div class="social_media">
-                        <a href="facebook link" id="facebook" title="Facebook" target="_blank">
-                                <img src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard">
-                        </a>
-                        <a href="" id="instagram" title="Instagram" target="_blank">
-                                <img src="src/imagem/icones/instagram.png"
-                                        alt="botão do perfil do instagram da Vanguard">
-                        </a>
-                        <a href="discord" title="discord" id="discord" target="_blank">
-                                <img src="src/imagem/icones/discord.png" alt="botão do chat do discord da Vanguard">
-                        </a>
-                        <a href="linkedin" title="linkedin" id="linkedin" target="_blank">
-                                <img src="src/imagem/icones/linkedin.png" alt="botão do perfil do linkedin da Vanguard">
-                        </a>
-                        <a href="telegram" title="telegram" id="telegram" target="_blank">
-                                <img src="src/imagem/icones/telegram.png" alt="botão do chat do telegram da Vanguard">
-                        </a>
-                </div>
-                <div class="opcoes">
-                        <div class="lista">
-                                <a href="equipe.html">
-                                        <h6>A equipe</h6>
-                                </a>
-                                <hr />
-                                <a href="produtos.html">
-                                        <h6>Nossos produtos</h6>
-                                </a>
-                                <hr />
-                                <a href="serviços.html">
-                                        <h6>Nossos serviços</h6>
-                                </a>
-                                <hr />
-                                <a href="cronograma.html">
-                                        <h6>Nosso cronograma</h6>
-                                </a>
-                        </div>
-                </div>
-                <p id="copyright">Direitos Autorais Reservados à Vanguard&#8482;</p>
-        </footer>
-
-        <script src="src/js/selectFormulario.js"></script>
+<script src="src/js/selectFormulario.js"></script>
         <script src="src/js/formulario.js"></script>
         <script src="src/js/cadastro-imagem.js"></script>
-</body>
 
 </html>

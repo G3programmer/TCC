@@ -73,7 +73,7 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
 <body>
         <header class="cabecalho">
-                <a href="indexLogadoCliente.html"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
+                <a href="perfil.php"><img class="logo" src="src/imagem/logos/VanguardLogo - titulo.png"
                                 alt="titulo da Vanguard"></a>
         </header>
 

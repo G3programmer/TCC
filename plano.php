@@ -154,10 +154,11 @@ if (isset($_POST['update_plano'])) {
       </nav>
    </header>
 
-      <?php if (isset($_GET['msg'])): ?>
-         <div class="alert alert-warning" style="font-size:20px; color:black;"></div>
+   <?php if (isset($_GET['msg'])): ?>
+      <div class="alert alert-warning" style="font-size:20px; color:black;">
          <?php echo htmlspecialchars($_GET['msg']); ?>
-      <?php endif; ?>
+      </div>
+   <?php endif; ?>
 
    <main class="display-product-table">
       <div class="container">
@@ -237,111 +238,112 @@ if (isset($_POST['update_plano'])) {
       </div>
 
 
-   <section class="edit-form-container">
-      <?php
-      if (isset($_GET['edit'])) {
+      <section class="edit-form-container">
+         <?php
+         if (isset($_GET['edit'])) {
 
-         $edit_id = $_GET['edit'];
-         $edit_query = mysqli_query($conn, "SELECT * FROM `plano` WHERE plano_id = $edit_id");
+            $edit_id = $_GET['edit'];
+            $edit_query = mysqli_query($conn, "SELECT * FROM `plano` WHERE plano_id = $edit_id");
 
-         if (mysqli_num_rows($edit_query) > 0) {
-            while ($fetch_edit = mysqli_fetch_assoc($edit_query)) {
-               ?>
-               <form action="" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="update_p_plano_id" value="<?php echo $fetch_edit['plano_id']; ?>">
+            if (mysqli_num_rows($edit_query) > 0) {
+               while ($fetch_edit = mysqli_fetch_assoc($edit_query)) {
+                  ?>
+                  <form action="" method="post" enctype="multipart/form-data">
+                     <input type="hidden" name="update_p_plano_id" value="<?php echo $fetch_edit['plano_id']; ?>">
 
-                  <!-- Campo para editar o nome do plano -->
-                  <span>Nome do plano</span>
-                  <input type="text" class="box" required name="update_p_nome_plano"
-                     value="<?php echo $fetch_edit['nome_plano']; ?>">
+                     <!-- Campo para editar o nome do plano -->
+                     <span>Nome do plano</span>
+                     <input type="text" class="box" required name="update_p_nome_plano"
+                        value="<?php echo $fetch_edit['nome_plano']; ?>">
 
-                  <!-- Campo para editar o tempo do plano -->
-                  <span>tempo do plano</span>
-                  <input type="text" class="box" required name="update_p_tempo" value="<?php echo $fetch_edit['tempo']; ?>">
+                     <!-- Campo para editar o tempo do plano -->
+                     <span>tempo do plano</span>
+                     <input type="text" class="box" required name="update_p_tempo" value="<?php echo $fetch_edit['tempo']; ?>">
 
-                  <!-- Campo para editar o preço do plano -->
-                  <span>preço do plano</span>
-                  <input type="text" class="box" required name="update_p_preco"
-                     value="<?php echo $fetch_edit['preco_plano']; ?>">
+                     <!-- Campo para editar o preço do plano -->
+                     <span>preço do plano</span>
+                     <input type="text" class="box" required name="update_p_preco"
+                        value="<?php echo $fetch_edit['preco_plano']; ?>">
 
-                  <!-- Campo para editar a descrição do plano -->
-                  <span>descrição</span>
-                  <input type="text" class="box" required name="update_p_descricao"
-                     value="<?php echo $fetch_edit['descricao']; ?>">
+                     <!-- Campo para editar a descrição do plano -->
+                     <span>descrição</span>
+                     <input type="text" class="box" required name="update_p_descricao"
+                        value="<?php echo $fetch_edit['descricao']; ?>">
 
-                  <!-- Botão de submissão para atualizar o plano -->
-                  <input type="submit" value="Atualizar plano" name="update_plano" class="btn">
+                     <!-- Botão de submissão para atualizar o plano -->
+                     <input type="submit" value="Atualizar plano" name="update_plano" class="btn">
 
-                  <!-- Botão para cancelar a edição -->
-                  <input id="close-edit" type="reset" value="Cancelar" class="option-btn">
-               </form>
-               <?php
+                     <!-- Botão para cancelar a edição -->
+                     <input id="close-edit" type="reset" value="Cancelar" class="option-btn">
+                  </form>
+                  <?php
+               }
+               ;
             }
             ;
+            echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
          }
          ;
-         echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
-      }
-      ;
-      ?>
+         ?>
 
-   </section>
+      </section>
    </main>
 
    <footer class="roda-pe">
-<img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
+      <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
 
-<h5 class="subtitulo">
-    Nos acompanhe pelas redes sociais
-</h5>
+      <h5 class="subtitulo">
+         Nos acompanhe pelas redes sociais
+      </h5>
 
 
-<div class="social_media">
+      <div class="social_media">
 
-    <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
-            src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+         <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
+               src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
 
-    <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
-            src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
+         <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
+               src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
 
-    <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
-            alt="botão do chat do discord da Vanguard "></a>
+         <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
+               alt="botão do chat do discord da Vanguard "></a>
 
-    <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
-            alt="botão do perfil do linkedin da Vanguard"></a>
+         <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
+               alt="botão do perfil do linkedin da Vanguard"></a>
 
-    <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
-            alt="botão do chat do telegram da Vanguard"></a>
+         <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
+               alt="botão do chat do telegram da Vanguard"></a>
 
-</div>
-<div class="opcoes">
+      </div>
+      <div class="opcoes">
 
-    <div class="lista">
-        <a href="equipe.html">
-            <h6>
-                A equipe
-            </h6>
-        </a>
-        <hr />
+         <div class="lista">
+            <a href="equipe.html">
+               <h6>
+                  A equipe
+               </h6>
+            </a>
+            <hr />
 
-        <a href="produtos.html">
-            <h6>
-                Nossos produtos
-            </h6>
-        </a>
-        <hr />
-        
-        <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
-            <h6>
-                Suporte
-            </h6>
-        </a>
-    </div>
-</div>
-<p id="copyright">
-    Direitos Autorais Reservados à Vanguard&#8482;
-</p>
-</footer>
+            <a href="produtos.html">
+               <h6>
+                  Nossos produtos
+               </h6>
+            </a>
+            <hr />
+
+            <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
+               <h6>
+                  Suporte
+               </h6>
+            </a>
+         </div>
+      </div>
+      <p id="copyright">
+         Direitos Autorais Reservados à Vanguard&#8482;
+      </p>
+   </footer>
 </body>
+
 </html>
 <script src="src/js/plano.js"></script>

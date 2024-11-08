@@ -23,7 +23,8 @@
 }
 
 
-.cabecalho .menu li a {
+.cabecalho .menu li a,
+.cabecalho .menu .contato {
     padding: 30px;
     color: #e8e8e8;
     font-weight: bolder;
@@ -189,6 +190,7 @@
     padding: 10px; /* Adiciona um pouco de espaço interno */
     box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos nas dimensões totais */
 }
+
 
 
 .roda-pe {

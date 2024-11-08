@@ -11,6 +11,7 @@
 
 .cabecalho .logo {
     display: flex;
+    margin-left: 10px;
     gap: 30px;
     height: 55px;
 }
@@ -24,7 +25,7 @@
 
 
 .cabecalho .menu li a {
-    padding: 30px;
+    padding: 20px;
     text-decoration: none;
     color: #e8e8e8;
     font-weight: bolder;
@@ -49,7 +50,7 @@
 
 .home .container {
     display: grid;
-    margin: 6px;
+    margin: auto;
     width: 93pc;
     height: 100%;
     overflow-y:scroll;
@@ -116,16 +117,138 @@
 
 }
 
+.total-valores {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-right: 100px;
+    font-size: 1em;
+    font-weight: bold;
+ }
 
-.home .selecao .titulo {
+
+.home .selecao .titulo
+.home-guia titulo {
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
     color: #fff;
     font-family: 'Eingrantch Mono';
 }
 
 
+/*Reutilização para os guias*/
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #000000a3;
+    color: #fff;
+    font-family: 'Codygoon';
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    width: auto;
+    margin: 20px;
+    flex-direction: column;
+    color: #fff;
+}
+
+label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+button {
+    padding: 10px;
+    background-color: #117111;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+.message {
+    padding: 10px;
+    background-color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+
+.form-overlay {
+    display: none; /* Oculta por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com opacidade */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Certifique-se de que está acima de outros elementos */
+}
+
+.form-overlay.active {
+    display: flex; /* Mostra o overlay quando ativo */
+}
+
+.form-content {
+    background-color: rgb(42, 102, 253); /* Fundo da div de conteúdo */
+    padding: 20px;
+    border: 2px black solid;
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+/* Adicione um fundo semitransparente para cobrir o resto da página */
+.overlay-bg {
+    position: fixed; /* Fixa a posição na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Cor de fundo do overlay */
+    z-index: 999; /* Um nível abaixo do formulário */
+    display: none; /* Inicialmente escondido */
+}
+
+.overlay-bg.active {
+    display: block; /* Exibe quando ativo */
+}
+
+.form-content input, textarea, button, select, a  {
+    border: 2px black solid !important;
+    
+    }
+
+
+/*Fim da reutilização Guias*/
 
 .roda-pe {
     height: auto;

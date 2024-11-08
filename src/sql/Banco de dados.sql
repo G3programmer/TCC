@@ -212,6 +212,15 @@ CREATE TABLE `usuario` (
   `plano_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+
+CREATE TABLE guias_instalacao (
+    guia_id INT AUTO_INCREMENT PRIMARY KEY,
+    produto_id INT,
+    titulo VARCHAR(255),
+    conteudo TEXT,
+    FOREIGN KEY (produto_id) REFERENCES produtos(produto_id)
+);
+
 --
 -- Despejando dados para a tabela `usuario`
 --

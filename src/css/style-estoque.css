@@ -66,6 +66,7 @@ section{
 
 .cabecalho .logo {
    display: flex;
+   margin-left: 10px;
    gap: 30px;
    height: 55px;
 }
@@ -78,13 +79,15 @@ section{
 }
 
 
-.cabecalho .menu a {
-   padding: 30px;
+.cabecalho .menu li a {
+   padding: 20px;
+   text-decoration: none;
    color: #e8e8e8;
    font-weight: bolder;
    font-size: 15px;
    font-family: 'Codygoon';
 }
+
 
 .cabecalho .menu a:hover {
    border-bottom: 2px solid white;
@@ -224,14 +227,14 @@ section{
 
 .edit-form-container{
    position: fixed;
-   top:0; left:0;
+   top:0; 
+   left:0;
    z-index: 1100;
    background-color:rgba(0,0,0,.7);
    padding:2rem;
    display: none;
    align-items: center;
    justify-content: center;
-   min-height: 100vh;
    width: 100%;
 }
 

@@ -82,7 +82,6 @@
     /* Espaço entre os itens */
     position: absolute;
     color: #fff;
-    font-family: 'Eingrantch Mono';
     justify-content: center;
     margin: 40px 0px 40px 0px;
     z-index: 1;
@@ -100,6 +99,7 @@
     background: black;
     padding: 10px 10px 10px 10px;
     width: 203%;
+    font-family: 'Codygoon';
     justify-content: center;
     text-align: center;
 
@@ -108,16 +108,46 @@
 
 .card {
     display: flex;
-    font-family: 'Codygoon';
+    width: 30rem;
+    justify-self:center;
     color: #fff;
     background: #101010;
     border: 3px solid black;
     margin: 10px 5px 10px 30px;
 }
 
+.card p {
+    font-size: 13px;
+    font-family: 'Codygoon';
+}
 
 
-
+.guide {
+    display: flex;
+    justify-content: left;
+    margin: 30px 5px 10px 40px;
+    font-size: 16px;
+    }
+    
+    
+    .guide .guia {
+    background-color: #1a1a1a;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Codygoon';
+    color: #fff;
+    transition: all 0.5s ease !important;
+    }
+    
+    .guide .guia:hover {
+        transition: all 0.5s ease !important;
+        background:#fff;
+        color:#1a1a1a;
+        border: 1px solid rgb(0, 76, 255) !important;
+        transform: scale(1.05) !important;
+    }
+    
 
 
 
@@ -146,7 +176,7 @@
 .roda-pe .opcoes .lista {
     display: flex;
     font-size: 20px;
-    font-family: 'Codygoon';
+    font-family: 'Codygoon' !important;
     justify-content: center;
     text-align: center;
     align-items: center;

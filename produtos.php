@@ -4,27 +4,35 @@ include_once('src/php/conexao.php');
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
+    unset($_SESSION['email'], $_SESSION['senha']);
     header('Location: login.html');
     exit;
 }
 
-// Inicializa a variável de busca
-$busca = '';
+$logado = $_SESSION['email'];
 
-// Processamento do formulário
-if (isset($_POST['plano'])) {
-    // ... (seu código de inserção aqui)
+$email = $_SESSION['email']; // Assumindo que o email do usuário está na sessão
+$result = $conn->query("SELECT plano_id FROM usuario WHERE email = '$email'");
+
+if ($result) {
+    $usuario = $result->fetch_assoc();
+    if (!empty($usuario['plano_id'])) {
+        // Se o plano_id não estiver vazio, redireciona para perfil.php
+        header('Location: acesso.php');
+        exit;
+    }
 }
 
-// Se a busca for realizada
-if (isset($_GET['busca'])) {
-    // Escapar caracteres especiais para evitar SQL Injection
-    $busca = mysqli_real_escape_string($conn, $_GET['busca']);
+function exibirProdutos($conn, $classe) {
+    $stmt = $conn->prepare("SELECT * FROM produtos WHERE classe LIKE ?");
+    $searchTerm = '%' . $classe . '%';
+    $stmt->bind_param("s", $searchTerm);
+    $stmt->execute();
+    return $stmt->get_result();
 }
-
-// Consulta para produtos
-
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -57,13 +65,12 @@ if (isset($_GET['busca'])) {
             <ul class="menu">
                 <li>
                     <a href="indexLogadoCliente.html">Página inicial</a>
-
                 </li>
                 <li>
-                    <a href="servicos.html" target="_blank">Serviços</a>
+                    <a href="equipeLogado.html"> Sobre nós</a>
                 </li>
-                <li>
-                <li class="contato">solicite um teste: <br><strong>(42) 984276920 </strong></li>
+                <li class="contato">
+                    solicite um teste: <br><strong>(42) 984276920 </strong>
                 </li>
                 <li>
                     <a href="perfil.php">Perfil</a>
@@ -86,18 +93,18 @@ if (isset($_GET['busca'])) {
             </div>
             <div class="carousel-inner">
 
-                <div class="carousel-item active" data-bs-interval="5000">
+                <div class="carousel-item active" data-bs-interval="4000">
                     <a href="#sistema">
-                        <img src="src/imagem/produtos/3.png" class="d-block w-100" alt="...">
+                        '' <img src="src/imagem/produtos/3.png" class="d-block w-100" alt="...">
                     </a>
                 </div>
 
-                <div class="carousel-item" data-bs-interval="5000">
+                <div class="carousel-item" data-bs-interval="4000">
                     <a href="#ferramentas">
                         <img src="src/imagem/produtos/2.png" class="d-block w-100" alt="...">
                     </a>
                 </div>
-                <div class="carousel-item" data-bs-interval="5000">
+                <div class="carousel-item" data-bs-interval="4000">
                     <a href="#protecao">
                         <img src="src/imagem/produtos/1.png" class="d-block w-100" alt="...">
                     </a>
@@ -106,191 +113,193 @@ if (isset($_GET['busca'])) {
         </div>
         </div>
     </main>
+    
     <section class="compre-ja">
+    <div class="guias">
+  <?php
+    $produto_id = isset($_GET['produto_id']) ? $_GET['produto_id'] : null;
+if ($produto_id) {
+    $query = $conn->prepare("SELECT * FROM guias_instalacao WHERE produto_id = ?");
+    $query->bind_param("i", $produto_id);
+    $query->execute();
+    $result = $query->get_result();
+    // Exibe os guias ou uma mensagem caso não exista
+if ($result->num_rows > 0) {
+    while ($guia = $result->fetch_assoc()) {
+        echo "<h2>{$guia['titulo']}</h2>";
+        echo "<p>{$guia['conteudo']}</p>";
+    }
+} else {
+    echo "<p>Nenhum guia de instalação disponível para este produto.</p>";
+}
+}
+?>
+    </div>
 
-        <form id="formBusca" method="GET">
-            <div class="caixa-pesquisa">
 
-                <input type="text" name="busca" class="barra" placeholder="Busco por...">
-                <button type="submit" class="pesquisa-btn">
-                    <img src="src/imagem/icones/lupa-azul.png" alt="" class="lupa-azul" width="25px" height="25px">
-                </button>
-            </div>
-        </form>
-        <h1 class="titulo">Nossos Produtos</h1>
+    <h1 class="titulo">Faça você mesmo!</h1>
+    <p class="text">Utilize das distribuições de sistemas e ferramentas que ofertamos aqui também! <br> Ou se preferir, das ferramentas Vanguard!</p>
 
-        <!--começa a lista aqui-->
-        <div class="produtos">
-            <h1 class="titulo" id="sistema">Sistemas Operacionais</h1>
-            <form method="POST" enctype="multipart/form-data">
 
+<div class="guide">
+<a href="manual.php" target="_blank"><button class="guia">Acesse os guias de <br> instalação aqui!</button></a>
+</div>
+
+    <div class="produtos">
+
+
+        <h1 class="titulo" id="sistema">Sistemas Operacionais</h1>
+        <?php
+        $select_sistema = exibirProdutos($conn, 'sistem');
+        if (mysqli_num_rows($select_sistema) > 0) {
+            echo '<div class="grid-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">';
+            while ($row = mysqli_fetch_assoc($select_sistema)) {
+                ?>
+                <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+                    <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
+                        style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                        <p class="card-text"><?php echo $row['classe']; ?></p>
+                        <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
+                        <a href="Arquivo-simulando-instalação.bat" onclick="mostrarMensagem()" download>
+                            <button class="btn btn-primary btn-customizado assinar-btn">Baixe agora!</button>
+                        </a>
+                    </div>
+                </div>
                 <?php
-                $select_sistema = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%sistem%' OR classe LIKE '%opera%'");
-                if (mysqli_num_rows($select_sistema) > 0) {
-                    ?>
-                    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            }
+            echo '</div>';
+        } else {
+            echo '<p>Nenhum produto encontrado na categoria Sistemas Operacionais.</p>';
+        }
+        ?>
+
+
+<!-- Inclua o CSS do Bootstrap (opcional) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Div de agradecimento -->
+<div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1040;"></div>
+<div id="confirmacaoDiv" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgb(0, 109, 0); color: #fff; padding: 20px; border-radius: 10px; text-align: center; font-size: 24px; max-width: 400px; z-index: 1050;">
+    <span id="fechar" onclick="fecharDiv()" style="position: absolute; margin-top: -20px; right: 10px; font-size: 24px; cursor: pointer;">×</span>
+    <p>Obrigado por baixar! Preparando sua instalação!</p>
+    <button onclick="verManual()" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; margin-top: 15px; cursor: pointer; border-radius: 5px;">
+        Ver Manual
+    </button>
+</div>
+
+</div>
+
+
+
+
+
+<h1 class="titulo" id="ferramentas">Ferramentas</h1>
+            <div class="subscription-info">
+                <p>Para ter acesso a outras ferramentas, assine um plano.</p>
+                <a href="#" class="btn-assinar">Assinar Plano</a>
+            </div>
+
+            <h1 class="titulo" id="protecao">Produtos Vanguard</h1>
+            <div class="subscription-info">
+                <p>Para ter acesso a outras ferramentas, assine um plano.</p>
+                <a href="#" class="btn-assinar">Assinar Plano</a>
+            </div>
+
+    </div>
+</section>
+
+
+    <!-- Fundo escuro -->
+    <div class="overlay" style="display: none;"></div>
+
+    <div id="confirmPlan" class="plan" style="display: none;">
+        <div class="plan-content">
+            <h2>Veja nossos planos</h2>
+            <p>Escolha um de nossos planos para assinar</p>
+            <!-- Exibição de planos -->
+            <div class="plan-options">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="plan-options">
                         <?php
-                        while ($row = mysqli_fetch_assoc($select_sistema)) {
-                            ?>
-                            <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
-                                <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
-                                    style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+                        $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
+                        $result = $conn->query($query);
 
-                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
-
-                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
-                                <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                    <p class="card-text"><?php echo $row['classe']; ?></p>
-                                    <br>
-                                    <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
-
-                                    <button id="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
-                                </div>
-                            </div>
-                            <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<div class="plan-item">';
+                                echo '<h4>' . $row['nome_plano'] . '</h4>';
+                                echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
+                                echo '<p>Sobre: ' . $row['descricao'] . '</p>';
+                                echo '<a class="btn btn-primary selectPlanBtn" href="checkout.php?plano_id=' . $row['plano_id'] . '">Selecionar</a>';
+                                echo '</div>';
+                            }
                         }
                         ?>
                     </div>
-                    <?php
-                }
-                ?>
-                <h1 class="titulo" id="ferramentas">Ferramentas</h1>
-                <?php
-                $select_ferramenta = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%errament%'");
-                if (mysqli_num_rows($select_ferramenta) > 0) {
-                    ?>
-                    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                        <?php
-                        while ($row = mysqli_fetch_assoc($select_ferramenta)) {
-                            ?>
-                            <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
-                                <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
-                                    style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+                </form>
+            </div>
 
-                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
-
-                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
-                                <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                    <p class="card-text"><?php echo $row['classe']; ?></p>
-                                    <br>
-                                    <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
-
-                                    <button id="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
-                                </div>
-
-                            </div>
-
-                            <?php
-                        } ?>
-                    </div>
-                    <?php
-                }
-                ?>
+            <!-- Botão de Cancelar -->
+            <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
 
 
-                <!-- Terceira parte -->
+    <footer class="roda-pe">
 
-                <h1 class="titulo" id="protecao">Produtos Vanguard</h1>
+        <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
 
-                <?php
-                $select_protecao = mysqli_query($conn, "SELECT * FROM `produtos` WHERE classe LIKE '%prote%'");
-                if (mysqli_num_rows($select_protecao) > 0) {
-                    ?>
-                    <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                        <?php
-                        while ($row = mysqli_fetch_assoc($select_protecao)) {
-                            ?>
-                            <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
-                                <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
-                                    style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
 
-                                <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
-                                <input type="hidden" name="nome_plano" value="<?php echo $row['nome_produto']; ?>">
-                                <div class="card-body">
-                                    <input type="hidden" name="produto_id" value="<?php echo $row['produto_id']; ?>">
 
-                                    <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                                    <p class="card-text"><?php echo $row['classe']; ?></p>
-                                    <br>
-                                    <p class="card-text"><?php echo $row['descricao']; ?></p>
-                                    <button id="plano" class="btn btn-primary btn-customizado">Assine agora!</button>
-                                </div>
-                            </div>
-                            <?php
-                        } ?>
+        <h5 class="subtitulo">
+            Nos acompanhe pelas redes sociais
+        </h5>
 
-                    </div>
 
-                    <?php
-                }
-                ?>
-            </form>
+        <div class="social_media">
+
+            <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
+                    src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+
+            <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
+                    src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
+
+            <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
+                    alt="botão do chat do discord da Vanguard "></a>
+
+            <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
+                    alt="botão do perfil do linkedin da Vanguard"></a>
+
+            <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
+                    alt="botão do chat do telegram da Vanguard"></a>
 
         </div>
-    </section>
+        <div class="opcoes">
 
-<footer>
-    
-
-
-
-<footer class="roda-pe">
-
-<img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
-
-
-
-<h5 class="subtitulo">
-    Nos acompanhe pelas redes sociais
-</h5>
-
-
-<div class="social_media">
-
-    <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
-            src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
-
-    <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
-            src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
-
-    <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
-            alt="botão do chat do discord da Vanguard "></a>
-
-    <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
-            alt="botão do perfil do linkedin da Vanguard"></a>
-
-    <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
-            alt="botão do chat do telegram da Vanguard"></a>
-
-</div>
-<div class="opcoes">
-
-    <div class="lista">
-        <a href="equipe.html">
-            <h6>
-                A equipe
-            </h6>
-        </a>
-        <hr />
-        <h6>Entre em contato: <br><strong>(42) 984276920 </strong></h6>
-        </a>
-        <hr />
-        <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
-            <h6>
-                Suporte
-            </h6>
-        </a>
-    </div>
-</div>
-</div>
-<p id="copyright">
-    Direitos Autorais Reservados à Vanguard&#8482;
-</p>
-</footer>
+            <div class="lista">
+                <a href="equipe.html">
+                    <h6>
+                        A equipe
+                    </h6>
+                </a>
+                <hr />
+                <h6>Entre em contato: <br><strong>(42) 984276920 </strong></h6>
+                </a>
+                <hr />
+                <a
+                    href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
+                    <h6>
+                        Suporte
+                    </h6>
+                </a>
+            </div>
+        </div>
+        </div>
+        <p id="copyright">
+            Direitos Autorais Reservados à Vanguard&#8482;
+        </p>
+    </footer>
 
 
 
@@ -300,5 +309,63 @@ if (isset($_GET['busca'])) {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="src/js/botoes.js"></script>
+
+<script>
+    function mostrarMensagem() {
+        const confirmacaoDiv = document.getElementById('confirmacaoDiv');
+        confirmacaoDiv.style.display = 'block';
+
+        // Ocultar a mensagem após 10 segundos
+        setTimeout(() => {
+            confirmacaoDiv.style.display = 'none';
+        }, 10000);
+    }
+</script>
+
+<script>
+    function mostrarMensagem() {
+        document.getElementById("confirmacaoDiv").style.display = "block";
+        setTimeout(() => {
+            document.getElementById("confirmacaoDiv").style.display = "none";
+        }, 10000);
+    }
+</script>
+
+<script>
+        function mostrarMensagem() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('confirmacaoDiv').style.display = 'block';
+        }
+
+        function fecharDiv() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('confirmacaoDiv').style.display = 'none';
+        }
+
+        function verManual() {
+            alert('Direcionando para o manual!');
+            // Aqui você pode adicionar a lógica para redirecionar para o manual
+        }
+    </script>
+<script>
+
+function mostrarDiv() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("confirmacaoDiv").style.display = "block";
+}
+
+function fecharDiv() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("confirmacaoDiv").style.display = "none";
+}
+
+function verManual() {
+    window.open('manual.php', '_blank');
+}
+</script>
+
+
+
+<script src="src/js/showPlan.js"></script>
 
 </html>

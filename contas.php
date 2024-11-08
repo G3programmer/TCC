@@ -57,6 +57,8 @@ $resulte_users = $conn->query($sql_users);
 if (!$resulte_users) {
     die("Erro ao executar consulta: " . $conn->error);
 }
+
+
 ?>
 
 <!-- Código HTML e PHP para exibir as tabelas continua aqui -->
@@ -94,8 +96,10 @@ if (!$resulte_users) {
             <button id="CloseMenu">X</button>
             <ul class="menu">
                 <li> <a href="dashboard.php">Home</a> </li>
+                <li><a href="guia.php">Visualizar guias</a></li>
                 <li> <a href="estoque.php">Visualizar os produtos</a> </li>
                 <li> <a href="plano.php">Visualizar os Planos</a> </li>
+                <li> <a href="log.php">Visualizar os Checkouts</a> </li>
                 <li> <a href="src/php/logout.php">Logout</a></li>
             </ul>
         </nav>

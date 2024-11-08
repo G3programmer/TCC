@@ -13,8 +13,11 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['senha'])) {
 $logado = $_SESSION['email'];
 
 // Buscar o nome do usuário no banco de dados
-$sql = "SELECT * FROM usuario WHERE email = '$logado' LIMIT 1";
-$result = $conn->query($sql);
+$sql = "SELECT * FROM usuario WHERE email = ? LIMIT 1";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $logado);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -26,101 +29,101 @@ if ($result->num_rows > 0) {
     $fotoUsuario = 'default.png'; // Imagem padrão se a foto não for encontrada
 }
 
+$stmt->close(); // Fecha a declaração
+
 // Obter o ID do plano (via GET ou POST)
-if (isset($_GET['plano_id'])) {
-    $planoId = $_GET['plano_id'];
-} elseif (isset($_POST['plano_id'])) {
-    $planoId = $_POST['plano_id'];
-} else {
+$planoId = $_GET['plano_id'] ?? $_POST['plano_id'] ?? null;
+
+if ($planoId === null) {
     echo "ID do plano não definido.";
     exit;
 }
 
 // Se o ID do plano estiver definido, busca os detalhes do plano
 $planoSelecionado = null;
-if (isset($planoId)) {
-    // Consulta para buscar os detalhes do plano
-    $query = "SELECT * FROM plano WHERE plano_id = ?";
-    $stmt = $conn->prepare($query);
+$query = "SELECT * FROM plano WHERE plano_id = ?";
+$stmt = $conn->prepare($query);
 
-    if ($stmt) {
-        $stmt->bind_param("i", $planoId);
-        $stmt->execute();
-        $resulto = $stmt->get_result();
+if ($stmt) {
+    $stmt->bind_param("i", $planoId);
+    $stmt->execute();
+    $resulto = $stmt->get_result();
 
-        if ($resulto->num_rows > 0) {
-            $planoSelecionado = $resulto->fetch_assoc(); // Armazena o plano selecionado
-        } else {
-            echo 'Plano não encontrado.';
-        }
-
-        $stmt->close(); // Fecha a declaração
+    if ($resulto->num_rows > 0) {
+        $planoSelecionado = $resulto->fetch_assoc(); // Armazena o plano selecionado
     } else {
-        echo 'Erro na preparação da consulta.';
+        echo 'Plano não encontrado.';
     }
+
+    $stmt->close(); // Fecha a declaração
+} else {
+    echo 'Erro na preparação da consulta.';
 }
+
+$error_message = ""; // Variável para armazenar mensagens de erro
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $metodo = $_POST['metodo'];
-    $senha = $_POST['senha']; // Troca de "pin" para "senha"
+    $senhaInformada = $_POST['senha']; // Troca de "pin" para "senha"
     $cpf = $_POST['cpf']; // Atualizando para pegar o CPF
 
     // Valida CPF
     if (empty($cpf)) {
-        echo "CPF inválido.";
-        exit;
+        $error_message = "CPF inválido.";
     }
 
-    // Busca o usuário pelo CPF
-    $sql_user = "SELECT usuario_id FROM usuario WHERE cpf = ? LIMIT 1";
-    $stmt_user = $conn->prepare($sql_user);
-    $stmt_user->bind_param("s", $cpf);
-    $stmt_user->execute();
-    $result_user = $stmt_user->get_result();
+    if (empty($error_message)) {
+        // Busca o usuário pelo CPF e verifica a senha
+        $sql_user = "SELECT usuario_id, senha FROM usuario WHERE cpf = ? LIMIT 1";
+        $stmt_user = $conn->prepare($sql_user);
+        $stmt_user->bind_param("s", $cpf);
+        $stmt_user->execute();
+        $result_user = $stmt_user->get_result();
 
-    if ($result_user->num_rows > 0) {
-        $usuario = $result_user->fetch_assoc();
-        $usuarioId = $usuario['usuario_id'];
+        if ($result_user->num_rows > 0) {
+            $usuario = $result_user->fetch_assoc();
+            $usuarioId = $usuario['usuario_id'];
+            $senhaBanco = $usuario['senha'];
 
-        
+            // Verifica se a senha está correta
+            if ($senhaInformada === $senhaBanco) {
+                // Insere o checkout na tabela checkout
+                $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, plano_id, metodo, senha, data_inicio) VALUES (?, ?, ?, ?, CURDATE())";
+                $stmtInsert = $conn->prepare($sqlInsertCheckout);
+                $stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senhaInformada);
 
-        // Insere o checkout na tabela checkout
-        $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, plano_id, metodo, senha, data_inicio) VALUES (?, ?, ?, ?, CURDATE())";
-$stmtInsert = $conn->prepare($sqlInsertCheckout);
-$stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senha);
+                if ($stmtInsert->execute()) {
+                    // Atualiza o plano_id na tabela usuário
+                    $sqlUpdatePlano = "UPDATE usuario SET plano_id = ? WHERE usuario_id = ?";
+                    $stmtUpdatePlano = $conn->prepare($sqlUpdatePlano);
+                    $stmtUpdatePlano->bind_param("ii", $planoId, $usuarioId);
 
+                    if ($stmtUpdatePlano->execute()) {
+                        // Redireciona para o perfil após atualizar o plano
+                        header("Location: perfil.php");
+                        exit;
+                    } else {
+                        $error_message = "Erro ao atualizar o plano do usuário.";
+                    }
 
-        if ($stmtInsert->execute()) {
-            // Atualiza o plano_id na tabela usuário
-            $sqlUpdatePlano = "UPDATE usuario SET plano_id = ? WHERE usuario_id = ?";
-            $stmtUpdatePlano = $conn->prepare($sqlUpdatePlano);
-            $stmtUpdatePlano->bind_param("ii", $planoId, $usuarioId);
+                    $stmtUpdatePlano->close(); // Fecha a declaração de atualização
+                } else {
+                    $error_message = "Erro ao inserir dados de checkout: " . $stmtInsert->error;
+                }
 
-            if ($stmtUpdatePlano->execute()) {
-                // Redireciona para o perfil após atualizar o plano
-                header("Location: perfil.php");
-                exit;
+                $stmtInsert->close(); // Fecha a declaração do insert
             } else {
-                echo "Erro ao atualizar o plano do usuário.";
+                $error_message = "Dados incorretos. Por favor, tente novamente.";
             }
-
-            $stmtUpdatePlano->close(); // Fecha a declaração de atualização
         } else {
-            echo "Erro ao inserir dados de checkout: " . $stmtInsert->error;
+            $error_message = "Usuário não encontrado com o CPF informado.";
         }
 
-        $stmtInsert->close(); // Fecha a declaração do insert
-    } else {
-        echo "Usuário não encontrado com o CPF informado.";
+        $stmt_user->close(); // Fecha a declaração de busca do usuário
     }
-
-    $stmt_user->close(); // Fecha a declaração de busca do usuário
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -155,9 +158,6 @@ $stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senha);
                <a href="indexLogadoCliente.html">Home</a>
             </li>
             <li>
-               <a class="btn-avaliar" href="formulario.php" target="_blank">Avaliar</a>
-            </li>
-            <li>
                <a class="btn-servicos" href="equipe.html" target="_blank">Serviços</a>
             </li>
             <li>
@@ -172,6 +172,13 @@ $stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senha);
          </ul>
       </nav>
    </header>
+
+   <?php if (!empty($error_message)): ?>
+       <div class="error-message"
+           style="font-family:'Codygoon'; padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; margin-bottom: 10px; border-radius: 5px; font-size:16px;">
+           <?php echo $error_message; ?>
+       </div>
+   <?php endif; ?>
 
    <main class="home">
       <div class="containermeu">
@@ -302,23 +309,7 @@ $stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senha);
                </h6>
             </a>
             <hr />
-
-            <a href="avaliar.html">
-               <h6>Avaliar</h6>
-            </a>
-            <hr />
-            <a href="serviços.html">
-               <h6>Nossos serviços</h6>
-            </a>
-            <hr />
-            <a href="cronograma.html">
-
-               <h6>
-                  Nosso cronograma
-               </h6>
-            </a>
          </div>
-      </div>
       </div>
       <p id="copyright">
          Direitos Autorais Reservados à Vanguard&#8482;

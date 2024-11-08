@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
         // Tente mover o arquivo para a pasta correta
         if (move_uploaded_file($fileTmpPath, $foto_folder)) {
             // Insira os dados no banco de dados
-            $result = mysqli_query($conn, "INSERT INTO usuario (nome, dt_nasc, email, senha, cpf, estado_id, cidades_id, foto) 
+            $result = mysqli_query($conn, "INSERT INTO usuario (nome, dt_nasc, email, senha, cpf, estado_id, cidade_id, foto) 
                 VALUES ('$nome', '$dt_nasc', '$email', '$senha', '$cpf', '$estado', '$cidade', '$fileNome')");
 
             if ($result) {

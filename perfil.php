@@ -29,6 +29,41 @@ if ($resultUser->num_rows > 0) {
     $fotoUsuario = 'default.png';
 }
 
+
+
+// Verifica se o botão de cancelar plano foi pressionado
+if (isset($_POST['cancelar_plano'])) {
+    $cancelarPlanoQuery = "UPDATE usuario SET plano_id = NULL WHERE usuario_id = ?";
+    $stmtCancel = $conn->prepare($cancelarPlanoQuery);
+    $stmtCancel->bind_param("i", $user_Id);
+    
+    if ($stmtCancel->execute()) {
+        header('Location: perfil.php?msg=Plano cancelado com sucesso.');
+        exit;
+    } else {
+        header('Location: perfil.php?msg=Erro ao cancelar o plano.');
+        exit;
+    }
+}
+// Obter o plano_id associado ao último checkout do usuário
+
+$checkoutQuery = "SELECT plano_id FROM usuario WHERE usuario_id = ?";
+$stmtCheckout = $conn->prepare($checkoutQuery);
+$stmtCheckout->bind_param("i", $user_Id);
+$stmtCheckout->execute();
+$resultCheckout = $stmtCheckout->get_result();
+
+if ($resultCheckout->num_rows > 0) {
+    // Lógica para quando há um plano ativo
+    $checkoutRow = $resultCheckout->fetch_assoc();
+    $plano_id = $checkoutRow['plano_id'];
+    // Mais lógica...
+} else {
+    // Aqui deve ser o else correspondente
+    $nome_plano = "Nenhum plano ativo encontrado.";
+    $dataVencimento = null; // Nenhuma data de vencimento se não houver plano
+}
+
 // Obter o plano_id associado ao último checkout do usuário
 $checkoutQuery = "SELECT plano_id FROM usuario WHERE usuario_id = ?";
 $stmtCheckout = $conn->prepare($checkoutQuery);
@@ -40,37 +75,37 @@ if ($resultCheckout->num_rows > 0) {
     $checkoutRow = $resultCheckout->fetch_assoc();
     $plano_id = $checkoutRow['plano_id']; // Obtemos o plano_id
 
-    // Obter a duração do plano (em meses) do banco de dados
-    $duracaoPlanoQuery = "SELECT tempo FROM plano WHERE plano_id = ?";
-    $stmtDuracao = $conn->prepare($duracaoPlanoQuery);
-    $stmtDuracao->bind_param("i", $plano_id);
-    $stmtDuracao->execute();
-    $resultDuracao = $stmtDuracao->get_result();
+$duracaoPlanoQuery = "SELECT tempo FROM plano WHERE plano_id = ?";
+$stmtDuracao = $conn->prepare($duracaoPlanoQuery);
+$stmtDuracao->bind_param("i", $plano_id);
+$stmtDuracao->execute();
+$resultDuracao = $stmtDuracao->get_result();
 
-    if ($resultDuracao->num_rows > 0) {
-        $duracaoRow = $resultDuracao->fetch_assoc();
-        $duracaoPlanoMeses = (int) $duracaoRow['tempo']; // Duração em meses
+if ($resultDuracao->num_rows > 0) {
+    $duracaoRow = $resultDuracao->fetch_assoc();
+    $duracaoPlanoMeses = (int) $duracaoRow['tempo']; // Duração em meses
 
-        // Calcule a data de vencimento com base na data atual e na duração do plano
-        $dataVencimento = date('Y-m-d', strtotime("+$duracaoPlanoMeses months"));
-    } else {
-        $duracaoPlanoMeses = 0; // Valor padrão caso não encontre
-        $dataVencimento = date('Y-m-d'); // Define como a data atual se não encontrar
-    }
+    // Calcule a data de vencimento com base na data atual e na duração do plano
+    $dataVencimento = date('Y-m-d', strtotime("+$duracaoPlanoMeses months"));
+} else {
+    $duracaoPlanoMeses = 0; // Valor padrão caso não encontre
+    $dataVencimento = date('Y-m-d'); // Define como a data atual se não encontrar
+}
 
-    // Buscar o nome do plano usando o plano_id
-    $nomePlanoQuery = "SELECT nome_plano FROM plano WHERE plano_id = ?";
-    $stmtNomePlano = $conn->prepare($nomePlanoQuery);
-    $stmtNomePlano->bind_param("i", $plano_id);
-    $stmtNomePlano->execute();
-    $resultNomePlano = $stmtNomePlano->get_result();
+// Buscar o nome do plano usando o plano_id
+$nomePlanoQuery = "SELECT nome_plano FROM plano WHERE plano_id = ?";
+$stmtNomePlano = $conn->prepare($nomePlanoQuery);
+$stmtNomePlano->bind_param("i", $plano_id);
+$stmtNomePlano->execute();
+$resultNomePlano = $stmtNomePlano->get_result();
 
-    if ($resultNomePlano->num_rows > 0) {
-        $rowPlano = $resultNomePlano->fetch_assoc();
-        $nome_plano = htmlspecialchars($rowPlano['nome_plano']);
-    } else {
-        $nome_plano = "Nenhum plano ativo encontrado.";
-    }
+if ($resultNomePlano->num_rows > 0) {
+    $rowPlano = $resultNomePlano->fetch_assoc();
+    $nome_plano = htmlspecialchars($rowPlano['nome_plano']);
+} else {
+    $nome_plano = "Nenhum plano ativo encontrado.";
+}
+
 } else {
     $nome_plano = "Nenhum plano ativo encontrado.";
     $dataVencimento = null; // Nenhuma data de vencimento se não houver plano
@@ -106,40 +141,44 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
         <nav id="menu">
             <button id="CloseMenu">X</button>
             <ul class="menu">
-                <li><a class="btn-quem-somos" href="indexLogadoCliente.html">Home</a></li>
+                <li><a class="btn-quem-somos" href="indexLogadoCliente.html">Página inicial</a></li>
                 <li><a href="produtos.php">Produtos</a></li>
-                <li><a class="btn-servicos" href="equipe.html">Sobre nós</a></li>
+                <li><a class="btn-servicos" href="equipeLogado.html">Sobre nós</a></li>
+                <li class="contato">Entre em contato: <br><strong>(42) 984276920 </strong></li>
+
                 <li><a href="src/php/logout.php">Logout</a></li>
-              </ul>
+            </ul>
         </nav>
     </header>
 
     <main class="home">
         <img class="imagem-fundo" src="src/imagem/Fundo/fundo-perfil.png" alt="fundo de uma cidade de noite">
         <div class="painel">
-            <form class="perfil" action="perfil.php">
+        <form class="perfil" action="perfil.php" method="POST">
                 <?php if (isset($user_Id) && !empty($fotoUsuario)): ?>
                     <div class="area-foto">
                         <img src="src/imagem/pessoas/<?php echo htmlspecialchars($fotoUsuario); ?>" alt="">
                     </div>
-
                     <div class="info">
                         <h1 class="bem-vindo">Seja Bem Vindo(a)</h1>
-                        <h2 class='nome'>
-                            <p><?php echo htmlspecialchars($nomeUsuario); ?></p>
-                        </h2>
-                        <ul class="nav nav-pills" style="gap:20px;">
+                        <h2 class='nome'><p><?php echo htmlspecialchars($nomeUsuario); ?></p></h2>
+                        <ul class="nav nav-pills" style="gap:20px; justify-content:center;">
                             <li class="nav-item">
-                                <a href="editarPerfil.php?usuario_id=<?= htmlspecialchars($user_Id) ?>"
-                                    title="Editar Perfil" class="btn btn-outline-light">Editar Perfil\</a>
+                                <a href="editarPerfil.php?usuario_id=<?= htmlspecialchars($user_Id) ?>" title="Editar Perfil" class="btn btn-outline-light">Editar <br> Perfil</a>
                             </li>
-                            <li class="nav-item"><a class="btn btn-outline-light" href="acesso.php">Buscar produto</a></li>
-                           <li class="nav-item"><a id="plano" class="btn btn-outline-light">Assine agora!</a></li>
-                           
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light" href="acesso.php">Buscar <br> produto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="plano" class="btn btn-outline-light">Assine agora! / <br> Atualize seu plano</a>
+                            </li>
+                            <li class="nav-item">
+                                <input type="hidden" name="cancelar_plano" value="1">
+                                <button type="submit" class="btn btn-danger">Cancelar Plano</button>
+                            </li>
                         </ul>
 
                         <br><br><br>
-
                         <div class="descricao">
                             <h1 class="titulo">Planos Ativos</h1>
                             <p><?php echo $nome_plano; ?></p>
@@ -147,51 +186,49 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
                                 <p>Data de Vencimento: <?php echo date('d/m/Y', strtotime($dataVencimento)); ?></p>
                             <?php else: ?>
                                 <p>Nenhum plano ativo.</p><br>
-                                
-                                <?php endif; ?>
-                            </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 <?php endif; ?>
             </form>
         </div>
-    
 
-        
-<!-- Fundo escuro -->
-<!-- Fundo escuro -->
-<div class="overlay" style="display: none;"></div>
 
-<div id="confirmPlan" class="plan" style="display: none;">
-    <div class="plan-content">
-        <h2>Veja nossos planos</h2>
-        <p>Escolha um de nossos planos para assinar</p>
-        <!-- Exibição de planos -->
-        <div class="plan-options">
-            <form method="POST" enctype="multipart/form-data">
+
+        <!-- Fundo escuro -->
+        <div class="overlay"></div>
+
+  <div id="confirmPlan" class="plan" style="display: none;">
+            <div class="plan-content">
+                <h2>Veja nossos planos</h2>
+                <p>Escolha um de nossos planos para assinar</p>
+                <!-- Exibição de planos -->
                 <div class="plan-options">
-                    <?php
-                    $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
-                    $result = $conn->query($query);
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="plan-options">
+                            <?php
+                            $query = "SELECT * FROM plano"; // Ajuste conforme sua tabela de planos
+                            $result = $conn->query($query);
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<div class="plan-item">';
-                            echo '<h4>' . $row['nome_plano'] . '</h4>';
-                            echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
-                            echo '<p>Sobre: ' . $row['descricao'] . '</p>';
-                            echo '<a class="btn btn-primary selectPlanBtn" href="checkout.php?plano_id=' . $row['plano_id'] . '">Selecionar</a>';
-                            echo '</div>';
-                        }
-                    }
-                    ?>
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo '<div class="plan-item">';
+                                    echo '<h4>' . $row['nome_plano'] . '</h4>';
+                                    echo '<p>Preço: R$ ' . number_format($row['preco_plano'], 2, ',', '.') . '</p>';
+                                    echo '<p>Sobre: ' . $row['descricao'] . '</p>';
+                                    echo '<a class="btn btn-primary selectPlanBtn" href="checkout.php?plano_id=' . $row['plano_id'] . '">Selecionar</a>';
+                                    echo '</div>';
+                                }
+                            }
+                            ?>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
 
-        <!-- Botão de Cancelar -->
-        <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
-    </div>
-</div>
+                <!-- Botão de Cancelar -->
+                <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
+            </div>
+        </div>
     </main>
 
 
@@ -243,7 +280,8 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
                 </a>
                 <hr />
 
-                <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
+                <a
+                    href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
                     <h6>
                         Suporte
                     </h6>
@@ -257,5 +295,18 @@ $sql_result = $conn->query($sql_query_plan) or die($conn->error);
     </footer>
 </body>
 <script src="src/js/showPlan.js"></script>
+<script>
+        // Exibir a div de planos ao clicar no botão "Assine agora! / Atualize seu plano"
+        document.getElementById('plano').addEventListener('click', function () {
+            document.getElementById('confirmPlan').style.display = 'block';
+            document.querySelector('.overlay').style.display = 'block'; // Exibir o fundo escuro
+        });
+
+        // Fechar a div de planos ao clicar no botão "Cancelar"
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            document.getElementById('confirmPlan').style.display = 'none';
+            document.querySelector('.overlay').style.display = 'none'; // Ocultar o fundo escuro
+        });
+    </script>
 
 </html>

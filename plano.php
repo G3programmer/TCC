@@ -147,8 +147,10 @@ if (isset($_POST['update_plano'])) {
       <nav id="menu">
          <ul class="menu">
             <li><a class="btn-servicos" href="dashboard.php">Home</a></li>
-            <li><a href="contas.php" target="_blank">Lista de Usuários</a></li>
-            <li><a href="estoque.php">Lista de Produtos</a></li>
+            <li><a href="contas.php" target="_blank">Lista Usuários</a></li>
+            <li><a href="guia.php">Visualizar guias</a></li>
+            <li><a href="estoque.php">Lista Produtos</a></li>
+            <li> <a href="log.php">Visualizar Checkouts</a> </li>
             <li><a href="src/php/logout.php">Logout</a></li>
          </ul>
       </nav>
@@ -288,61 +290,6 @@ if (isset($_POST['update_plano'])) {
 
       </section>
    </main>
-
-   <footer class="roda-pe">
-      <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
-
-      <h5 class="subtitulo">
-         Nos acompanhe pelas redes sociais
-      </h5>
-
-
-      <div class="social_media">
-
-         <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
-               src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
-
-         <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
-               src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
-
-         <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
-               alt="botão do chat do discord da Vanguard "></a>
-
-         <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
-               alt="botão do perfil do linkedin da Vanguard"></a>
-
-         <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
-               alt="botão do chat do telegram da Vanguard"></a>
-
-      </div>
-      <div class="opcoes">
-
-         <div class="lista">
-            <a href="equipe.html">
-               <h6>
-                  A equipe
-               </h6>
-            </a>
-            <hr />
-
-            <a href="produtos.html">
-               <h6>
-                  Nossos produtos
-               </h6>
-            </a>
-            <hr />
-
-            <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
-               <h6>
-                  Suporte
-               </h6>
-            </a>
-         </div>
-      </div>
-      <p id="copyright">
-         Direitos Autorais Reservados à Vanguard&#8482;
-      </p>
-   </footer>
 </body>
 
 </html>

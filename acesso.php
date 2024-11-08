@@ -1,3 +1,4 @@
+<!--CONTROLE DE SESSÃO PARA USUÁRIOS E SEUS PLANOS-->
 <?php
 session_start();
 include_once('src/php/conexao.php');
@@ -36,6 +37,12 @@ if ($resultUser->num_rows > 0) {
         $rowPlano = $resultPlano->fetch_assoc();
         $planoId = $rowPlano['plano_id'];
 
+        // Redireciona se o usuário não tiver um plano
+        if (empty($planoId)) {
+            header('Location: produtos.php');
+            exit;
+        }
+
         // Consultar os produtos relacionados ao plano
         $sqlProdutos = "SELECT produtos.* FROM produto_plano 
                         JOIN produtos ON produto_plano.produto_id = produtos.produto_id 
@@ -45,14 +52,18 @@ if ($resultUser->num_rows > 0) {
         $stmtProdutos->execute();
         $resultProdutos = $stmtProdutos->get_result();
 
-
         $produtos = [];
         while ($rowProduto = $resultProdutos->fetch_assoc()) {
             $produtos[] = $rowProduto;
         }
     }
+} else {
+    // Redireciona para login caso o usuário não seja encontrado
+    header('Location: login.html');
+    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -61,7 +72,7 @@ if ($resultUser->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vanguard | Sua Lista</title>
+    <title>Vanguard | Seus produtos</title>
     <!-- Font Awesome CDN link -->
     <link rel="shortcut icon" href="src/imagem/icones/escudo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -89,9 +100,6 @@ if ($resultUser->num_rows > 0) {
 
                 </li>
                 <li>
-                    <a href="servicos.html" target="_blank">Serviços</a>
-                </li>
-                <li>
                     <a href="perfil.php">Perfil</a>
                 </li>
                 <li>
@@ -108,23 +116,48 @@ if ($resultUser->num_rows > 0) {
     <main class="home">
         <div class="lista">
             <h2 class="titulo">Produtos disponíveis no seu plano:</h2>
-            <br>
-            <!-- <div class="produtos-lista"> -->
+    <br>
+            <div class="guide">
+                <a href="manual.php" target="_blank"><button class="guia">Acesse os guias de <br> instalação
+                        aqui!</button></a>
+            </div>
+    
+    <br>        <!-- <div class="produtos-lista"> -->
             <?php foreach ($produtos as $produto): ?>
-                
-                    <div class="card" style="width: 18rem; justify-self:center">
-                        <img src="src/imagem/produtos/<?php echo htmlspecialchars($produto['imagem']); ?>" alt="Produto"
-                            style="width: 15pc; height: auto; border-radius: 10px; margin:auto;">
-                        <div class="card-body">
-                            <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
-                            <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
-                            <a href="#" class="btn btn-primary">Baixar</a>
-                        </div>
+
+                <div class="card">
+                    <img src="src/imagem/produtos/<?php echo htmlspecialchars($produto['imagem']); ?>" alt="Produto"
+                        style="width: 10pc; height: auto; border-radius: 10px; margin:auto;">
+                    <div class="card-body">
+                        <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
+                        <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
+
+                        <a href="Arquivo-simulando-instalação.bat" onclick="mostrarMensagem()" download>
+                            <button class="btn btn-primary btn-customizado assinar-btn">Baixe agora!</button>
+                        </a>
+
                     </div>
-                <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
 
         </div>
         <br>
+
+        <div id="overlay"
+            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1040;">
+        </div>
+        <div id="confirmacaoDiv"
+            style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgb(0, 109, 0); color: #fff; padding: 20px; border-radius: 10px; text-align: center; font-size: 24px; max-width: 400px; z-index: 1050;">
+            <span id="fechar" onclick="fecharDiv()"
+                style="position: absolute; margin-top: -20px; right: 10px; font-size: 24px; cursor: pointer;">×</span>
+            <p>Obrigado por baixar! Preparando sua instalação!</p>
+            <button onclick="verManual()"
+                style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; margin-top: 15px; cursor: pointer; border-radius: 5px;">
+                Ver Manual
+            </button>
+        </div>
+
+
     </main>
 
     <footer class="roda-pe">
@@ -195,5 +228,69 @@ if ($resultUser->num_rows > 0) {
         </p>
     </footer>
 </body>
+<script>
+    function mostrarMensagem() {
+        // Mostra a mensagem de confirmação
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('confirmacaoDiv').style.display = 'block';
+
+        // Iniciar o download do arquivo após 3 segundos
+        setTimeout(() => {
+            window.location.href = '/instalador.bat';
+        }, 3000);
+    }
+
+</script>
+
+<script>
+    function mostrarMensagem() {
+        document.getElementById("confirmacaoDiv").style.display = "block";
+        setTimeout(() => {
+            document.getElementById("confirmacaoDiv").style.display = "none";
+        }, 10000);
+    }
+</script>
+
+<script>
+    function mostrarMensagem() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('confirmacaoDiv').style.display = 'block';
+    }
+
+    function fecharDiv() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('confirmacaoDiv').style.display = 'none';
+    }
+
+    function verManual() {
+        alert('Direcionando para o manual!');
+        // Aqui você pode adicionar a lógica para redirecionar para o manual
+    }
+</script>
+<script>
+
+    function mostrarDiv() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("confirmacaoDiv").style.display = "block";
+    }
+
+    function fecharDiv() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("confirmacaoDiv").style.display = "none";
+    }
+
+    function verManual() {
+        window.open('manual.php', '_blank');
+    }
+</script>
+<script>
+    function baixarArquivo(nomeArquivo) {
+        const link = document.createElement('a');
+        link.href = 'src/downloads/' + nomeArquivo; // Caminho para o arquivo de download
+        link.download = nomeArquivo; // Nome do arquivo que será baixado
+        link.click();
+    }
+</script>
+
 
 </html>

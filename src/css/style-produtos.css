@@ -199,11 +199,42 @@ html {
     max-width: 300px;
     width: auto;
     text-align: justify;
+    overflow: hidden;
+    height: 1em; /* Define a altura inicial (aproximadamente 3 linhas) */
+    opacity: 0; /* Inicialmente invisível */
+    transition: height 2s ease, opacity 2s ease; /* Transição suave de altura e opacidade */
+    position: relative;
 }
+
+.compre-ja .produtos .descricao:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5em;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, black 100%);
+    /* Gradiente para criar o efeito de fade */
+    transition: all 0.3s ease; /* Transição suave do gradiente */
+}
+
+.compre-ja .produtos .descricao.expandido {
+    height: auto; /* Expande para altura total */
+    opacity: 1; /* Torna a descrição visível */
+}
+
+.compre-ja .produtos .descricao.expandido:after {
+    opacity: 0; /* Remove o gradiente ao expandir */
+}
+
+.compre-ja .produtos .btn-leia-mais {
+    margin-top: 10px;
+}
+
 
 .guide {
 display: flex;
-justify-content: left;
+justify-content: center;
 margin: 30px 5px 10px 5px;
 }
 
@@ -232,6 +263,7 @@ transition: all 0.5s ease !important;
 
 .btn-customizado {
     transition: all 0.5s ease !important;
+    margin-top: 10px;
 }
 
 .btn-customizado:hover {

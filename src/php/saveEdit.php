@@ -1,4 +1,6 @@
 <?php
+// saveEdit.php
+
 session_start();
 include_once('conexao.php');
 
@@ -21,10 +23,15 @@ if (isset($_POST['update'])) {
     $estado = $_POST['estado'];
     $cidade = $_POST['cidade'];
 
-    // Inicializa a variável para a imagem
-    $fotoNome = '';
+    // Obtém a imagem atual do banco de dados
+    $stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario_id = ?");
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user_data = $result->fetch_assoc();
+    $fotoNome = $user_data['foto']; // Mantém a foto atual por padrão
 
-    // Verifica se um arquivo foi enviado
+    // Verifica se um novo arquivo foi enviado
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         // Obtenha os detalhes do arquivo
         $fotoTmpName = $_FILES['foto']['tmp_name'];
@@ -36,9 +43,20 @@ if (isset($_POST['update'])) {
             echo "<script>alert('Erro ao carregar a imagem.');</script>";
             exit;
         }
-    } else {
-        // Caso a imagem não tenha sido alterada, mantém a imagem atual
-        $fotoNome = $_POST['foto_atual']; 
+    }
+
+    // Inicializa a variável para determinar se o usuário será deslogado
+    $deslogar = false;
+
+    // Verifica se algum dos valores foi alterado
+    if ($email !== $user_data['email']) {
+        $deslogar = true;
+    }
+    if ($senha !== $user_data['senha']) {
+        $deslogar = true;
+    }
+    if ($cpf !== $user_data['cpf']) {
+        $deslogar = true;
     }
 
     // Atualiza os dados no banco de dados
@@ -46,9 +64,17 @@ if (isset($_POST['update'])) {
     $stmt->bind_param("ssssssiss", $nome, $email, $senha, $cpf, $dt_nasc, $estado, $cidade, $fotoNome, $usuario_id);
 
     if ($stmt->execute()) {
-        // Redireciona para uma página de sucesso ou perfil
-        header('Location: ../../login.html');
-        exit;
+        // Se os valores foram alterados, desloga o usuário
+        if ($deslogar) {
+            unset($_SESSION['email']);
+            unset($_SESSION['senha']);
+            header('Location: ../../login.html');
+            exit;
+        } else {
+            // Redireciona para o perfil se não houve alteração relevante
+            header('Location: ../../perfil.php');
+            exit;
+        }
     } else {
         // Lida com erro de execução
         echo "Erro ao atualizar: " . $stmt->error;

@@ -150,8 +150,10 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
 
 
 
-                                <div class="col-12">
+                                <div class="col-10">
                                         <button type="submit" class="btn btn-primary" name="update">salvar</button>
+
+                                        <a href="perfil.php"><button type="button" class="btn btn-danger">Cancelar</button></a>
                                 </div>
                         </form>
                 </div>

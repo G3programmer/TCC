@@ -118,10 +118,14 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                     </div>
 
                     <div class="btns">
-                        <button type="button" class="next-btn">Próximo</button>
                         <button class="login-btn">
                             <a href="login.html">Login</a>
                         </button>
+                        
+                        <button type="button" class="next-btn">
+                            Próximo
+                        </button>
+                      
                     </div>
                 </div>
 
@@ -164,10 +168,10 @@ $sql_query_cities = $conn->query($sql_code_cities) or die($conn->error);
                     <input class="cadastrar" type="submit" name="submit" id="submit" value="Cadastrar">
 
                     <div class="btns">
-                        <button type="button" class="prev-btn">Anterior</button>
-                        <button class="login-btn">
+                    <button class="login-btn">
                             <a href="login.html">Login</a>
-                        </button>
+                        </button>    
+                    <button type="button" class="prev-btn">Anterior</button>
                     </div>
                 </div>
             </form>

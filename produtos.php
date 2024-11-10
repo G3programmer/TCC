@@ -140,40 +140,41 @@ if ($result->num_rows > 0) {
     <h1 class="titulo">Faça você mesmo!</h1>
     <p class="text">Utilize das distribuições de sistemas e ferramentas que ofertamos aqui também! <br> Ou se preferir, das ferramentas Vanguard!</p>
 
-
-<div class="guide">
-<a href="manual.php" target="_blank"><button class="guia">Acesse os guias de <br> instalação aqui!</button></a>
-</div>
-
     <div class="produtos">
 
 
-        <h1 class="titulo" id="sistema">Sistemas Operacionais</h1>
-        <?php
-        $select_sistema = exibirProdutos($conn, 'sistem');
-        if (mysqli_num_rows($select_sistema) > 0) {
-            echo '<div class="grid-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">';
-            while ($row = mysqli_fetch_assoc($select_sistema)) {
-                ?>
-                <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
-                    <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
-                        style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
-                        <p class="card-text"><?php echo $row['classe']; ?></p>
-                        <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
-                        <a href="Arquivo-simulando-instalação.bat" onclick="mostrarMensagem()" download>
-                            <button class="btn btn-primary btn-customizado assinar-btn">Baixe agora!</button>
-                        </a>
-                    </div>
-                </div>
-                <?php
-            }
-            echo '</div>';
-        } else {
-            echo '<p>Nenhum produto encontrado na categoria Sistemas Operacionais.</p>';
-        }
+    <h1 class="titulo" id="sistema">Sistemas Operacionais</h1>
+<?php
+$select_sistema = exibirProdutos($conn, 'sistem');
+if (mysqli_num_rows($select_sistema) > 0) {
+    echo '<div class="grid-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">';
+    while ($row = mysqli_fetch_assoc($select_sistema)) {
         ?>
+        <div class="card" style="background:black; color:#fff; padding: 20px; text-align:center;">
+            <img src="src/imagem/produtos/<?php echo $row['imagem']; ?>" class="card-img-top"
+                style="height:130px; width:100%; object-fit: contain; margin-bottom: 15px;">
+
+                <div class="card-body">
+
+                <h5 class="card-title"><?php echo $row['nome_produto']; ?></h5>
+                <p class="card-text"><?php echo $row['classe']; ?></p>
+                <p class="card-text descricao"><?php echo $row['descricao']; ?></p>
+
+                <button class="btn btn-secondary btn-leia-mais" onclick="toggleDescricao(this)">Ler mais</button>
+
+                <a href="Arquivo-simulando-instalação.bat" onclick="mostrarMensagem()" download>
+                    <button class="btn btn-primary btn-customizado assinar-btn">Baixe agora!</button>
+                </a>
+            </div>
+        </div>
+        <?php
+    }
+    echo '</div>';
+} else {
+    echo '<p>Nenhum produto encontrado na categoria Sistemas Operacionais.</p>';
+}
+?>
+
 
 
 <!-- Inclua o CSS do Bootstrap (opcional) -->
@@ -188,6 +189,9 @@ if ($result->num_rows > 0) {
     </button>
 </div>
 
+</div>
+<div class="guide">
+<a href="manual.php" target="_blank"><button class="guia">Acesse os guias de <br> instalação aqui!</button></a>
 </div>
 
 
@@ -244,7 +248,6 @@ if ($result->num_rows > 0) {
             <button type="button" id="cancelBtn" class="btn btn-danger">Cancelar</button>
         </div>
     </div>
-
 
     <footer class="roda-pe">
 
@@ -323,6 +326,19 @@ if ($result->num_rows > 0) {
 </script>
 
 <script>
+function toggleDescricao(button) {
+    const descricao = button.previousElementSibling;
+    if (descricao.classList.contains('expandido')) {
+        descricao.classList.remove('expandido');
+        button.textContent = 'Ler mais';
+    } else {
+        descricao.classList.add('expandido');
+        button.textContent = 'Ler menos';
+    }
+}
+</script>
+
+<script>
     function mostrarMensagem() {
         document.getElementById("confirmacaoDiv").style.display = "block";
         setTimeout(() => {
@@ -348,21 +364,41 @@ if ($result->num_rows > 0) {
         }
     </script>
 <script>
+    // Função para mostrar a div
+    function mostrarMensagem() {
+        var confirmacaoDiv = document.getElementById('confirmacaoDiv');
+        var overlay = document.getElementById('overlay');
+        
+        // Mostrar a div de confirmação
+        confirmacaoDiv.style.display = 'block';
+        overlay.style.display = 'block';
 
-function mostrarDiv() {
-    document.getElementById("overlay").style.display = "block";
-    document.getElementById("confirmacaoDiv").style.display = "block";
-}
+        // Após 10 segundos, esconder a div
+        setTimeout(function() {
+            confirmacaoDiv.style.display = 'none';
+            overlay.style.display = 'none';
+        }, 10000); // 10000 milissegundos = 10 segundos
+    }
 
-function fecharDiv() {
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("confirmacaoDiv").style.display = "none";
-}
+    // Chamar a função mostrarMensagem quando a página carregar
+    window.onload = function() {
+        mostrarMensagem();
+    };
 
-function verManual() {
-    window.open('manual.php', '_blank');
-}
+    // Função para fechar a div manualmente
+    function fecharDiv() {
+        var confirmacaoDiv = document.getElementById('confirmacaoDiv');
+        var overlay = document.getElementById('overlay');
+        confirmacaoDiv.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+
+    // Função para mostrar o manual
+    function verManual() {
+        window.location.href = 'manual.php';
+    }
 </script>
+
 
 
 

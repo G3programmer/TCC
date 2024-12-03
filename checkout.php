@@ -63,66 +63,68 @@ if ($stmt) {
 $error_message = ""; // Variável para armazenar mensagens de erro
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = $_POST['nome'];
-    $metodo = $_POST['metodo'];
-    $senhaInformada = $_POST['senha']; // Troca de "pin" para "senha"
-    $cpf = $_POST['cpf']; // Atualizando para pegar o CPF
+   $nome = $_POST['nome'];
+   $metodo = $_POST['metodo'];
+   $senhaInformada = $_POST['senha']; // Troca de "pin" para "senha"
+   $cpf = $_POST['cpf']; // Atualizando para pegar o CPF
 
-    // Valida CPF
-    if (empty($cpf)) {
-        $error_message = "CPF inválido.";
-    }
+   // Valida CPF
+   if (empty($cpf)) {
+       $error_message = "CPF inválido.";
+   }
 
-    if (empty($error_message)) {
-        // Busca o usuário pelo CPF e verifica a senha
-        $sql_user = "SELECT usuario_id, senha FROM usuario WHERE cpf = ? LIMIT 1";
-        $stmt_user = $conn->prepare($sql_user);
-        $stmt_user->bind_param("s", $cpf);
-        $stmt_user->execute();
-        $result_user = $stmt_user->get_result();
+   if (empty($error_message)) {
+       // Busca o usuário pelo CPF e verifica o nome e a senha
+       $sql_user = "SELECT usuario_id, nome, senha FROM usuario WHERE cpf = ? LIMIT 1";
+       $stmt_user = $conn->prepare($sql_user);
+       $stmt_user->bind_param("s", $cpf);
+       $stmt_user->execute();
+       $result_user = $stmt_user->get_result();
 
-        if ($result_user->num_rows > 0) {
-            $usuario = $result_user->fetch_assoc();
-            $usuarioId = $usuario['usuario_id'];
-            $senhaBanco = $usuario['senha'];
+       if ($result_user->num_rows > 0) {
+           $usuario = $result_user->fetch_assoc();
+           $usuarioId = $usuario['usuario_id'];
+           $nomeBanco = $usuario['nome'];
+           $senhaBanco = $usuario['senha'];
 
-            // Verifica se a senha está correta
-            if ($senhaInformada === $senhaBanco) {
-                // Insere o checkout na tabela checkout
-                $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, plano_id, metodo, senha, data_inicio) VALUES (?, ?, ?, ?, CURDATE())";
-                $stmtInsert = $conn->prepare($sqlInsertCheckout);
-                $stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senhaInformada);
+           // Verifica se o nome e a senha estão corretos
+           if ($nome === $nomeBanco && $senhaInformada === $senhaBanco) {
+               // Insere o checkout na tabela checkout
+               $sqlInsertCheckout = "INSERT INTO checkout (usuario_id, plano_id, metodo, senha, data_inicio) VALUES (?, ?, ?, ?, CURDATE())";
+               $stmtInsert = $conn->prepare($sqlInsertCheckout);
+               $stmtInsert->bind_param("iiss", $usuarioId, $planoId, $metodo, $senhaInformada);
 
-                if ($stmtInsert->execute()) {
-                    // Atualiza o plano_id na tabela usuário
-                    $sqlUpdatePlano = "UPDATE usuario SET plano_id = ? WHERE usuario_id = ?";
-                    $stmtUpdatePlano = $conn->prepare($sqlUpdatePlano);
-                    $stmtUpdatePlano->bind_param("ii", $planoId, $usuarioId);
+               if ($stmtInsert->execute()) {
+                   // Atualiza o plano_id na tabela usuário
+                   $sqlUpdatePlano = "UPDATE usuario SET plano_id = ? WHERE usuario_id = ?";
+                   $stmtUpdatePlano = $conn->prepare($sqlUpdatePlano);
+                   $stmtUpdatePlano->bind_param("ii", $planoId, $usuarioId);
 
-                    if ($stmtUpdatePlano->execute()) {
-                        // Redireciona para o perfil após atualizar o plano
-                        header("Location: perfil.php");
-                        exit;
-                    } else {
-                        $error_message = "Erro ao atualizar o plano do usuário.";
-                    }
+                   if ($stmtUpdatePlano->execute()) {
+                       // Redireciona para o perfil após atualizar o plano
+                       header("Location: perfil.php");
+                       exit;
+                   } else {
+                       $error_message = "Erro ao atualizar o plano do usuário.";
+                   }
 
-                    $stmtUpdatePlano->close(); // Fecha a declaração de atualização
-                } else {
-                    $error_message = "Erro ao inserir dados de checkout: " . $stmtInsert->error;
-                }
+                   $stmtUpdatePlano->close(); // Fecha a declaração de atualização
+               } else {
+                   $error_message = "Erro ao inserir dados de checkout: " . $stmtInsert->error;
+               }
 
-                $stmtInsert->close(); // Fecha a declaração do insert
-            } else {
-                $error_message = "Dados incorretos. Por favor, tente novamente.";
-            }
-        } else {
-            $error_message = "Usuário não encontrado com o CPF informado.";
-        }
+               $stmtInsert->close(); // Fecha a declaração do insert
+           } else {
+               $error_message = "Dados incorretos. Por favor, verifique o nome, senha e CPF.";
+           }
+       } else {
+           $error_message = "Dados incorretos. Por favor, verifique o nome, senha e CPF.";
+       }
 
-        $stmt_user->close(); // Fecha a declaração de busca do usuário
-    }
+       $stmt_user->close(); // Fecha a declaração de busca do usuário
+   }
 }
+
 ?>
 
 <!DOCTYPE html>

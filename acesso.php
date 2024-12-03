@@ -125,11 +125,13 @@ if ($resultUser->num_rows > 0) {
     <br>        <!-- <div class="produtos-lista"> -->
             <?php foreach ($produtos as $produto): ?>
 
-                <div class="card">
+                <div class="card" style="height:auto;">
                     <img src="src/imagem/produtos/<?php echo htmlspecialchars($produto['imagem']); ?>" alt="Produto"
                         style="width: 10pc; height: auto; border-radius: 10px; margin:auto;">
                     <div class="card-body">
                         <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
+                        <h5><?php echo htmlspecialchars($produto['classe']); ?></h5>
+                        <br>
                         <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
 
                         <a href="Arquivo-simulando-instalação.bat" onclick="mostrarMensagem()" download>
@@ -162,71 +164,62 @@ if ($resultUser->num_rows > 0) {
 
     <footer class="roda-pe">
 
-        <img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
+<img src="src/imagem/logos/VanguardLogo-Escuro.png" alt="logo da Vanguard" class="logo">
 
 
 
-        <h5 class="subtitulo">
-            Nos acompanhe pelas redes sociais
-        </h5>
+<h5 class="subtitulo">
+    Nos acompanhe pelas redes sociais
+</h5>
 
 
-        <div class="social_media">
+<div class="social_media">
 
-            <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
-                    src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
+    <a href="facebook link" id="facebook" title="Facebook" target="_blank"><img
+            src="src/imagem/icones/Facebook.png" alt="botão do perfil do facebook da Vanguard"></a>
 
-            <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
-                    src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
+    <a href="instagram link" id="instagram" title="Instagram" target="_blank"><img
+            src="src/imagem/icones/instagram.png" alt="botão do perfil do instagram da Vanguard"></a>
 
-            <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
-                    alt="botão do chat do discord da Vanguard "></a>
+    <a href="discord" title="discord" id="discord" target="_blank"><img src="src/imagem/icones/discord.png"
+            alt="botão do chat do discord da Vanguard "></a>
 
-            <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
-                    alt="botão do perfil do linkedin da Vanguard"></a>
+    <a href="linkedin" title="linkedin" id="linkedin" target="_blank"><img src="src/imagem/icones/linkedin.png"
+            alt="botão do perfil do linkedin da Vanguard"></a>
 
-            <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
-                    alt="botão do chat do telegram da Vanguard"></a>
+    <a href="telegram" title="telegram" id="telegram" target="_blank"><img src="src/imagem/icones/telegram.png"
+            alt="botão do chat do telegram da Vanguard"></a>
 
-        </div>
-        <div class="opcoes">
+</div>
+<div class="opcoes">
 
-            <div class="lista">
-                <a href="equipe.html">
-                    <h6>
-                        A equipe
-                    </h6>
-                </a>
-                <hr />
+    <div class="lista">
+        <a href="equipe.html">
+            <h6>
+                A equipe
+            </h6>
+        </a>
+        <hr />
 
-                <a href="produtos.html">
-                    <h6>
-                        Nossos produtos
-                    </h6>
-                </a>
-                <hr />
-
-                <a href="avaliar.html">
-                    <h6>Avaliar</h6>
-                </a>
-                <hr />
-                <a href="serviços.html">
-                    <h6>Nossos serviços</h6>
-                </a>
-                <hr />
-                <a href="cronograma.html">
-
-                    <h6>
-                        Nosso cronograma
-                    </h6>
-                </a>
-            </div>
-        </div>
-        </div>
-        <p id="copyright">
-            Direitos Autorais Reservados à Vanguard&#8482;
-        </p>
-    </footer>
+        <a href="produtos.html">
+            <h6>
+                Nossos produtos
+            </h6>
+        </a>
+        <hr />
+        
+        <a href="malito:g3hunterbugs@gmail.com?subject=Mensagem para Vanguard de um cliente&body=Preciso de ajuda">
+            <h6>
+                Suporte
+            </h6>
+        </a>
+    </div>
+</div>
+</div>
+<p id="copyright">
+    Direitos Autorais Reservados à Vanguard&#8482;
+</p>
+</footer>
 </body>
 <script>
     function mostrarMensagem() {
